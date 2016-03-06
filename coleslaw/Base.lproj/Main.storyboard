@@ -16,8 +16,55 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Round 1 - Team Red" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJd-IJ-wxb">
+                                <rect key="frame" x="83" y="25" width="154" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="1:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIc-fI-6Ec">
+                                <rect key="frame" x="108" y="124" width="112" height="70"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="58"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bxg-71-4fl">
+                                <rect key="frame" x="100" y="46" width="120" height="33"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FT-6A-Yrr">
+                                        <rect key="frame" x="24" y="4" width="21" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.35237520973154363" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgH-Rh-VgT">
+                                        <rect key="frame" x="70" y="4" width="19" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.56425650167785224" green="0.17032822986577181" blue="0.16298762583892618" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bxg-71-4fl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1U9-26-fDo"/>
+                            <constraint firstItem="bxg-71-4fl" firstAttribute="top" secondItem="tJd-IJ-wxb" secondAttribute="bottom" id="GdJ-yU-yQ5"/>
+                            <constraint firstItem="tJd-IJ-wxb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HfH-LX-w38"/>
+                            <constraint firstItem="jIc-fI-6Ec" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IkT-oW-Gnv"/>
+                            <constraint firstItem="tJd-IJ-wxb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="25" id="LzH-Wu-WCy"/>
+                            <constraint firstItem="bxg-71-4fl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="100" id="p1G-HQ-FQG"/>
+                            <constraint firstAttribute="trailing" secondItem="bxg-71-4fl" secondAttribute="trailing" constant="100" id="zIH-t9-EVY"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="roundLabel" destination="tJd-IJ-wxb" id="u00-BI-pHB"/>
+                        <outlet property="teamAScoreLabel" destination="4FT-6A-Yrr" id="lK1-vy-0kd"/>
+                        <outlet property="teamBScoreLabel" destination="fgH-Rh-VgT" id="lJ9-wq-GG0"/>
+                        <outlet property="timerLabel" destination="jIc-fI-6Ec" id="hCg-Ay-nLe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
