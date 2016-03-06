@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50B631291C8CE7900015684C /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B631281C8CE7900015684C /* GameState.swift */; };
 		8A092A381C8B809D001D54AF /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A092A371C8B809D001D54AF /* CardView.xib */; };
 		8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A092A391C8B80E1001D54AF /* CardView.swift */; };
 		8A599C5C1C8B79720068C657 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A599C5B1C8B79720068C657 /* AppDelegate.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50B631281C8CE7900015684C /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		8A092A371C8B809D001D54AF /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		8A092A391C8B80E1001D54AF /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		8A599C581C8B79720068C657 /* coleslaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coleslaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50B6312A1C8CE7950015684C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				50B631281C8CE7900015684C /* GameState.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		8A599C4F1C8B79720068C657 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +68,7 @@
 		8A599C5A1C8B79720068C657 /* coleslaw */ = {
 			isa = PBXGroup;
 			children = (
+				50B6312A1C8CE7950015684C /* Models */,
 				8A599C5B1C8B79720068C657 /* AppDelegate.swift */,
 				8A599C6D1C8B7AE10068C657 /* ViewControllers */,
 				8A599C6E1C8B7C820068C657 /* Views */,
@@ -160,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A599C5E1C8B79720068C657 /* CardsViewController.swift in Sources */,
+				50B631291C8CE7900015684C /* GameState.swift in Sources */,
 				8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */,
 				8A599C5C1C8B79720068C657 /* AppDelegate.swift in Sources */,
 			);
