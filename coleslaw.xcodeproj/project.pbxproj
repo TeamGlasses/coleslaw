@@ -15,6 +15,7 @@
 		8A599C611C8B79720068C657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A599C5F1C8B79720068C657 /* Main.storyboard */; };
 		8A599C631C8B79720068C657 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A599C621C8B79720068C657 /* Assets.xcassets */; };
 		8A599C661C8B79720068C657 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A599C641C8B79720068C657 /* LaunchScreen.storyboard */; };
+		8A9E81081C8CF42500C3DF37 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9E81071C8CF42500C3DF37 /* Card.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8A599C621C8B79720068C657 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A599C651C8B79720068C657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A599C671C8B79720068C657 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A9E81071C8CF42500C3DF37 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				50B631281C8CE7900015684C /* GameState.swift */,
+				8A9E81071C8CF42500C3DF37 /* Card.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -172,6 +175,7 @@
 			files = (
 				8A599C5E1C8B79720068C657 /* CardsViewController.swift in Sources */,
 				50B631291C8CE7900015684C /* GameState.swift in Sources */,
+				8A9E81081C8CF42500C3DF37 /* Card.swift in Sources */,
 				8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */,
 				8A599C5C1C8B79720068C657 /* AppDelegate.swift in Sources */,
 			);

@@ -24,7 +24,7 @@ class CardView: UIView {
   let animationDuration: NSTimeInterval = 0.3
   
   var delegate: CardViewDelegate!
-//  var card: Card!
+  var card: Card!
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
