@@ -26,6 +26,9 @@ class CardView: UIView {
   var delegate: CardViewDelegate!
   var card: Card!
   
+  var isDraggingFromBottom: Bool!
+  var cardTransform: CGAffineTransform!
+  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     initSubviews()
@@ -56,34 +59,46 @@ class CardView: UIView {
     let velocity = sender.velocityInView(contentView)
     
     if sender.state == UIGestureRecognizerState.Began {
-      print("Beginning to pan")
+      cardTransform = imageView.transform
+      isDraggingFromBottom = sender.locationInView(contentView).y > (imageView.frame.height / 2)
     } else if sender.state == UIGestureRecognizerState.Changed {
-      translateView(translation.x)
+      translateView(translation.x, withRotation: true)
     } else if sender.state == UIGestureRecognizerState.Ended {
 
       if isAdvanceable(velocity, translation: translation) {
         // Card was swiped right
-        translateViewWithAnimation(contentView.frame.width)
+        translateViewWithAnimation(2 * contentView.frame.width, withRotation: true)
         delegate.cardViewAdvanced(self)
       } else if isDismissable(velocity, translation: translation){
         // Card was swiped left
-        translateViewWithAnimation(-1 * contentView.frame.width)
+        translateViewWithAnimation(-2 * contentView.frame.width, withRotation: true)
         delegate.cardViewDismissed(self)
       } else {
         // Card wasn't swiped enought to count as advancing or dismissal
-        translateViewWithAnimation(0)
+        translateViewWithAnimation(0, withRotation: false)
       }
     }
   }
   
-  func translateView(amount: CGFloat){
+  func translateView(amount: CGFloat, withRotation:Bool){
     leftConstraint.constant = amount
     rightConstraint.constant = (-1 * amount)
+    
+    if withRotation {
+      let ratio = amount / contentView.frame.width
+      var angle = ratio * CGFloat(M_PI / 4.0)
+      
+      if isDraggingFromBottom == true {
+        angle *= -1
+      }
+      
+      imageView.transform = CGAffineTransformRotate(cardTransform, angle)
+    }
   }
   
-  func translateViewWithAnimation(amount: CGFloat){
+  func translateViewWithAnimation(amount: CGFloat, withRotation: Bool){
     UIView.animateWithDuration(animationDuration, animations: { () -> Void in
-      self.translateView(amount)
+      self.translateView(amount, withRotation: withRotation)
     }, completion: { (_: Bool) -> Void in
       self.delegate.cardViewFinishedAnimating(self)
     })

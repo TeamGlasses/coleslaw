@@ -11,7 +11,7 @@ import UIKit
 class CardsViewController: UIViewController, CardViewDelegate {
 
   var cards: [Card]!
-  var activeCard: CardView?
+  var activeCardView: CardView!
 
   @IBOutlet var roundLabel: UILabel!
   @IBOutlet var teamAScoreLabel: UILabel!
@@ -27,9 +27,10 @@ class CardsViewController: UIViewController, CardViewDelegate {
     cards = [
       Card(title: "Barack Obama"),
       Card(title: "Mt. Everest"),
+      Card(title: "Donald Trump"),
+      Card(title: "Pizza"),
+      Card(title: "San Francisco")
     ]
-
-    addActiveCardView(cards.first!)
 
     currentScoreLabel = teamAScoreLabel
 
@@ -50,6 +51,8 @@ class CardsViewController: UIViewController, CardViewDelegate {
   func onTurnStart() {
     game.currentTime = game.gameTime
     let timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
+    
+    addCardView(cards.first!)
   }
 
   func updateTimer(timer: NSTimer) {
@@ -88,24 +91,39 @@ class CardsViewController: UIViewController, CardViewDelegate {
 
     currentScoreLabel.text = String(game.scores[game.currentTeam])
 
-    print("card view was advanced")
+    showNextCard()
   }
 
   func cardViewDismissed(cardView: CardView) {
-    print("card view was dismissed")
+    showNextCard()
   }
 
   func cardViewFinishedAnimating(cardView: CardView) {
     print("card view finished animating")
   }
+  
+  func showNextCard(){
+    let nextCardIndex = cards.indexOf(activeCardView.card)! + 1
+    
+    activeCardView.removeFromSuperview()
 
-  func addActiveCardView(card: Card){
+    if cards.count <= nextCardIndex {
+      // Out of cards
+    } else {
+      let nextCard = cards[nextCardIndex]
+      addCardView(nextCard)
+    }
+  }
+
+  func addCardView(card: Card){
     let cardView = CardView()
     cardView.translatesAutoresizingMaskIntoConstraints = false
     cardView.card = card
     cardView.delegate = self
 
     view.addSubview(cardView)
+    
+    activeCardView = cardView
 
     cardView.constraints
     let views = ["cardView": cardView]
