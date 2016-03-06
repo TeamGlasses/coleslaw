@@ -10,19 +10,19 @@ import UIKit
 
 class CardsViewController: UIViewController, CardViewDelegate {
 
-  var cards: [Card]!
+//  var cards: [Card]!
   var activeCard: CardView?
   
   let cardMargin = CGFloat(8)
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    cards = [
-      Card(title: "Barack Obama"),
-      Card(title: "Mt. Everest"),
-    ]
+//    cards = [
+//      Card(title: "Barack Obama"),
+//      Card(title: "Mt. Everest"),
+//    ]
     
-    addActiveCardView(cards.first!)
+//    addActiveCardView(cards.first!)
   }
 
   override func didReceiveMemoryWarning() {
@@ -42,28 +42,28 @@ class CardsViewController: UIViewController, CardViewDelegate {
     print("card view finished animating")
   }
   
-  func addActiveCardView(card: Card){
-    let cardView = CardView()
-    cardView.translatesAutoresizingMaskIntoConstraints = false
-    cardView.card = card
-    cardView.delegate = self
-    
-    view.addSubview(cardView)
-
-    cardView.constraints
-    let views = ["cardView": cardView]
-    
-    var constraints = [NSLayoutConstraint]()
-    
-    let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-      "V:[cardView(300)]-|", options: [], metrics: nil, views: views)
-    constraints += verticalConstraints
-
-    let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-      "H:|-[cardView]-|", options: [], metrics: nil, views: views)
-    constraints += horizontalConstraints
-  
-    NSLayoutConstraint.activateConstraints(constraints)
-  }
+//  func addActiveCardView(card: Card){
+//    let cardView = CardView()
+//    cardView.translatesAutoresizingMaskIntoConstraints = false
+//    cardView.card = card
+//    cardView.delegate = self
+//    
+//    view.addSubview(cardView)
+//
+//    cardView.constraints
+//    let views = ["cardView": cardView]
+//    
+//    var constraints = [NSLayoutConstraint]()
+//    
+//    let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+//      "V:[cardView(300)]-|", options: [], metrics: nil, views: views)
+//    constraints += verticalConstraints
+//
+//    let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+//      "H:|-[cardView]-|", options: [], metrics: nil, views: views)
+//    constraints += horizontalConstraints
+//  
+//    NSLayoutConstraint.activateConstraints(constraints)
+//  }
 }
 
