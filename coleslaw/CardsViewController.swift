@@ -108,7 +108,7 @@ class CardsViewController: UIViewController, CardViewDelegate {
     activeCardView.removeFromSuperview()
 
     if cards.count <= nextCardIndex {
-      // Out of cards
+      onTurnEnd()
     } else {
       let nextCard = cards[nextCardIndex]
       addCardView(nextCard)
