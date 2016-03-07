@@ -10,36 +10,36 @@ import UIKit
 
 class CardsViewController: UIViewController, CardViewDelegate {
 
-  var cards: [Card]!
   var activeCardView: CardView!
 
   @IBOutlet var roundLabel: UILabel!
   @IBOutlet var teamAScoreLabel: UILabel!
   @IBOutlet var teamBScoreLabel: UILabel!
   @IBOutlet var timerLabel: UILabel!
+  @IBOutlet var startButton: UIButton!
 
   var game: GameState!
-  var currentScoreLabel: UILabel!
+  var scoreLabels: [UILabel]!
+  var timer: NSTimer!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    cards = [
-      Card(title: "Barack Obama"),
-      Card(title: "Mt. Everest"),
+    scoreLabels = [teamAScoreLabel, teamBScoreLabel]
+
+    game = GameState(cards: [
       Card(title: "Donald Trump"),
-      Card(title: "Pizza")
-    ]
-
-    currentScoreLabel = teamAScoreLabel
-
-    game = GameState()
-
+      Card(title: "Pizza"),
+      Card(title: "San Francisco")
+      ])
+    
+    addCardView(game.cards.first!)
+    
     onGameStart()
   }
 
   override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
+    super.didReceiveMemoryWarning() 
     // Dispose of any resources that can be recreated.
   }
 
@@ -48,47 +48,55 @@ class CardsViewController: UIViewController, CardViewDelegate {
   }
 
   func onTurnStart() {
+    startButton.hidden = true
+    timerLabel.text = "1:00"
     game.currentTime = game.gameTime
-    let timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
+    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
     
-    addCardView(cards.first!)
+    addCardView(game.cards.first!)
   }
 
   func updateTimer(timer: NSTimer) {
-    game.currentTime = game.currentTime - 1
+    game.updateTimer()
 
     timerLabel.text = String(format: "0:%02d", game.currentTime)
 
     if (game.currentTime == 0) {
-      timer.invalidate()
       onTurnEnd()
-
-      onTurnStart()
     }
+  }
+  
+  func endTimer() {
+    timer.invalidate()
   }
 
   // this will get called if timer = 0
   // or if deck reaches 0
   func onTurnEnd() {
+    endTimer()
     // if timer 0, update turn only
-    if (game.currentTeam == 0) {
-      game.currentTeam = 1
-      currentScoreLabel = teamBScoreLabel
-    } else {
-      game.currentTeam = 0
-      currentScoreLabel = teamAScoreLabel
-    }
+    game.switchTeams()
 
     // if cards empty, update Round #
     // game.currentRound = game.currentRound + 1
+    if (game.cards.count == 0) {
+      game.updateRound()
+    }
 
     roundLabel.text = "Round \(game.currentRound) - Team \(game.teams[game.currentTeam])"
+    
+    startButton.hidden = false
+  }
+  
+  
+  @IBAction func onStartTap(sender: AnyObject) {
+    onTurnStart()
   }
 
   func cardViewAdvanced(cardView: CardView) {
-    game.scores[game.currentTeam] = game.scores[game.currentTeam] + 1
+    game.updateCurrentTeamScore()
 
-    currentScoreLabel.text = String(game.scores[game.currentTeam])
+    scoreLabels[game.currentTeam].text = String(game.scores[game.currentTeam])
 
     showNextCard()
   }
@@ -102,14 +110,14 @@ class CardsViewController: UIViewController, CardViewDelegate {
   }
   
   func showNextCard(){
-    let nextCardIndex = cards.indexOf(activeCardView.card)! + 1
+    let nextCardIndex = game.cards.indexOf(activeCardView.card)! + 1
     
     activeCardView.removeFromSuperview()
 
-    if cards.count <= nextCardIndex {
-      // Out of cards
+    if game.cards.count <= nextCardIndex {
+      onTurnEnd()
     } else {
-      let nextCard = cards[nextCardIndex]
+      let nextCard = game.cards[nextCardIndex]
       addCardView(nextCard)
     }
   }
