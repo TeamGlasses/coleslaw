@@ -49,7 +49,7 @@ class CardsViewController: UIViewController, CardViewDelegate {
     game.currentTime = game.gameTime
     let timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
     
-    addCardView(cards.first!)
+    addCardView(game.cards.first!)
   }
 
   func updateTimer(timer: NSTimer) {
@@ -73,6 +73,9 @@ class CardsViewController: UIViewController, CardViewDelegate {
 
     // if cards empty, update Round #
     // game.currentRound = game.currentRound + 1
+    if (game.cards.count == 0) {
+      game.updateRound()
+    }
 
     roundLabel.text = "Round \(game.currentRound) - Team \(game.teams[game.currentTeam])"
   }
@@ -94,14 +97,14 @@ class CardsViewController: UIViewController, CardViewDelegate {
   }
   
   func showNextCard(){
-    let nextCardIndex = cards.indexOf(activeCardView.card)! + 1
+    let nextCardIndex = game.cards.indexOf(activeCardView.card)! + 1
     
     activeCardView.removeFromSuperview()
 
-    if cards.count <= nextCardIndex {
+    if game.cards.count <= nextCardIndex {
       onTurnEnd()
     } else {
-      let nextCard = cards[nextCardIndex]
+      let nextCard = game.cards[nextCardIndex]
       addCardView(nextCard)
     }
   }

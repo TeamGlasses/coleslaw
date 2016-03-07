@@ -42,6 +42,10 @@ class GameState: NSObject {
     self.currentTime = self.currentTime - 1
   }
   
+  func updateRound() {
+    self.currentRound = self.currentRound + 1
+  }
+  
 //  class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
 ////    var tweets = [Tweet]()
 ////    
