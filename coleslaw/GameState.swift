@@ -9,6 +9,7 @@
 import UIKit
 
 class GameState: NSObject {
+  var cards: [Card]!
   var scores: [Int]!
   var teams: [String]!
   var currentRound: Int!
@@ -16,12 +17,29 @@ class GameState: NSObject {
   let gameTime = 60
   var currentTime: Int!
   
-  override init() {
+  init(cards: [Card]) {
+    self.cards = cards
     scores = [0, 0]
     currentRound = 1
     currentTeam = 0
     teams = ["Red", "Blue"]
     currentTime = gameTime
+  }
+  
+  func switchTeams() {
+    if (self.currentTeam == 0) {
+      self.currentTeam = 1
+    } else {
+      self.currentTeam = 0
+    }
+  }
+  
+  func updateCurrentTeamScore() {
+    return self.scores[self.currentTeam] = self.scores[self.currentTeam] + 1
+  }
+  
+  func updateTimer() {
+    self.currentTime = self.currentTime - 1
   }
   
 //  class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {

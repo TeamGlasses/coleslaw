@@ -10,7 +10,6 @@ import UIKit
 
 class CardsViewController: UIViewController, CardViewDelegate {
 
-  var cards: [Card]!
   var activeCard: CardView?
 
   @IBOutlet var roundLabel: UILabel!
@@ -19,27 +18,25 @@ class CardsViewController: UIViewController, CardViewDelegate {
   @IBOutlet var timerLabel: UILabel!
 
   var game: GameState!
-  var currentScoreLabel: UILabel!
+  var scoreLabels: [UILabel]!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    cards = [
+    scoreLabels = [teamAScoreLabel, teamBScoreLabel]
+
+    game = GameState(cards: [
       Card(title: "Barack Obama"),
       Card(title: "Mt. Everest"),
-    ]
-
-    addActiveCardView(cards.first!)
-
-    currentScoreLabel = teamAScoreLabel
-
-    game = GameState()
+      ])
+    
+    addActiveCardView(game.cards.first!)
 
     onGameStart()
   }
 
   override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
+    super.didReceiveMemoryWarning() 
     // Dispose of any resources that can be recreated.
   }
 
@@ -53,7 +50,7 @@ class CardsViewController: UIViewController, CardViewDelegate {
   }
 
   func updateTimer(timer: NSTimer) {
-    game.currentTime = game.currentTime - 1
+    game.updateTimer()
 
     timerLabel.text = String(format: "0:%02d", game.currentTime)
 
@@ -69,13 +66,7 @@ class CardsViewController: UIViewController, CardViewDelegate {
   // or if deck reaches 0
   func onTurnEnd() {
     // if timer 0, update turn only
-    if (game.currentTeam == 0) {
-      game.currentTeam = 1
-      currentScoreLabel = teamBScoreLabel
-    } else {
-      game.currentTeam = 0
-      currentScoreLabel = teamAScoreLabel
-    }
+    game.switchTeams()
 
     // if cards empty, update Round #
     // game.currentRound = game.currentRound + 1
@@ -84,9 +75,9 @@ class CardsViewController: UIViewController, CardViewDelegate {
   }
 
   func cardViewAdvanced(cardView: CardView) {
-    game.scores[game.currentTeam] = game.scores[game.currentTeam] + 1
+    game.updateCurrentTeamScore()
 
-    currentScoreLabel.text = String(game.scores[game.currentTeam])
+    scoreLabels[game.currentTeam].text = String(game.scores[game.currentTeam])
 
     print("card view was advanced")
   }
