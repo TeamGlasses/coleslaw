@@ -16,9 +16,11 @@ class CardsViewController: UIViewController, CardViewDelegate {
   @IBOutlet var teamAScoreLabel: UILabel!
   @IBOutlet var teamBScoreLabel: UILabel!
   @IBOutlet var timerLabel: UILabel!
+  @IBOutlet var startButton: UIButton!
 
   var game: GameState!
   var scoreLabels: [UILabel]!
+  var timer: NSTimer!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -46,8 +48,10 @@ class CardsViewController: UIViewController, CardViewDelegate {
   }
 
   func onTurnStart() {
+    startButton.hidden = true
+    timerLabel.text = "1:00"
     game.currentTime = game.gameTime
-    let timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
+    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
     
     addCardView(game.cards.first!)
   }
@@ -58,16 +62,18 @@ class CardsViewController: UIViewController, CardViewDelegate {
     timerLabel.text = String(format: "0:%02d", game.currentTime)
 
     if (game.currentTime == 0) {
-      timer.invalidate()
       onTurnEnd()
-
-      onTurnStart()
     }
+  }
+  
+  func endTimer() {
+    timer.invalidate()
   }
 
   // this will get called if timer = 0
   // or if deck reaches 0
   func onTurnEnd() {
+    endTimer()
     // if timer 0, update turn only
     game.switchTeams()
 
@@ -78,6 +84,13 @@ class CardsViewController: UIViewController, CardViewDelegate {
     }
 
     roundLabel.text = "Round \(game.currentRound) - Team \(game.teams[game.currentTeam])"
+    
+    startButton.hidden = false
+  }
+  
+  
+  @IBAction func onStartTap(sender: AnyObject) {
+    onTurnStart()
   }
 
   func cardViewAdvanced(cardView: CardView) {

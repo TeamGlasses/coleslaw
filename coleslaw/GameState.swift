@@ -14,7 +14,7 @@ class GameState: NSObject {
   var teams: [String]!
   var currentRound: Int!
   var currentTeam: Int!
-  let gameTime = 60
+  let gameTime = 5
   var currentTime: Int!
   
   init(cards: [Card]) {
