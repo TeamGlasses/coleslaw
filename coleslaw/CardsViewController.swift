@@ -28,8 +28,7 @@ class CardsViewController: UIViewController, CardViewDelegate {
       Card(title: "Barack Obama"),
       Card(title: "Mt. Everest"),
       Card(title: "Donald Trump"),
-      Card(title: "Pizza"),
-      Card(title: "San Francisco")
+      Card(title: "Pizza")
     ]
 
     currentScoreLabel = teamAScoreLabel
@@ -95,7 +94,7 @@ class CardsViewController: UIViewController, CardViewDelegate {
   }
 
   func cardViewDismissed(cardView: CardView) {
-    showNextCard()
+    
   }
 
   func cardViewFinishedAnimating(cardView: CardView) {
@@ -108,7 +107,7 @@ class CardsViewController: UIViewController, CardViewDelegate {
     activeCardView.removeFromSuperview()
 
     if cards.count <= nextCardIndex {
-      onTurnEnd()
+      // Out of cards
     } else {
       let nextCard = cards[nextCardIndex]
       addCardView(nextCard)
@@ -120,25 +119,9 @@ class CardsViewController: UIViewController, CardViewDelegate {
     cardView.translatesAutoresizingMaskIntoConstraints = false
     cardView.card = card
     cardView.delegate = self
-
-    view.addSubview(cardView)
+    cardView.renderInView(view)
     
     activeCardView = cardView
-
-    cardView.constraints
-    let views = ["cardView": cardView]
-
-    var constraints = [NSLayoutConstraint]()
-
-    let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-      "V:[cardView(300)]-|", options: [], metrics: nil, views: views)
-    constraints += verticalConstraints
-
-    let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-      "H:|-[cardView]-|", options: [], metrics: nil, views: views)
-    constraints += horizontalConstraints
-
-    NSLayoutConstraint.activateConstraints(constraints)
   }
 }
 

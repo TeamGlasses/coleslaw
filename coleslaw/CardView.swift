@@ -16,10 +16,7 @@ protocol CardViewDelegate {
 
 class CardView: UIView {
   @IBOutlet var contentView: UIView!
-  @IBOutlet weak var imageView: UIImageView!
-
-  @IBOutlet weak var rightConstraint: NSLayoutConstraint!
-  @IBOutlet weak var leftConstraint: NSLayoutConstraint!
+  @IBOutlet weak var titleLabel: UILabel!
   
   let animationDuration: NSTimeInterval = 0.3
   
@@ -29,6 +26,12 @@ class CardView: UIView {
   var isDraggingFromBottom: Bool!
   var cardTransform: CGAffineTransform!
   
+  var leftConstraint: NSLayoutConstraint!
+  var rightConstraint: NSLayoutConstraint!
+  
+  var originalLeftConstraintConstant: CGFloat!
+  var originalRightConstraintConstant: CGFloat!
+  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     initSubviews()
@@ -37,6 +40,36 @@ class CardView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     initSubviews()
+  }
+  
+  func renderInView(parentView: UIView){
+    titleLabel.text = card.title
+    
+    parentView.addSubview(self)
+    
+    let topConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: parentView, attribute: .Height, multiplier: (1/2), constant: 1.0)
+    topConstraint.priority = UILayoutPriorityDefaultHigh;
+    topConstraint.active = true
+    
+    let bottomConstraint = NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .Bottom, multiplier: 1.0, constant: 8)
+    bottomConstraint.priority = UILayoutPriorityDefaultHigh;
+    bottomConstraint.active = true
+    
+    leftConstraint = NSLayoutConstraint(item: self, attribute: .Leading, relatedBy: .Equal, toItem: parentView, attribute: .Leading, multiplier: 1.0, constant: 8)
+    leftConstraint.priority = UILayoutPriorityDefaultHigh;
+    leftConstraint.active = true
+    
+    rightConstraint = NSLayoutConstraint(item: self, attribute: .Trailing, relatedBy: .Equal, toItem: parentView, attribute: .Trailing, multiplier: 1.0, constant: 8)
+    rightConstraint.priority = UILayoutPriorityDefaultHigh;
+    rightConstraint.active = true
+    
+//    parentView.layoutIfNeeded()
+//    UIView.animateWithDuration(animationDuration * 10, animations: { () -> Void in
+//      self.leftConstraint.constant = self.contentView.frame.size.width
+//      self.rightConstraint.constant = -1 * self.contentView.frame.size.width
+//
+//      parentView.layoutIfNeeded()
+//    }, completion: nil)
   }
   
   func initSubviews() {
@@ -55,12 +88,15 @@ class CardView: UIView {
   }
 
   func onPan(sender: UIPanGestureRecognizer){
-    let translation = sender.translationInView(contentView)
-    let velocity = sender.velocityInView(contentView)
+    let translation = sender.translationInView(contentView.superview!)
+    let velocity = sender.velocityInView(contentView.superview!)
+    let location = sender.locationInView(contentView.superview!)
     
     if sender.state == UIGestureRecognizerState.Began {
-      cardTransform = imageView.transform
-      isDraggingFromBottom = sender.locationInView(contentView).y > (imageView.frame.height / 2)
+      cardTransform = contentView.transform
+      isDraggingFromBottom = location.y > (contentView.frame.height / 2)
+      originalLeftConstraintConstant = leftConstraint.constant
+      originalRightConstraintConstant = rightConstraint.constant
     } else if sender.state == UIGestureRecognizerState.Changed {
       translateView(translation.x, withRotation: true)
     } else if sender.state == UIGestureRecognizerState.Ended {
@@ -81,24 +117,27 @@ class CardView: UIView {
   }
   
   func translateView(amount: CGFloat, withRotation:Bool){
-    leftConstraint.constant = amount
-    rightConstraint.constant = (-1 * amount)
+
+    leftConstraint.constant = originalLeftConstraintConstant + amount
+    rightConstraint.constant = originalRightConstraintConstant - amount
     
-    if withRotation {
-      let ratio = amount / contentView.frame.width
-      var angle = ratio * CGFloat(M_PI / 4.0)
-      
-      if isDraggingFromBottom == true {
-        angle *= -1
-      }
-      
-      imageView.transform = CGAffineTransformRotate(cardTransform, angle)
-    }
+//    if withRotation {
+//      let ratio = amount / contentView.frame.width
+//      var angle = ratio * CGFloat(M_PI / 4.0)
+//      
+//      if isDraggingFromBottom == true {
+//        angle *= -1
+//      }
+//      
+//      contentView.transform = CGAffineTransformRotate(cardTransform, angle)
+//    }
   }
   
   func translateViewWithAnimation(amount: CGFloat, withRotation: Bool){
+    contentView.superview!.layoutIfNeeded()
     UIView.animateWithDuration(animationDuration, animations: { () -> Void in
       self.translateView(amount, withRotation: withRotation)
+      self.contentView.superview!.layoutIfNeeded()
     }, completion: { (_: Bool) -> Void in
       self.delegate.cardViewFinishedAnimating(self)
     })
