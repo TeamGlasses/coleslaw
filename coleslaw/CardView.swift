@@ -26,12 +26,11 @@ class CardView: UIView {
   var isDraggingFromBottom: Bool!
   var cardTransform: CGAffineTransform!
   
-  var leftConstraint: NSLayoutConstraint!
-  var rightConstraint: NSLayoutConstraint!
-  
-  var originalLeftConstraintConstant: CGFloat!
-  var originalRightConstraintConstant: CGFloat!
-  
+//  var leftConstraint: NSLayoutConstraint!
+//  var rightConstraint: NSLayoutConstraint!
+
+  var centerConstraint: NSLayoutConstraint!
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     initSubviews()
@@ -48,20 +47,29 @@ class CardView: UIView {
     parentView.addSubview(self)
     
     let topConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: parentView, attribute: .Height, multiplier: (1/2), constant: 1.0)
-    topConstraint.priority = UILayoutPriorityDefaultHigh;
+    topConstraint.priority = UILayoutPriorityDefaultHigh
     topConstraint.active = true
     
     let bottomConstraint = NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .Bottom, multiplier: 1.0, constant: 8)
-    bottomConstraint.priority = UILayoutPriorityDefaultHigh;
+    bottomConstraint.priority = UILayoutPriorityDefaultHigh
     bottomConstraint.active = true
+
+    let widthConstraint = NSLayoutConstraint(item: self, attribute: .Width, relatedBy: .Equal, toItem: parentView, attribute: .Width, multiplier: 1.0, constant: 0)
+    widthConstraint.priority = UILayoutPriorityDefaultHigh
+    widthConstraint.active = true
     
-    leftConstraint = NSLayoutConstraint(item: self, attribute: .Leading, relatedBy: .Equal, toItem: parentView, attribute: .Leading, multiplier: 1.0, constant: 8)
-    leftConstraint.priority = UILayoutPriorityDefaultHigh;
-    leftConstraint.active = true
+    centerConstraint = NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: parentView, attribute: .CenterX, multiplier: 1.0, constant: 0)
+    centerConstraint.priority = UILayoutPriorityDefaultHigh
+    centerConstraint.active = true
     
-    rightConstraint = NSLayoutConstraint(item: self, attribute: .Trailing, relatedBy: .Equal, toItem: parentView, attribute: .Trailing, multiplier: 1.0, constant: 8)
-    rightConstraint.priority = UILayoutPriorityDefaultHigh;
-    rightConstraint.active = true
+    //
+//    leftConstraint = NSLayoutConstraint(item: self, attribute: .Leading, relatedBy: .Equal, toItem: parentView, attribute: .Leading, multiplier: 1.0, constant: 8)
+//    leftConstraint.priority = UILayoutPriorityDefaultHigh;
+//    leftConstraint.active = true
+//    
+//    rightConstraint = NSLayoutConstraint(item: self, attribute: .Trailing, relatedBy: .Equal, toItem: parentView, attribute: .Trailing, multiplier: 1.0, constant: 8)
+//    rightConstraint.priority = UILayoutPriorityDefaultHigh;
+//    rightConstraint.active = true
     
 //    parentView.layoutIfNeeded()
 //    UIView.animateWithDuration(animationDuration * 10, animations: { () -> Void in
@@ -88,6 +96,7 @@ class CardView: UIView {
   }
 
   func onPan(sender: UIPanGestureRecognizer){
+    
     let translation = sender.translationInView(contentView.superview!)
     let velocity = sender.velocityInView(contentView.superview!)
     let location = sender.locationInView(contentView.superview!)
@@ -95,10 +104,9 @@ class CardView: UIView {
     if sender.state == UIGestureRecognizerState.Began {
       cardTransform = contentView.transform
       isDraggingFromBottom = location.y > (contentView.frame.height / 2)
-      originalLeftConstraintConstant = leftConstraint.constant
-      originalRightConstraintConstant = rightConstraint.constant
     } else if sender.state == UIGestureRecognizerState.Changed {
       translateView(translation.x, withRotation: true)
+
     } else if sender.state == UIGestureRecognizerState.Ended {
 
       if isAdvanceable(velocity, translation: translation) {
@@ -117,20 +125,18 @@ class CardView: UIView {
   }
   
   func translateView(amount: CGFloat, withRotation:Bool){
-
-    leftConstraint.constant = originalLeftConstraintConstant + amount
-    rightConstraint.constant = originalRightConstraintConstant - amount
+    centerConstraint.constant = amount
     
-//    if withRotation {
-//      let ratio = amount / contentView.frame.width
-//      var angle = ratio * CGFloat(M_PI / 4.0)
-//      
-//      if isDraggingFromBottom == true {
-//        angle *= -1
-//      }
-//      
-//      contentView.transform = CGAffineTransformRotate(cardTransform, angle)
-//    }
+    if withRotation {
+      let ratio = amount / contentView.frame.width
+      var angle = ratio * CGFloat(M_PI / 4.0)
+      
+      if isDraggingFromBottom == true {
+        angle *= -1
+      }
+      
+      contentView.transform = CGAffineTransformRotate(cardTransform, angle)
+    }
   }
   
   func translateViewWithAnimation(amount: CGFloat, withRotation: Bool){
