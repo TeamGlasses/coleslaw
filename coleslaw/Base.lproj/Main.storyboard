@@ -129,5 +129,135 @@
             </objects>
             <point key="canvasLocation" x="-487" y="368"/>
         </scene>
+        <!--Results View Controller-->
+        <scene sceneID="ngN-W8-sZS">
+            <objects>
+                <viewController id="hUQ-nK-pcX" customClass="ResultsViewController" customModule="coleslaw" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Oay-st-puj"/>
+                        <viewControllerLayoutGuide type="bottom" id="tfr-Zi-jI4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zR7-10-nXp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X Team Won!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPo-jI-AJw">
+                                <rect key="frame" x="89" y="28" width="141.5" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWC-II-1rp">
+                                <rect key="frame" x="20" y="65" width="76.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blue Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vht-Db-Vev">
+                                <rect key="frame" x="220" y="65" width="80" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.096749558119999995" green="0.14830028889999999" blue="0.8070943813" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="109" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVH-qf-Naj">
+                                <rect key="frame" x="20" y="93" width="28.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="110" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Wd-Kz-lpd">
+                                <rect key="frame" x="274" y="93" width="25.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="55t-CX-wW2">
+                                <rect key="frame" x="0.0" y="122" width="320" height="446"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RoundResultCell" rowHeight="100" id="QeH-bu-CYD" customClass="RoundResultCell" customModule="coleslaw" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QeH-bu-CYD" id="cyV-B4-O8l">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Round #1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZV-oh-5BI">
+                                                    <rect key="frame" x="8" y="8" width="72" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Winner: Red" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOz-mV-Fo2">
+                                                    <rect key="frame" x="113" y="8" width="94" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Red Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEs-hI-dtj">
+                                                    <rect key="frame" x="8" y="37" width="77" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="36" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sX8-jt-qde">
+                                                    <rect key="frame" x="8" y="66" width="21" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Blue Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kxd-r4-gKU">
+                                                    <rect key="frame" x="232" y="37" width="80" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.096749558119999995" green="0.14830028889999999" blue="0.8070943813" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="34" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JfC-AT-VFO">
+                                                    <rect key="frame" x="291" y="66" width="21" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="blueScoreLabel" destination="JfC-AT-VFO" id="vPj-hy-Uyv"/>
+                                            <outlet property="redScoreLabel" destination="sX8-jt-qde" id="lER-zW-lfc"/>
+                                            <outlet property="roundNameLabel" destination="wZV-oh-5BI" id="tvY-90-VyV"/>
+                                            <outlet property="winnerAnnouncementLabel" destination="jOz-mV-Fo2" id="nou-RM-GKm"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nWC-II-1rp" firstAttribute="top" secondItem="aPo-jI-AJw" secondAttribute="bottom" constant="8" id="Di3-Tj-1rX"/>
+                            <constraint firstItem="55t-CX-wW2" firstAttribute="top" secondItem="fVH-qf-Naj" secondAttribute="bottom" constant="8" id="Heg-3o-n3J"/>
+                            <constraint firstAttribute="trailing" secondItem="55t-CX-wW2" secondAttribute="trailing" id="OyZ-2G-XV2"/>
+                            <constraint firstItem="tfr-Zi-jI4" firstAttribute="top" secondItem="55t-CX-wW2" secondAttribute="bottom" id="PzN-dc-dy3"/>
+                            <constraint firstItem="4Wd-Kz-lpd" firstAttribute="top" secondItem="vht-Db-Vev" secondAttribute="bottom" constant="8" id="dbU-u5-4Ko"/>
+                            <constraint firstAttribute="trailing" secondItem="4Wd-Kz-lpd" secondAttribute="trailing" constant="20" id="e4S-1R-wkv"/>
+                            <constraint firstItem="fVH-qf-Naj" firstAttribute="leading" secondItem="zR7-10-nXp" secondAttribute="leading" constant="20" id="eFn-TQ-Mbg"/>
+                            <constraint firstItem="55t-CX-wW2" firstAttribute="leading" secondItem="zR7-10-nXp" secondAttribute="leading" id="flm-n1-66b"/>
+                            <constraint firstItem="vht-Db-Vev" firstAttribute="top" secondItem="aPo-jI-AJw" secondAttribute="bottom" constant="8" id="j2j-ds-WSV"/>
+                            <constraint firstItem="aPo-jI-AJw" firstAttribute="top" secondItem="Oay-st-puj" secondAttribute="bottom" constant="8" id="rmC-6I-TI4"/>
+                            <constraint firstAttribute="trailing" secondItem="vht-Db-Vev" secondAttribute="trailing" constant="20" id="sLu-vN-w0s"/>
+                            <constraint firstItem="nWC-II-1rp" firstAttribute="leading" secondItem="zR7-10-nXp" secondAttribute="leading" constant="20" id="ufL-8k-v3H"/>
+                            <constraint firstItem="fVH-qf-Naj" firstAttribute="top" secondItem="nWC-II-1rp" secondAttribute="bottom" constant="8" id="vto-w4-fRf"/>
+                            <constraint firstItem="aPo-jI-AJw" firstAttribute="centerX" secondItem="zR7-10-nXp" secondAttribute="centerX" id="wgd-bE-MQC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="blueScoreLabel" destination="4Wd-Kz-lpd" id="SLk-5A-imn"/>
+                        <outlet property="redScoreLabel" destination="fVH-qf-Naj" id="cO6-hu-5vO"/>
+                        <outlet property="tableView" destination="55t-CX-wW2" id="ak3-T9-UMi"/>
+                        <outlet property="winnerAnnouncementLabel" destination="aPo-jI-AJw" id="UBu-fi-1b5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ae9-8w-4pX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-179" y="991"/>
+        </scene>
     </scenes>
 </document>

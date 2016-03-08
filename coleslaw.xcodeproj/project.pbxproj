@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2223C0871C8D517200E1D5D0 /* StartGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C0861C8D517200E1D5D0 /* StartGameViewController.swift */; };
+		2223C08A1C8E6EEA00E1D5D0 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */; };
+		2223C08C1C8E709300E1D5D0 /* RoundResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C08B1C8E709300E1D5D0 /* RoundResultCell.swift */; };
 		50B631291C8CE7900015684C /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B631281C8CE7900015684C /* GameState.swift */; };
 		8A092A381C8B809D001D54AF /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A092A371C8B809D001D54AF /* CardView.xib */; };
 		8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A092A391C8B80E1001D54AF /* CardView.swift */; };
@@ -21,6 +23,8 @@
 
 /* Begin PBXFileReference section */
 		2223C0861C8D517200E1D5D0 /* StartGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartGameViewController.swift; sourceTree = "<group>"; };
+		2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		2223C08B1C8E709300E1D5D0 /* RoundResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundResultCell.swift; sourceTree = "<group>"; };
 		50B631281C8CE7900015684C /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		8A092A371C8B809D001D54AF /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		8A092A391C8B80E1001D54AF /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 			children = (
 				8A599C5D1C8B79720068C657 /* CardsViewController.swift */,
 				2223C0861C8D517200E1D5D0 /* StartGameViewController.swift */,
+				2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -107,6 +112,7 @@
 			children = (
 				8A092A371C8B809D001D54AF /* CardView.xib */,
 				8A092A391C8B80E1001D54AF /* CardView.swift */,
+				2223C08B1C8E709300E1D5D0 /* RoundResultCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -187,9 +193,11 @@
 				8A599C5E1C8B79720068C657 /* CardsViewController.swift in Sources */,
 				50B631291C8CE7900015684C /* GameState.swift in Sources */,
 				8A9E81081C8CF42500C3DF37 /* Card.swift in Sources */,
+				2223C08A1C8E6EEA00E1D5D0 /* ResultsViewController.swift in Sources */,
 				8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */,
 				8A599C5C1C8B79720068C657 /* AppDelegate.swift in Sources */,
 				2223C0871C8D517200E1D5D0 /* StartGameViewController.swift in Sources */,
+				2223C08C1C8E709300E1D5D0 /* RoundResultCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
