@@ -8,9 +8,9 @@
 
 import Foundation
 
-class Card: NSObject {
-  var title: String!
-
+struct Card {
+  var title: String
+  
   init(title: String){
     self.title = title
   }

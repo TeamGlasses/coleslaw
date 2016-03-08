@@ -8,17 +8,18 @@
 
 import UIKit
 
-class CardsViewController: UIViewController, CardViewDelegate {
+class CardsViewController: UIViewController {
 
   var activeCardView: CardView!
 
-  @IBOutlet var roundLabel: UILabel!
-  @IBOutlet var teamAScoreLabel: UILabel!
-  @IBOutlet var teamBScoreLabel: UILabel!
-  @IBOutlet var timerLabel: UILabel!
-  @IBOutlet var startButton: UIButton!
+  @IBOutlet weak var roundLabel: UILabel!
+  @IBOutlet weak var teamAScoreLabel: UILabel!
+  @IBOutlet weak var teamBScoreLabel: UILabel!
+  @IBOutlet weak var timerLabel: UILabel!
+  @IBOutlet weak var startButton: UIButton!
 
-  var game: GameState!
+  var game: Game!
+
   var scoreLabels: [UILabel]!
   var timer: NSTimer!
 
@@ -26,16 +27,8 @@ class CardsViewController: UIViewController, CardViewDelegate {
     super.viewDidLoad()
 
     scoreLabels = [teamAScoreLabel, teamBScoreLabel]
-
-    game = GameState(cards: [
-      Card(title: "Donald Trump"),
-      Card(title: "Pizza"),
-      Card(title: "San Francisco")
-      ])
     
-    addCardView(game.cards.first!)
-    
-    onGameStart()
+    gameStart()
   }
 
   override func didReceiveMemoryWarning() {
@@ -43,83 +36,93 @@ class CardsViewController: UIViewController, CardViewDelegate {
     // Dispose of any resources that can be recreated.
   }
 
-  func onGameStart() {
-    onTurnStart()
+  func gameStart() {
+    let redTeam = Team(id: 0, name: "Team Red")
+    let blueTeam = Team(id: 1, name: "Team Blue")
+    let playerZero = Player(team: redTeam)
+    let playerOne = Player(team: blueTeam)
+    let allPlayers = [playerZero, playerOne]
+    let allCards = [
+      Card(title: "Donald Trump"),
+      Card(title: "Pizza"),
+      Card(title: "San Francisco")
+    ]
+    game = Game(allCards: allCards, allPlayers: allPlayers)
+
+    timerLabel.text = "..."
+    roundLabel.text = "Ready for Round #\(game.rounds.count+1)"
   }
 
-  func onTurnStart() {
+  func roundStart() {
+    let newRound = Round(toGuessCards: game.allCards, roundTypeRawValue: game.currentRoundIndex + 1)
+    game.rounds.append(newRound)
+
+    timerLabel.text = "..."
+    roundLabel.text = "Ready for Round #\(game.currentRoundIndex + 1), Turn #\(newRound.currentTurnIndex + 2) with Player #\(game.currentPlayerIndex + 1)"
+  }
+
+  func turnStart() {
+    let newTurn = Turn(activePlayer: game.allPlayers[game.currentPlayerIndex])
+    game.rounds[game.currentRoundIndex].turns.append(newTurn)
+
+    roundLabel.text = "Round #\(game.currentRoundIndex + 1) - \(newTurn.activePlayer.team.name) - Player #\(game.currentPlayerIndex + 1)"
     startButton.hidden = true
+
     timerLabel.text = "1:00"
-    game.currentTime = game.gameTime
     timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
-    
-    addCardView(game.cards.first!)
+
+    addCardView(game.currentRound.toGuessCards.last!)
+  }
+
+  func turnEnd() {
+    game.currentPlayerIndex += 1
+    roundLabel.text = "Ready for Round #\(game.currentRoundIndex + 1), Turn #\(game.currentRound.currentTurnIndex + 1) with Player #\(game.currentPlayerIndex + 1)"
+
+    activeCardView.removeFromSuperview()
+    startButton.hidden = false
+
+    timer.invalidate()
+
+    if game.currentRound.isOver {
+      roundEnd()
+    }
+  }
+
+  func roundEnd() {
+    game.currentPlayerIndex += 1
+
+    if activeCardView != nil {
+      activeCardView.removeFromSuperview()
+    }
+    startButton.hidden = false
+
+    timer.invalidate()
+
+    // TODO: could add more end of round info/instructions
+
+    roundStart()
+  }
+
+  func gameEnd() {
+    // TODO: move to results VC
   }
 
   func updateTimer(timer: NSTimer) {
-    game.updateTimer()
+    let currentRound = game.rounds[game.currentRoundIndex]
+    let currentTurn = currentRound.turns[currentRound.currentTurnIndex]
+    currentTurn.updateTimer()
 
-    timerLabel.text = String(format: "0:%02d", game.currentTime)
+    timerLabel.text = String(format: "0:%02d", currentTurn.timeRemaining)
 
-    if (game.currentTime == 0) {
-      onTurnEnd()
+    if (currentTurn.timeRemaining == 0) {
+      turnEnd()
     }
   }
-  
-  func endTimer() {
-    timer.invalidate()
-  }
 
-  // this will get called if timer = 0
-  // or if deck reaches 0
-  func onTurnEnd() {
-    endTimer()
-    // if timer 0, update turn only
-    game.switchTeams()
-
-    // if cards empty, update Round #
-    // game.currentRound = game.currentRound + 1
-    if (game.cards.count == 0) {
-      game.updateRound()
-    }
-
-    roundLabel.text = "Round \(game.currentRound) - Team \(game.teams[game.currentTeam])"
-    
-    startButton.hidden = false
-  }
-  
-  
-  @IBAction func onStartTap(sender: AnyObject) {
-    onTurnStart()
-  }
-
-  func cardViewAdvanced(cardView: CardView) {
-    game.updateCurrentTeamScore()
-
-    scoreLabels[game.currentTeam].text = String(game.scores[game.currentTeam])
-
-    showNextCard()
-  }
-
-  func cardViewDismissed(cardView: CardView) {
-    
-  }
-
-  func cardViewFinishedAnimating(cardView: CardView) {
-    print("card view finished animating")
-  }
-  
   func showNextCard(){
-    let nextCardIndex = game.cards.indexOf(activeCardView.card)! + 1
-    
     activeCardView.removeFromSuperview()
 
-    if game.cards.count <= nextCardIndex {
-      onTurnEnd()
-    } else {
-      let nextCard = game.cards[nextCardIndex]
-      addCardView(nextCard)
-    }
+    addCardView(game.currentRound.toGuessCards.last!)
   }
 
   func addCardView(card: Card){
@@ -128,8 +131,46 @@ class CardsViewController: UIViewController, CardViewDelegate {
     cardView.card = card
     cardView.delegate = self
     cardView.renderInView(view)
-    
+
     activeCardView = cardView
+  }
+  
+  @IBAction func onStartTap(sender: AnyObject) {
+    if game.rounds.count == 0 || game.currentRound.isOver {
+      roundStart()
+    } else {
+      turnStart()
+    }
+  }
+}
+
+extension CardsViewController: CardViewDelegate {
+  func cardViewAdvanced(cardView: CardView) {
+    print("here")
+    let currentRound = game.rounds[game.currentRoundIndex]
+    let currentTurn = currentRound.turns[currentRound.currentTurnIndex]
+    print(currentRound.toGuessCards.count)
+    let card = currentRound.toGuessCards.removeLast()
+    print(card)
+    print(currentRound.toGuessCards.count)
+    currentTurn.completedCards.append(card)
+
+    scoreLabels[currentTurn.currentTeamIndex].text = "\(game.scores[currentTurn.currentTeamIndex])"
+
+    if currentRound.isOver {
+      roundEnd()
+      return
+    }
+
+    showNextCard()
+  }
+
+  func cardViewDismissed(cardView: CardView) {
+
+  }
+
+  func cardViewFinishedAnimating(cardView: CardView) {
+    print("card view finished animating")
   }
 }
 

@@ -8,7 +8,10 @@
 
 import Foundation
 
-class Player: NSObject {
-    var id: Int?
-    var team: Team?
+struct Player {
+  var team: Team
+
+  init(team: Team) {
+    self.team = team
+  }
 }

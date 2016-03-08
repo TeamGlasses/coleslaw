@@ -8,16 +8,35 @@
 
 import Foundation
 
-enum RoundType {
-    case Regular, Acting, OneWord
+enum RoundType: Int {
+  case Regular, Acting, OneWord
 }
 
-class Round: NSObject {
-    var currentTurn: Turn?
-    var toGuessCards: [Card]?
-    var completedCards: [Card]?
-    var type: RoundType?
-    var turns: [Turn]?
+class Round {
+  var toGuessCards: [Card]
+  var roundType: RoundType
+  var turns: [Turn] = []
 
-    // TODO: add computed properties for team scores.
+  var currentTurnIndex: Int {
+    get {
+      return turns.count - 1
+    }
+  }
+
+  var currentTurn: Turn {
+    get {
+      return turns[currentTurnIndex]
+    }
+  }
+
+  var isOver: Bool {
+    get {
+      return toGuessCards.isEmpty
+    }
+  }
+
+  init(toGuessCards: [Card], roundTypeRawValue: Int) {
+    self.toGuessCards = toGuessCards
+    self.roundType = RoundType(rawValue: roundTypeRawValue)!
+  }
 }

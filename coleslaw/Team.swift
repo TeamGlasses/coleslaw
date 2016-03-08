@@ -8,11 +8,12 @@
 
 import Foundation
 
-enum TeamType: String {
-    case Red = "Team Red", Blue = "Team Blue"
-}
+struct Team {
+  var id: Int
+  var name: String
 
-class Team: NSObject {
-    var teamType: TeamType?
-    var players: [Player]?
+  init(id: Int, name: String) {
+    self.id = id
+    self.name = name
+  }
 }
