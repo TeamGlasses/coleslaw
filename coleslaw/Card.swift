@@ -6,13 +6,12 @@
 //  Copyright © 2016 Jack Kearney. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class Card: NSObject {
   var title: String!
-  
+
   init(title: String){
     self.title = title
   }
-  
 }
