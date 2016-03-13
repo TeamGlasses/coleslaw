@@ -19,13 +19,42 @@ class CardsViewController: UIViewController {
   @IBOutlet weak var startButton: UIButton!
   
   @IBOutlet var roundView: UIView!
-
+  @IBOutlet var teamAScoreView: UIView!
+  @IBOutlet var teamBScoreView: UIView!
+  
   var game: Game!
 
+  
   var scoreLabels: [UILabel]!
   var timer: NSTimer!
     
   override func viewWillAppear(animated: Bool) {
+    // round background
+    let roundGradient = CAGradientLayer()
+    roundGradient.frame = roundView.bounds
+    
+    var newFrame = roundGradient.frame
+    newFrame.origin.y = newFrame.origin.y + 10; // add 100 to y's current value
+    roundGradient.frame = newFrame;
+    
+    roundGradient.colors = [UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1).CGColor, UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1).CGColor]
+    roundGradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+    roundGradient.endPoint = CGPoint(x: 0.0, y: 1.0)
+    roundView.layer.insertSublayer(roundGradient, atIndex: 0)
+    roundView.layer.cornerRadius = 10.0
+    roundView.clipsToBounds = true
+    roundLabel.textColor = UIColor.whiteColor()
+    roundLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
+    
+    teamAScoreView.layer.cornerRadius = 8.0
+    teamBScoreView.layer.cornerRadius = 8.0
+    teamAScoreView.clipsToBounds = true
+    teamBScoreView.clipsToBounds = true
+    
+    timerLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 76)
+    
+    // view background
+    view.backgroundColor = UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)
     
   }
 
