@@ -14,6 +14,10 @@
 		225B25DB1C8E88360006F892 /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25DA1C8E88360006F892 /* Turn.swift */; };
 		225B25DF1C8E88780006F892 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25DE1C8E88780006F892 /* Player.swift */; };
 		225B25E31C8EBB880006F892 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25E21C8EBB880006F892 /* Team.swift */; };
+		50056BD01C94D6C10085B323 /* SF-UI-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50056BCC1C94D6C10085B323 /* SF-UI-Display-Medium.otf */; };
+		50056BD11C94D6C10085B323 /* SF-UI-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50056BCD1C94D6C10085B323 /* SF-UI-Display-Semibold.otf */; };
+		50056BD21C94D6C10085B323 /* SF-UI-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50056BCE1C94D6C10085B323 /* SF-UI-Text-Medium.otf */; };
+		50056BD31C94D6C10085B323 /* SF-UI-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50056BCF1C94D6C10085B323 /* SF-UI-Text-Semibold.otf */; };
 		50B631291C8CE7900015684C /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B631281C8CE7900015684C /* Game.swift */; };
 		8A092A381C8B809D001D54AF /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A092A371C8B809D001D54AF /* CardView.xib */; };
 		8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A092A391C8B80E1001D54AF /* CardView.swift */; };
@@ -33,6 +37,10 @@
 		225B25DA1C8E88360006F892 /* Turn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
 		225B25DE1C8E88780006F892 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		225B25E21C8EBB880006F892 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		50056BCC1C94D6C10085B323 /* SF-UI-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Medium.otf"; path = "../../SF-UI-Display-Medium.otf"; sourceTree = "<group>"; };
+		50056BCD1C94D6C10085B323 /* SF-UI-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Semibold.otf"; path = "../../SF-UI-Display-Semibold.otf"; sourceTree = "<group>"; };
+		50056BCE1C94D6C10085B323 /* SF-UI-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Text-Medium.otf"; path = "../../SF-UI-Text-Medium.otf"; sourceTree = "<group>"; };
+		50056BCF1C94D6C10085B323 /* SF-UI-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Text-Semibold.otf"; path = "../../SF-UI-Text-Semibold.otf"; sourceTree = "<group>"; };
 		50B631281C8CE7900015684C /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		8A092A371C8B809D001D54AF /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		8A092A391C8B80E1001D54AF /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -81,6 +89,10 @@
 		8A599C4F1C8B79720068C657 = {
 			isa = PBXGroup;
 			children = (
+				50056BCC1C94D6C10085B323 /* SF-UI-Display-Medium.otf */,
+				50056BCD1C94D6C10085B323 /* SF-UI-Display-Semibold.otf */,
+				50056BCE1C94D6C10085B323 /* SF-UI-Text-Medium.otf */,
+				50056BCF1C94D6C10085B323 /* SF-UI-Text-Semibold.otf */,
 				8A599C5A1C8B79720068C657 /* coleslaw */,
 				8A599C591C8B79720068C657 /* Products */,
 			);
@@ -188,6 +200,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50056BD01C94D6C10085B323 /* SF-UI-Display-Medium.otf in Resources */,
+				50056BD11C94D6C10085B323 /* SF-UI-Display-Semibold.otf in Resources */,
+				50056BD21C94D6C10085B323 /* SF-UI-Text-Medium.otf in Resources */,
+				50056BD31C94D6C10085B323 /* SF-UI-Text-Semibold.otf in Resources */,
 				8A599C661C8B79720068C657 /* LaunchScreen.storyboard in Resources */,
 				8A599C631C8B79720068C657 /* Assets.xcassets in Resources */,
 				8A092A381C8B809D001D54AF /* CardView.xib in Resources */,

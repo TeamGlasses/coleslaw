@@ -17,11 +17,17 @@ class CardsViewController: UIViewController {
   @IBOutlet weak var teamBScoreLabel: UILabel!
   @IBOutlet weak var timerLabel: UILabel!
   @IBOutlet weak var startButton: UIButton!
+  
+  @IBOutlet var roundView: UIView!
 
   var game: Game!
 
   var scoreLabels: [UILabel]!
   var timer: NSTimer!
+    
+  override func viewWillAppear(animated: Bool) {
+    
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
