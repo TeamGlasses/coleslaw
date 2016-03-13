@@ -1,0 +1,6 @@
+framework module Pods_coleslaw {
+  umbrella header "Pods-coleslaw-umbrella.h"
+
+  export *
+  module * { export * }
+}

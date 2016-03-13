@@ -14,4 +14,8 @@ struct Card {
   init(title: String){
     self.title = title
   }
+
+  func toDict() -> [String: String] {
+    return ["title": title]
+  }
 }

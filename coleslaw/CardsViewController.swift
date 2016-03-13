@@ -18,6 +18,8 @@ class CardsViewController: UIViewController {
   @IBOutlet weak var timerLabel: UILabel!
   @IBOutlet weak var startButton: UIButton!
 
+  var allCards: [Card]!
+
   var game: Game!
 
   var scoreLabels: [UILabel]!
@@ -42,11 +44,6 @@ class CardsViewController: UIViewController {
     let playerZero = Player(team: redTeam)
     let playerOne = Player(team: blueTeam)
     let allPlayers = [playerZero, playerOne]
-    let allCards = [
-      Card(title: "Donald Trump"),
-      Card(title: "Pizza"),
-      Card(title: "San Francisco")
-    ]
     game = Game(allCards: allCards, allPlayers: allPlayers)
 
     timerLabel.text = "..."
