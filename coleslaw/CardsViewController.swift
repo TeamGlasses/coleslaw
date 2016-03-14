@@ -87,17 +87,18 @@ class CardsViewController: UIViewController {
   func gameStart() {
     let redTeam = Team(id: 0, name: "Team Red")
     let blueTeam = Team(id: 1, name: "Team Blue")
+    let allTeams = [redTeam, blueTeam]
     let playerZero = Player(team: redTeam)
     let playerOne = Player(team: blueTeam)
     let allPlayers = [playerZero, playerOne]
-    game = Game(allCards: allCards, allPlayers: allPlayers)
+    game = Game(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers)
 
     //timerLabel.text = "..."
     roundLabel.text = "Ready for Round #\(game.rounds.count+1)"
   }
 
   func roundStart() {
-    let newRound = Round(toGuessCards: game.allCards, roundTypeRawValue: game.currentRoundIndex + 1)
+    let newRound = Round(toGuessCards: game.allCards, roundTypeRawValue: game.currentRoundIndex + 1, game: game)
     game.rounds.append(newRound)
 
     //timerLabel.text = "..."
@@ -140,8 +141,6 @@ class CardsViewController: UIViewController {
   }
 
   func roundEnd() {
-    game.currentPlayerIndex += 1
-
     if activeCardView != nil {
       activeCardView.removeFromSuperview()
     }
@@ -151,11 +150,15 @@ class CardsViewController: UIViewController {
 
     // TODO: could add more end of round info/instructions
 
-    roundStart()
+    if game.isOver {
+      gameEnd()
+    } else {
+      roundStart()
+    }
   }
 
   func gameEnd() {
-    // TODO: move to results VC
+    performSegueWithIdentifier("moveToResults", sender: self)
   }
 
   func updateTimer(timer: NSTimer) {
@@ -192,6 +195,12 @@ class CardsViewController: UIViewController {
     } else {
       turnStart()
     }
+  }
+
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    let destinationNavigationViewController = segue.destinationViewController as! UINavigationController
+    let destinationResultsViewController = destinationNavigationViewController.viewControllers.first as! ResultsViewController
+    destinationResultsViewController.game = game
   }
 }
 

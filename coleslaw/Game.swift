@@ -10,6 +10,7 @@ import Foundation
 
 class Game {
   var allCards: [Card]
+  var allTeams: [Team]
   var allPlayers: [Player]
   var currentPlayerIndex: Int = 0 {
     didSet {
@@ -32,18 +33,31 @@ class Game {
     }
   }
 
+  // Returns an array where the index is the team id and the value is the team's score.
   var scores: [Int] {
     var scores = [Int](count: 2, repeatedValue: 0)
     for round in rounds {
-      for turn in round.turns {
-        scores[turn.currentTeamIndex] += turn.completedCards.count
+      for (index, score) in round.scores.enumerate() {
+        scores[index] += score
       }
     }
     return scores
   }
 
-  init(allCards: [Card], allPlayers: [Player]) {
+  var winner: Team {
+    let localScores = scores
+    return allTeams[localScores.indexOf(localScores.maxElement()!)!]
+  }
+
+  var isOver: Bool {
+    get {
+      return rounds.count == 3
+    }
+  }
+
+  init(allCards: [Card], allTeams: [Team], allPlayers: [Player]) {
     self.allCards = allCards
+    self.allTeams = allTeams
     self.allPlayers = allPlayers
   }
 
