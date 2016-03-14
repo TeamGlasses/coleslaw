@@ -40,7 +40,6 @@ class CardView: UIView {
     super.init(frame: frame)
     initSubviews()
     
-    
     titleLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 60)
   }
   

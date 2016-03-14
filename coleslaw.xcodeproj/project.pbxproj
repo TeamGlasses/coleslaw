@@ -23,6 +23,8 @@
 		50C0D6C51C963AB900A4961C /* SF-UI-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50C0D6C01C963A8000A4961C /* SF-UI-Display-Semibold.otf */; };
 		50C0D6C61C963AB900A4961C /* SF-UI-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50C0D6C11C963A8000A4961C /* SF-UI-Text-Medium.otf */; };
 		50C0D6C71C963AB900A4961C /* SF-UI-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50C0D6C21C963A8000A4961C /* SF-UI-Text-Semibold.otf */; };
+		50F453821C96634A006FF333 /* StatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F453811C96634A006FF333 /* StatusView.xib */; };
+		50F453841C96635E006FF333 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F453831C96635E006FF333 /* StatusView.swift */; };
 		8A092A381C8B809D001D54AF /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A092A371C8B809D001D54AF /* CardView.xib */; };
 		8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A092A391C8B80E1001D54AF /* CardView.swift */; };
 		8A3E740B1C96505D00D7F40C /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E740A1C96505D00D7F40C /* SessionManager.swift */; };
@@ -52,6 +54,8 @@
 		50C0D6C01C963A8000A4961C /* SF-UI-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Semibold.otf"; sourceTree = "<group>"; };
 		50C0D6C11C963A8000A4961C /* SF-UI-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Medium.otf"; sourceTree = "<group>"; };
 		50C0D6C21C963A8000A4961C /* SF-UI-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Semibold.otf"; sourceTree = "<group>"; };
+		50F453811C96634A006FF333 /* StatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusView.xib; sourceTree = "<group>"; };
+		50F453831C96635E006FF333 /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		808968C674552613C42141BF /* Pods-coleslaw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-coleslaw.release.xcconfig"; path = "Pods/Target Support Files/Pods-coleslaw/Pods-coleslaw.release.xcconfig"; sourceTree = "<group>"; };
 		8A092A371C8B809D001D54AF /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		8A092A391C8B80E1001D54AF /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 		8A599C6E1C8B7C820068C657 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				50F453811C96634A006FF333 /* StatusView.xib */,
+				50F453831C96635E006FF333 /* StatusView.swift */,
 				8A092A371C8B809D001D54AF /* CardView.xib */,
 				8A092A391C8B80E1001D54AF /* CardView.swift */,
 				2223C08B1C8E709300E1D5D0 /* RoundResultCell.swift */,
@@ -264,6 +270,7 @@
 				50C0D6C41C963AB900A4961C /* SF-UI-Display-Medium.otf in Resources */,
 				50C0D6C51C963AB900A4961C /* SF-UI-Display-Semibold.otf in Resources */,
 				50C0D6C61C963AB900A4961C /* SF-UI-Text-Medium.otf in Resources */,
+				50F453821C96634A006FF333 /* StatusView.xib in Resources */,
 				50C0D6C71C963AB900A4961C /* SF-UI-Text-Semibold.otf in Resources */,
 				8A599C661C8B79720068C657 /* LaunchScreen.storyboard in Resources */,
 				8A599C631C8B79720068C657 /* Assets.xcassets in Resources */,
@@ -331,6 +338,7 @@
 				225B25DF1C8E88780006F892 /* Player.swift in Sources */,
 				225B25DB1C8E88360006F892 /* Turn.swift in Sources */,
 				8A599C5E1C8B79720068C657 /* CardsViewController.swift in Sources */,
+				50F453841C96635E006FF333 /* StatusView.swift in Sources */,
 				2223C08E1C8E879600E1D5D0 /* Round.swift in Sources */,
 				50B631291C8CE7900015684C /* Game.swift in Sources */,
 				8A3E740B1C96505D00D7F40C /* SessionManager.swift in Sources */,
