@@ -42,6 +42,10 @@ class SessionManager: NSObject, MCSessionDelegate {
   func start(){}
   
   func broadcast(message: String, value: AnyObject){
+    sendMessage(message, value: value, toPeers: self.peers)
+  }
+  
+  private func sendMessage(message: String, value: AnyObject, toPeers: [MCPeerID]){
     var payload = [String: AnyObject]()
     payload["message"] = message
     payload["value"] = value
@@ -49,7 +53,7 @@ class SessionManager: NSObject, MCSessionDelegate {
     do {
       let encodedPayload = try NSJSONSerialization.dataWithJSONObject(payload, options: .PrettyPrinted)
       
-      try self.session.sendData(encodedPayload, toPeers: self.peers, withMode: .Reliable)
+      try self.session.sendData(encodedPayload, toPeers: toPeers, withMode: .Reliable)
     } catch let error as NSError {
       NSLog("Error sending data")
       NSLog("\(error)")
