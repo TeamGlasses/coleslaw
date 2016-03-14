@@ -39,6 +39,9 @@ class CardView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     initSubviews()
+    
+    
+    titleLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 60)
   }
   
   func renderInView(parentView: UIView){
@@ -50,7 +53,7 @@ class CardView: UIView {
     topConstraint.priority = UILayoutPriorityDefaultHigh
     topConstraint.active = true
     
-    let bottomConstraint = NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .Bottom, multiplier: 1.0, constant: 8)
+    let bottomConstraint = NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .Bottom, multiplier: 1.0, constant: 0)
     bottomConstraint.priority = UILayoutPriorityDefaultHigh
     bottomConstraint.active = true
 
@@ -85,6 +88,8 @@ class CardView: UIView {
     let nib = UINib(nibName: "CardView", bundle: nil)
     nib.instantiateWithOwner(self, options: nil)
     contentView.frame = bounds
+    contentView.layer.cornerRadius = 16
+    contentView.clipsToBounds = true
     addSubview(contentView)
     
     bindPan()

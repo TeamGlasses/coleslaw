@@ -24,17 +24,20 @@ class CardsViewController: UIViewController {
   
   var game: Game!
 
-  
   var scoreLabels: [UILabel]!
   var timer: NSTimer!
-    
+  var teamColors: [UIColor]!
+  
+  // ideally all the UI stuff shoudl be in a separate view class
   override func viewWillAppear(animated: Bool) {
+    teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
     // round background
     let roundGradient = CAGradientLayer()
     roundGradient.frame = roundView.bounds
-    
+   
     var newFrame = roundGradient.frame
     newFrame.origin.y = newFrame.origin.y + 10; // add 100 to y's current value
+    newFrame.size.width = view.frame.size.width
     roundGradient.frame = newFrame;
     
     roundGradient.colors = [UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1).CGColor, UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1).CGColor]
@@ -50,11 +53,20 @@ class CardsViewController: UIViewController {
     teamBScoreView.layer.cornerRadius = 8.0
     teamAScoreView.clipsToBounds = true
     teamBScoreView.clipsToBounds = true
+    teamAScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
+    teamBScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 21)
     
     timerLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 76)
     
     // view background
-    view.backgroundColor = UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)
+    view.backgroundColor = teamColors[0]
+    
+    //button
+    startButton.layer.cornerRadius = 16
+    startButton.clipsToBounds = true
+    startButton.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+    startButton.titleLabel!.textAlignment = NSTextAlignment.Center
+    startButton.titleLabel!.font = UIFont(name: "SFUIDisplay-Medium", size: 40)
     
   }
 
@@ -84,7 +96,7 @@ class CardsViewController: UIViewController {
     ]
     game = Game(allCards: allCards, allPlayers: allPlayers)
 
-    timerLabel.text = "..."
+    //timerLabel.text = "..."
     roundLabel.text = "Ready for Round #\(game.rounds.count+1)"
   }
 
@@ -92,7 +104,7 @@ class CardsViewController: UIViewController {
     let newRound = Round(toGuessCards: game.allCards, roundTypeRawValue: game.currentRoundIndex + 1)
     game.rounds.append(newRound)
 
-    timerLabel.text = "..."
+    //timerLabel.text = "..."
     roundLabel.text = "Ready for Round #\(game.currentRoundIndex + 1), Turn #\(newRound.currentTurnIndex + 2) with Player #\(game.currentPlayerIndex + 1)"
   }
 
@@ -100,6 +112,7 @@ class CardsViewController: UIViewController {
     let newTurn = Turn(activePlayer: game.allPlayers[game.currentPlayerIndex])
     game.rounds[game.currentRoundIndex].turns.append(newTurn)
 
+    // move UI logic to separate class using delegates?
     roundLabel.text = "Round #\(game.currentRoundIndex + 1) - \(newTurn.activePlayer.team.name) - Player #\(game.currentPlayerIndex + 1)"
     startButton.hidden = true
 
@@ -112,6 +125,13 @@ class CardsViewController: UIViewController {
   func turnEnd() {
     game.currentPlayerIndex += 1
     roundLabel.text = "Ready for Round #\(game.currentRoundIndex + 1), Turn #\(game.currentRound.currentTurnIndex + 1) with Player #\(game.currentPlayerIndex + 1)"
+    
+    let currentPlayer = game.allPlayers[game.currentPlayerIndex]
+    
+    let nextTeamId = currentPlayer.team.id
+
+    print("next: \(nextTeamId)")
+    view.backgroundColor = teamColors[nextTeamId]
 
     activeCardView.removeFromSuperview()
     startButton.hidden = false
@@ -193,7 +213,7 @@ extension CardsViewController: CardViewDelegate {
     scoreLabels[currentTurn.currentTeamIndex].text = "\(game.scores[currentTurn.currentTeamIndex])"
 
     if currentRound.isOver {
-      roundEnd()
+      turnEnd()
       return
     }
 
