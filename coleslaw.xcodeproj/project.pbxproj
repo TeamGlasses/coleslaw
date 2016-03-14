@@ -141,7 +141,6 @@
 		8A599C5A1C8B79720068C657 /* coleslaw */ = {
 			isa = PBXGroup;
 			children = (
-				50C0D6C31C963A8300A4961C /* Fonts */,
 				8A599C5B1C8B79720068C657 /* AppDelegate.swift */,
 				22472B651C94FFA200A0DA0C /* API */,
 				2223C0831C8D510D00E1D5D0 /* Storyboards */,
@@ -149,6 +148,7 @@
 				8A599C6D1C8B7AE10068C657 /* ViewControllers */,
 				8A599C6E1C8B7C820068C657 /* Views */,
 				8A599C621C8B79720068C657 /* Assets.xcassets */,
+				50C0D6C31C963A8300A4961C /* Fonts */,
 				8A599C641C8B79720068C657 /* LaunchScreen.storyboard */,
 				8A599C671C8B79720068C657 /* Info.plist */,
 			);

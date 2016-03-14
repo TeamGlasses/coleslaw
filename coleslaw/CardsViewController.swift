@@ -93,10 +93,11 @@ class CardsViewController: UIViewController {
   func gameStart() {
     let redTeam = Team(id: 0, name: "Team Red")
     let blueTeam = Team(id: 1, name: "Team Blue")
+    let allTeams = [redTeam, blueTeam]
     let playerZero = Player(team: redTeam)
     let playerOne = Player(team: blueTeam)
     let allPlayers = [playerZero, playerOne]
-    game = Game(allCards: allCards, allPlayers: allPlayers)
+    game = Game(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers)
     
     prepareNextTurn()
 
@@ -105,7 +106,7 @@ class CardsViewController: UIViewController {
   }
 
   func roundStart() {
-    let newRound = Round(toGuessCards: game.allCards, roundTypeRawValue: game.currentRoundIndex + 1)
+    let newRound = Round(toGuessCards: game.allCards, roundTypeRawValue: game.currentRoundIndex + 1, game: game)
     game.rounds.append(newRound)
 
     //timerLabel.text = "..."
@@ -177,7 +178,7 @@ class CardsViewController: UIViewController {
     timerLabel.text = "1:00"
     timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
 
-    addCardView(game.currentRound.toGuessCards.last!)
+    addCardView(game.currentRound.randomCard)
   }
 
   func turnEnd() {
@@ -206,11 +207,15 @@ class CardsViewController: UIViewController {
 
     // TODO: could add more end of round info/instructions
 
-    roundStart()
+    if game.isOver {
+      gameEnd()
+    } else {
+      roundStart()
+    }
   }
 
   func gameEnd() {
-    // TODO: move to results VC
+    performSegueWithIdentifier("moveToResults", sender: self)
   }
 
   func updateTimer(timer: NSTimer) {
@@ -228,7 +233,7 @@ class CardsViewController: UIViewController {
   func showNextCard(){
     activeCardView.removeFromSuperview()
 
-    addCardView(game.currentRound.toGuessCards.last!)
+    addCardView(game.currentRound.randomCard)
   }
 
   func addCardView(card: Card){
@@ -248,31 +253,32 @@ class CardsViewController: UIViewController {
       turnStart()
     }
   }
+
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    let destinationNavigationViewController = segue.destinationViewController as! UINavigationController
+    let destinationResultsViewController = destinationNavigationViewController.viewControllers.first as! ResultsViewController
+    destinationResultsViewController.game = game
+  }
 }
 
 extension CardsViewController: CardViewDelegate {
   func cardViewAdvanced(cardView: CardView) {
-    print("here")
     let currentRound = game.rounds[game.currentRoundIndex]
     let currentTurn = currentRound.turns[currentRound.currentTurnIndex]
-    print(currentRound.toGuessCards.count)
-    let card = currentRound.toGuessCards.removeLast()
-    print(card)
-    print(currentRound.toGuessCards.count)
+    let card = currentRound.toGuessCards.removeAtIndex(currentRound.lastCardIndex)
     currentTurn.completedCards.append(card)
 
     scoreLabels[currentTurn.currentTeamIndex].text = "\(game.scores[currentTurn.currentTeamIndex])"
 
     if currentRound.isOver {
       turnEnd()
-      return
+    } else {
+      showNextCard()
     }
-
-    showNextCard()
   }
 
   func cardViewDismissed(cardView: CardView) {
-
+    showNextCard()
   }
 
   func cardViewFinishedAnimating(cardView: CardView) {
