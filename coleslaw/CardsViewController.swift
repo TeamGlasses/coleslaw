@@ -22,16 +22,22 @@ class CardsViewController: UIViewController {
   @IBOutlet var teamAScoreView: UIView!
   @IBOutlet var teamBScoreView: UIView!
   
+  @IBOutlet var teamAWidth: NSLayoutConstraint!
+  @IBOutlet var teamAHeight: NSLayoutConstraint!
+  @IBOutlet var teamBWidth: NSLayoutConstraint!
+  @IBOutlet var teamBHeight: NSLayoutConstraint!
+  @IBOutlet var teamABottom: NSLayoutConstraint!
+  @IBOutlet var teamBBottom: NSLayoutConstraint!
+  
   var allCards: [Card]!
   var game: Game!
 
   var scoreLabels: [UILabel]!
   var timer: NSTimer!
-  var teamColors: [UIColor]!
+  var teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
   
   // ideally all the UI stuff shoudl be in a separate view class
   override func viewWillAppear(animated: Bool) {
-    teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
     // round background
     let roundGradient = CAGradientLayer()
     roundGradient.frame = roundView.bounds
@@ -91,6 +97,8 @@ class CardsViewController: UIViewController {
     let playerOne = Player(team: blueTeam)
     let allPlayers = [playerZero, playerOne]
     game = Game(allCards: allCards, allPlayers: allPlayers)
+    
+    prepareNextTurn()
 
     //timerLabel.text = "..."
     roundLabel.text = "Ready for Round #\(game.rounds.count+1)"
@@ -102,17 +110,20 @@ class CardsViewController: UIViewController {
 
     //timerLabel.text = "..."
     roundLabel.text = "Ready for Round #\(game.currentRoundIndex + 1), Turn #\(newRound.currentTurnIndex + 2) with Player #\(game.currentPlayerIndex + 1)"
-    
-    prepareNextTurn()
   }
   
   func prepareNextTurn() {
     let currentPlayer = game.allPlayers[game.currentPlayerIndex]
     let nextTeam = currentPlayer.team
     var nextScoreLabel = teamAScoreLabel
-    var nextScoreView = teamAScoreView
+    var nextScoreWidth = teamAWidth
+    var nextScoreHeight = teamAHeight
+    var nextScoreBottom = teamABottom
+    
     var prevScoreLabel = teamBScoreLabel
-    var prevScoreView = teamBScoreView
+    var prevScoreWidth = teamBWidth
+    var prevScoreHeight = teamBHeight
+    var prevScoreBottom = teamBBottom
     
     view.backgroundColor = teamColors[nextTeam.id]
     startButton.setTitle("Start\n\(nextTeam.name)", forState: .Normal)
@@ -121,33 +132,33 @@ class CardsViewController: UIViewController {
     // switch up the score sizes
     if (nextTeam.id == 1) {
       nextScoreLabel = teamBScoreLabel
-      nextScoreView = teamBScoreView
+      nextScoreWidth = teamBWidth
+      nextScoreHeight = teamBHeight
+      nextScoreBottom = teamBBottom
+      
       prevScoreLabel = teamAScoreLabel
-      prevScoreView = teamAScoreView
+      prevScoreWidth = teamAWidth
+      prevScoreHeight = teamAHeight
+      prevScoreBottom = teamABottom
     }
-    
-    var nextViewFrame = nextScoreView.frame
-    var prevViewFrame = prevScoreView.frame
-    
-    var nextLabelFrame = nextScoreLabel.frame
-    var prevLabelFrame = prevScoreLabel.frame
-
-    nextViewFrame.size = prevScoreView.frame.size
-    prevViewFrame.size = nextScoreView.frame.size
-    
-    nextLabelFrame.size = prevScoreLabel.frame.size
-    prevLabelFrame.size = nextScoreLabel.frame.size
-    
+  
     //aLabel.origin.y = bLabel.origin.y
     
+    let tempScoreWidthConstant = nextScoreWidth.constant
+    nextScoreWidth.constant = prevScoreWidth.constant
+    prevScoreWidth.constant = tempScoreWidthConstant
+
+    let tempScoreHeightConstant = nextScoreHeight.constant
+    nextScoreHeight.constant = prevScoreHeight.constant
+    prevScoreHeight.constant = tempScoreHeightConstant
+    
+    let tempScoreBottomConstraint = nextScoreBottom.constant
+    nextScoreBottom.constant = prevScoreBottom.constant
+    prevScoreBottom.constant = tempScoreBottomConstraint
+    
+    let tempFontSize = nextScoreLabel.font.pointSize
     nextScoreLabel.font = nextScoreLabel.font.fontWithSize(prevScoreLabel.font.pointSize)
-    prevScoreLabel.font = prevScoreLabel.font.fontWithSize(nextScoreLabel.font.pointSize)
-    
-    nextScoreView.frame = nextViewFrame
-    nextScoreLabel.frame = nextLabelFrame
-    
-    prevScoreView.frame = prevViewFrame
-    prevScoreLabel.frame = prevLabelFrame
+    prevScoreLabel.font = prevScoreLabel.font.fontWithSize(tempFontSize)
   }
 
   func turnStart() {
