@@ -44,6 +44,10 @@ class SessionManager: NSObject, MCSessionDelegate {
   func broadcast(message: String, value: AnyObject){
     sendMessage(message, value: value, toPeers: self.peers)
   }
+
+  func sendMessage(message: String, value: AnyObject, toPeer peer: MCPeerID) {
+    sendMessage(message, value: value, toPeers: [peer])
+  }
   
   private func sendMessage(message: String, value: AnyObject, toPeers: [MCPeerID]){
     var payload = [String: AnyObject]()
@@ -51,8 +55,7 @@ class SessionManager: NSObject, MCSessionDelegate {
     payload["value"] = value
     
     do {
-      let encodedPayload = try NSJSONSerialization.dataWithJSONObject(payload, options: .PrettyPrinted)
-      
+      let encodedPayload = NSKeyedArchiver.archivedDataWithRootObject(payload)
       try self.session.sendData(encodedPayload, toPeers: toPeers, withMode: .Reliable)
     } catch let error as NSError {
       NSLog("Error sending data")
@@ -64,7 +67,7 @@ class SessionManager: NSObject, MCSessionDelegate {
   
   func session(session: MCSession, didReceiveData data: NSData, fromPeer peerID: MCPeerID) {
     do {
-      let decodedData = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
+      let decodedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [String: AnyObject]
       dispatch_async(dispatch_get_main_queue()){
         self.delegate.sessionManager(self, didReceiveData: decodedData)
       }

@@ -9,9 +9,11 @@
 import Foundation
 
 struct Player {
+  var id: Int
   var team: Team
 
-  init(team: Team) {
+  init(id: Int, team: Team) {
+    self.id = id
     self.team = team
   }
 }

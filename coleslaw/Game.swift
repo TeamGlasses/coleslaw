@@ -8,7 +8,8 @@
 
 import Foundation
 
-class Game {
+class Game: NSObject {
+
   var allCards: [Card]
   var allTeams: [Team]
   var allPlayers: [Player]
@@ -60,6 +61,4 @@ class Game {
     self.allTeams = allTeams
     self.allPlayers = allPlayers
   }
-
-  //  var scores: [Int]? // TODO: change to computed property
 }

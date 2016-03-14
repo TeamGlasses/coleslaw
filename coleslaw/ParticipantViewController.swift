@@ -42,5 +42,7 @@ class ParticipantViewController: UIViewController, SessionManagerDelegate {
     showConnected()
   }
   
-  func sessionManager(sessionManager: SessionManager, didReceiveData data: NSDictionary) {}
+  func sessionManager(sessionManager: SessionManager, didReceiveData data: NSDictionary) {
+    print(data)
+  }
 }

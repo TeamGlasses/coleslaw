@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="jCu-Az-usS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="jCu-Az-usS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -7,6 +7,33 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--Round Start View Controller-->
+        <scene sceneID="5o1-nZ-IFb">
+            <objects>
+                <viewController id="tML-GY-w7u" customClass="RoundStartViewController" customModule="coleslaw" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9lp-rr-K0Z"/>
+                        <viewControllerLayoutGuide type="bottom" id="yVY-8I-Zbf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3gr-vc-mla">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XoH-zF-xpa">
+                                <rect key="frame" x="119" y="518" width="82" height="30"/>
+                                <state key="normal" title="Start Round"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="startRoundButton" destination="XoH-zF-xpa" id="d74-u6-Koj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="297-Xc-3ZF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-41" y="368"/>
+        </scene>
         <!--Cards View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -138,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-107" y="368"/>
+            <point key="canvasLocation" x="365" y="368"/>
         </scene>
         <!--Start Game View Controller-->
         <scene sceneID="c9g-IL-jyg">
@@ -196,7 +223,6 @@
                     <connections>
                         <outlet property="startButton" destination="AI5-zu-cm0" id="hpP-rf-wLt"/>
                         <outlet property="tableView" destination="EBg-Vw-EHJ" id="Ld9-9x-g1U"/>
-                        <segue destination="BYZ-38-t0r" kind="modal" identifier="startGame" id="KMg-Gq-bCM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sek-fZ-bsp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -338,7 +364,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ae9-8w-4pX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="668" y="368"/>
+            <point key="canvasLocation" x="1122" y="368"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FHx-y5-Uxb">
@@ -356,7 +382,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B0h-Y3-Bh0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="282" y="368"/>
+            <point key="canvasLocation" x="754" y="368"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="g8m-zQ-4nh">
@@ -497,6 +523,8 @@
                     </view>
                     <connections>
                         <outlet property="connectionsLabel" destination="I0N-vj-kUl" id="tL0-Cp-w4g"/>
+                        <outlet property="startButton" destination="3ZO-nT-b5G" id="yBB-Zz-dJw"/>
+                        <segue destination="tML-GY-w7u" kind="modal" identifier="ownerStartGame" id="LaE-4R-wx5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OUB-WZ-dVZ" sceneMemberID="firstResponder"/>
@@ -552,6 +580,7 @@
                     <navigationItem key="navigationItem" id="znZ-DR-M1c"/>
                     <connections>
                         <outlet property="connectedView" destination="Jrf-BQ-mHK" id="8iF-44-oKR"/>
+                        <segue destination="tML-GY-w7u" kind="modal" identifier="participantStartGame" id="EyJ-5k-kv0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypK-fc-BlA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -559,4 +588,7 @@
             <point key="canvasLocation" x="-476" y="729"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="EyJ-5k-kv0"/>
+    </inferredMetricsTieBreakers>
 </document>
