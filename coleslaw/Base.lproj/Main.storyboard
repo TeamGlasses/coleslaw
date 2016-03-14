@@ -122,10 +122,16 @@
                         <outlet property="roundLabel" destination="tJd-IJ-wxb" id="u00-BI-pHB"/>
                         <outlet property="roundView" destination="KMO-7W-Dwc" id="2a1-hK-5mO"/>
                         <outlet property="startButton" destination="9Ng-Yj-cde" id="geY-P0-fG9"/>
+                        <outlet property="teamABottom" destination="nuL-M8-oZJ" id="0GH-Hx-AbD"/>
+                        <outlet property="teamAHeight" destination="sEG-o4-p02" id="F4d-VA-elo"/>
                         <outlet property="teamAScoreLabel" destination="4FT-6A-Yrr" id="lK1-vy-0kd"/>
                         <outlet property="teamAScoreView" destination="0wT-LF-mop" id="4JD-WC-CgF"/>
+                        <outlet property="teamAWidth" destination="399-66-0KN" id="w40-PY-KFS"/>
+                        <outlet property="teamBBottom" destination="Fs9-kd-xsE" id="wRZ-Up-JNw"/>
+                        <outlet property="teamBHeight" destination="e10-FQ-QgX" id="5on-NK-ag4"/>
                         <outlet property="teamBScoreLabel" destination="fgH-Rh-VgT" id="lJ9-wq-GG0"/>
                         <outlet property="teamBScoreView" destination="wd1-ZI-acO" id="HVd-Kr-2kM"/>
+                        <outlet property="teamBWidth" destination="g8F-yQ-mOR" id="UNp-Ec-vFj"/>
                         <outlet property="timerLabel" destination="jIc-fI-6Ec" id="hCg-Ay-nLe"/>
                         <segue destination="ItP-Kd-PeW" kind="modal" identifier="moveToResults" id="kg2-nv-T0H"/>
                     </connections>

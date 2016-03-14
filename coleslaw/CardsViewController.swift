@@ -22,16 +22,22 @@ class CardsViewController: UIViewController {
   @IBOutlet var teamAScoreView: UIView!
   @IBOutlet var teamBScoreView: UIView!
   
+  @IBOutlet var teamAWidth: NSLayoutConstraint!
+  @IBOutlet var teamAHeight: NSLayoutConstraint!
+  @IBOutlet var teamBWidth: NSLayoutConstraint!
+  @IBOutlet var teamBHeight: NSLayoutConstraint!
+  @IBOutlet var teamABottom: NSLayoutConstraint!
+  @IBOutlet var teamBBottom: NSLayoutConstraint!
+  
   var allCards: [Card]!
   var game: Game!
 
   var scoreLabels: [UILabel]!
   var timer: NSTimer!
-  var teamColors: [UIColor]!
+  var teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
   
   // ideally all the UI stuff shoudl be in a separate view class
   override func viewWillAppear(animated: Bool) {
-    teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
     // round background
     let roundGradient = CAGradientLayer()
     roundGradient.frame = roundView.bounds
@@ -54,8 +60,8 @@ class CardsViewController: UIViewController {
     teamBScoreView.layer.cornerRadius = 8.0
     teamAScoreView.clipsToBounds = true
     teamBScoreView.clipsToBounds = true
-    teamAScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
-    teamBScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 21)
+    teamAScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 21)
+    teamBScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
     
     timerLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 76)
     
@@ -92,6 +98,8 @@ class CardsViewController: UIViewController {
     let playerOne = Player(team: blueTeam)
     let allPlayers = [playerZero, playerOne]
     game = Game(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers)
+    
+    prepareNextTurn()
 
     //timerLabel.text = "..."
     roundLabel.text = "Ready for Round #\(game.rounds.count+1)"
@@ -103,6 +111,60 @@ class CardsViewController: UIViewController {
 
     //timerLabel.text = "..."
     roundLabel.text = "Ready for Round #\(game.currentRoundIndex + 1), Turn #\(newRound.currentTurnIndex + 2) with Player #\(game.currentPlayerIndex + 1)"
+  }
+  
+  func prepareNextTurn() {
+    let currentPlayer = game.allPlayers[game.currentPlayerIndex]
+    let nextTeam = currentPlayer.team
+    var nextScoreLabel = teamAScoreLabel
+    var nextScoreWidth = teamAWidth
+    var nextScoreHeight = teamAHeight
+    var nextScoreBottom = teamABottom
+    
+    var prevScoreLabel = teamBScoreLabel
+    var prevScoreWidth = teamBWidth
+    var prevScoreHeight = teamBHeight
+    var prevScoreBottom = teamBBottom
+    
+    view.backgroundColor = teamColors[nextTeam.id]
+    startButton.setTitle("Start\n\(nextTeam.name)", forState: .Normal)
+    print("hello\(nextTeam.id)")
+    
+    // switch up the score sizes
+    if (nextTeam.id == 1) {
+      nextScoreLabel = teamBScoreLabel
+      nextScoreWidth = teamBWidth
+      nextScoreHeight = teamBHeight
+      nextScoreBottom = teamBBottom
+      
+      prevScoreLabel = teamAScoreLabel
+      prevScoreWidth = teamAWidth
+      prevScoreHeight = teamAHeight
+      prevScoreBottom = teamABottom
+    }
+  
+    //aLabel.origin.y = bLabel.origin.y
+    
+    let tempScoreWidthConstant = nextScoreWidth.constant
+    nextScoreWidth.constant = prevScoreWidth.constant
+    prevScoreWidth.constant = tempScoreWidthConstant
+    
+    let tempScoreHeightConstant = nextScoreHeight.constant
+    nextScoreHeight.constant = prevScoreHeight.constant
+    prevScoreHeight.constant = tempScoreHeightConstant
+    
+    let tempScoreBottomConstraint = nextScoreBottom.constant
+    nextScoreBottom.constant = prevScoreBottom.constant
+    prevScoreBottom.constant = tempScoreBottomConstraint
+    
+    let tempFontSize = nextScoreLabel.font.pointSize
+    nextScoreLabel.font = nextScoreLabel.font.fontWithSize(prevScoreLabel.font.pointSize)
+    prevScoreLabel.font = prevScoreLabel.font.fontWithSize(tempFontSize)
+    
+    UIView.animateWithDuration(0.4, animations: {
+      self.view.layoutIfNeeded()
+    })
+  
   }
 
   func turnStart() {
@@ -116,19 +178,14 @@ class CardsViewController: UIViewController {
     timerLabel.text = "1:00"
     timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
 
-    addCardView(game.currentRound.toGuessCards.last!)
+    addCardView(game.currentRound.randomCard)
   }
 
   func turnEnd() {
     game.currentPlayerIndex += 1
     roundLabel.text = "Ready for Round #\(game.currentRoundIndex + 1), Turn #\(game.currentRound.currentTurnIndex + 1) with Player #\(game.currentPlayerIndex + 1)"
     
-    let currentPlayer = game.allPlayers[game.currentPlayerIndex]
-    
-    let nextTeamId = currentPlayer.team.id
-
-    print("next: \(nextTeamId)")
-    view.backgroundColor = teamColors[nextTeamId]
+    prepareNextTurn()
 
     activeCardView.removeFromSuperview()
     startButton.hidden = false
@@ -176,7 +233,7 @@ class CardsViewController: UIViewController {
   func showNextCard(){
     activeCardView.removeFromSuperview()
 
-    addCardView(game.currentRound.toGuessCards.last!)
+    addCardView(game.currentRound.randomCard)
   }
 
   func addCardView(card: Card){
@@ -206,27 +263,22 @@ class CardsViewController: UIViewController {
 
 extension CardsViewController: CardViewDelegate {
   func cardViewAdvanced(cardView: CardView) {
-    print("here")
     let currentRound = game.rounds[game.currentRoundIndex]
     let currentTurn = currentRound.turns[currentRound.currentTurnIndex]
-    print(currentRound.toGuessCards.count)
-    let card = currentRound.toGuessCards.removeLast()
-    print(card)
-    print(currentRound.toGuessCards.count)
+    let card = currentRound.toGuessCards.removeAtIndex(currentRound.lastCardIndex)
     currentTurn.completedCards.append(card)
 
     scoreLabels[currentTurn.currentTeamIndex].text = "\(game.scores[currentTurn.currentTeamIndex])"
 
     if currentRound.isOver {
       turnEnd()
-      return
+    } else {
+      showNextCard()
     }
-
-    showNextCard()
   }
 
   func cardViewDismissed(cardView: CardView) {
-
+    showNextCard()
   }
 
   func cardViewFinishedAnimating(cardView: CardView) {
