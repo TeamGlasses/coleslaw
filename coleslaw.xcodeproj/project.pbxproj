@@ -23,6 +23,9 @@
 		50C0D6C71C963AB900A4961C /* SF-UI-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50C0D6C21C963A8000A4961C /* SF-UI-Text-Semibold.otf */; };
 		8A092A381C8B809D001D54AF /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A092A371C8B809D001D54AF /* CardView.xib */; };
 		8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A092A391C8B80E1001D54AF /* CardView.swift */; };
+		8A3E740B1C96505D00D7F40C /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E740A1C96505D00D7F40C /* SessionManager.swift */; };
+		8A3E740D1C96538E00D7F40C /* ParticipantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E740C1C96538E00D7F40C /* ParticipantViewController.swift */; };
+		8A3E740F1C9653AF00D7F40C /* OwnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E740E1C9653AF00D7F40C /* OwnerViewController.swift */; };
 		8A599C5C1C8B79720068C657 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A599C5B1C8B79720068C657 /* AppDelegate.swift */; };
 		8A599C5E1C8B79720068C657 /* CardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A599C5D1C8B79720068C657 /* CardsViewController.swift */; };
 		8A599C611C8B79720068C657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A599C5F1C8B79720068C657 /* Main.storyboard */; };
@@ -48,6 +51,9 @@
 		808968C674552613C42141BF /* Pods-coleslaw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-coleslaw.release.xcconfig"; path = "Pods/Target Support Files/Pods-coleslaw/Pods-coleslaw.release.xcconfig"; sourceTree = "<group>"; };
 		8A092A371C8B809D001D54AF /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		8A092A391C8B80E1001D54AF /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		8A3E740A1C96505D00D7F40C /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		8A3E740C1C96538E00D7F40C /* ParticipantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantViewController.swift; sourceTree = "<group>"; };
+		8A3E740E1C9653AF00D7F40C /* OwnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerViewController.swift; sourceTree = "<group>"; };
 		8A599C581C8B79720068C657 /* coleslaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coleslaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A599C5B1C8B79720068C657 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A599C5D1C8B79720068C657 /* CardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +118,14 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		8A3E74091C96504B00D7F40C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8A3E740A1C96505D00D7F40C /* SessionManager.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		8A44458BE0D6C94AD570F677 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +155,7 @@
 		8A599C5A1C8B79720068C657 /* coleslaw */ = {
 			isa = PBXGroup;
 			children = (
+				8A3E74091C96504B00D7F40C /* Services */,
 				8A599C5B1C8B79720068C657 /* AppDelegate.swift */,
 				22472B651C94FFA200A0DA0C /* API */,
 				2223C0831C8D510D00E1D5D0 /* Storyboards */,
@@ -161,6 +176,8 @@
 				8A599C5D1C8B79720068C657 /* CardsViewController.swift */,
 				2223C0861C8D517200E1D5D0 /* StartGameViewController.swift */,
 				2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */,
+				8A3E740C1C96538E00D7F40C /* ParticipantViewController.swift */,
+				8A3E740E1C9653AF00D7F40C /* OwnerViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -318,6 +335,7 @@
 				8A599C5E1C8B79720068C657 /* CardsViewController.swift in Sources */,
 				2223C08E1C8E879600E1D5D0 /* Round.swift in Sources */,
 				50B631291C8CE7900015684C /* Game.swift in Sources */,
+				8A3E740B1C96505D00D7F40C /* SessionManager.swift in Sources */,
 				8A9E81081C8CF42500C3DF37 /* Card.swift in Sources */,
 				2223C08A1C8E6EEA00E1D5D0 /* ResultsViewController.swift in Sources */,
 				8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */,
@@ -325,6 +343,8 @@
 				225B47731C94FE1700145925 /* FirebaseClient.swift in Sources */,
 				2223C0871C8D517200E1D5D0 /* StartGameViewController.swift in Sources */,
 				2223C08C1C8E709300E1D5D0 /* RoundResultCell.swift in Sources */,
+				8A3E740F1C9653AF00D7F40C /* OwnerViewController.swift in Sources */,
+				8A3E740D1C96538E00D7F40C /* ParticipantViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
