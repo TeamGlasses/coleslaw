@@ -13,10 +13,27 @@ enum RoundType: Int {
 }
 
 class Round {
+  var lastCardIndex = 0
   var toGuessCards: [Card]
   var roundType: RoundType
   var game: Game
   var turns: [Turn] = []
+
+  var randomCard: Card {
+    get {
+      if toGuessCards.count == 1 {
+        lastCardIndex = 0
+        return toGuessCards[0]
+      } else {
+        var randomIndex = Int(arc4random_uniform(UInt32(toGuessCards.count)))
+        while randomIndex == lastCardIndex {
+          randomIndex = Int(arc4random_uniform(UInt32(toGuessCards.count)))
+        }
+        lastCardIndex = randomIndex
+        return toGuessCards[randomIndex]
+      }
+    }
+  }
 
   var currentTurnIndex: Int {
     get {
