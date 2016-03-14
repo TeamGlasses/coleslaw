@@ -54,8 +54,8 @@ class CardsViewController: UIViewController {
     teamBScoreView.layer.cornerRadius = 8.0
     teamAScoreView.clipsToBounds = true
     teamBScoreView.clipsToBounds = true
-    teamAScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
-    teamBScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 21)
+    teamAScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 21)
+    teamBScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
     
     timerLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 76)
     
@@ -102,6 +102,52 @@ class CardsViewController: UIViewController {
 
     //timerLabel.text = "..."
     roundLabel.text = "Ready for Round #\(game.currentRoundIndex + 1), Turn #\(newRound.currentTurnIndex + 2) with Player #\(game.currentPlayerIndex + 1)"
+    
+    prepareNextTurn()
+  }
+  
+  func prepareNextTurn() {
+    let currentPlayer = game.allPlayers[game.currentPlayerIndex]
+    let nextTeam = currentPlayer.team
+    var nextScoreLabel = teamAScoreLabel
+    var nextScoreView = teamAScoreView
+    var prevScoreLabel = teamBScoreLabel
+    var prevScoreView = teamBScoreView
+    
+    view.backgroundColor = teamColors[nextTeam.id]
+    startButton.setTitle("Start\n\(nextTeam.name)", forState: .Normal)
+    print("hello\(nextTeam.id)")
+    
+    // switch up the score sizes
+    if (nextTeam.id == 1) {
+      nextScoreLabel = teamBScoreLabel
+      nextScoreView = teamBScoreView
+      prevScoreLabel = teamAScoreLabel
+      prevScoreView = teamAScoreView
+    }
+    
+    var nextViewFrame = nextScoreView.frame
+    var prevViewFrame = prevScoreView.frame
+    
+    var nextLabelFrame = nextScoreLabel.frame
+    var prevLabelFrame = prevScoreLabel.frame
+
+    nextViewFrame.size = prevScoreView.frame.size
+    prevViewFrame.size = nextScoreView.frame.size
+    
+    nextLabelFrame.size = prevScoreLabel.frame.size
+    prevLabelFrame.size = nextScoreLabel.frame.size
+    
+    //aLabel.origin.y = bLabel.origin.y
+    
+    nextScoreLabel.font = nextScoreLabel.font.fontWithSize(prevScoreLabel.font.pointSize)
+    prevScoreLabel.font = prevScoreLabel.font.fontWithSize(nextScoreLabel.font.pointSize)
+    
+    nextScoreView.frame = nextViewFrame
+    nextScoreLabel.frame = nextLabelFrame
+    
+    prevScoreView.frame = prevViewFrame
+    prevScoreLabel.frame = prevLabelFrame
   }
 
   func turnStart() {
@@ -122,12 +168,7 @@ class CardsViewController: UIViewController {
     game.currentPlayerIndex += 1
     roundLabel.text = "Ready for Round #\(game.currentRoundIndex + 1), Turn #\(game.currentRound.currentTurnIndex + 1) with Player #\(game.currentPlayerIndex + 1)"
     
-    let currentPlayer = game.allPlayers[game.currentPlayerIndex]
-    
-    let nextTeamId = currentPlayer.team.id
-
-    print("next: \(nextTeamId)")
-    view.backgroundColor = teamColors[nextTeamId]
+    prepareNextTurn()
 
     activeCardView.removeFromSuperview()
     startButton.hidden = false
@@ -140,8 +181,6 @@ class CardsViewController: UIViewController {
   }
 
   func roundEnd() {
-    game.currentPlayerIndex += 1
-
     if activeCardView != nil {
       activeCardView.removeFromSuperview()
     }
