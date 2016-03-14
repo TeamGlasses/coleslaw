@@ -147,7 +147,7 @@ class CardsViewController: UIViewController {
     let tempScoreWidthConstant = nextScoreWidth.constant
     nextScoreWidth.constant = prevScoreWidth.constant
     prevScoreWidth.constant = tempScoreWidthConstant
-
+    
     let tempScoreHeightConstant = nextScoreHeight.constant
     nextScoreHeight.constant = prevScoreHeight.constant
     prevScoreHeight.constant = tempScoreHeightConstant
@@ -159,6 +159,11 @@ class CardsViewController: UIViewController {
     let tempFontSize = nextScoreLabel.font.pointSize
     nextScoreLabel.font = nextScoreLabel.font.fontWithSize(prevScoreLabel.font.pointSize)
     prevScoreLabel.font = prevScoreLabel.font.fontWithSize(tempFontSize)
+    
+    UIView.animateWithDuration(0.4, animations: {
+      self.view.layoutIfNeeded()
+    })
+  
   }
 
   func turnStart() {
