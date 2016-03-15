@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Card {
+class Card: NSObject, NSCoding {
   var title: String
   
   init(title: String){
@@ -18,4 +18,16 @@ struct Card {
   func toDict() -> [String: String] {
     return ["title": title]
   }
+
+  // MARK: NSCoding
+  // See https://developer.apple.com/library/ios/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Lesson10.html
+  func encodeWithCoder(aCoder: NSCoder) {
+    aCoder.encodeObject(title, forKey: "title")
+  }
+
+  required convenience init?(coder aDecoder: NSCoder) {
+    let title = aDecoder.decodeObjectForKey("title") as! String
+    self.init(title: title)
+  }
+
 }

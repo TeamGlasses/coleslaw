@@ -54,13 +54,6 @@ class CardsViewController: UIViewController {
   }
 
   func gameStart() {
-    let redTeam = Team(id: 0, name: "Team Red")
-    let blueTeam = Team(id: 1, name: "Team Blue")
-    let allTeams = [redTeam, blueTeam]
-    let playerZero = Player(team: redTeam)
-    let playerOne = Player(team: blueTeam)
-    let allPlayers = [playerZero, playerOne]
-    game = Game(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers)
     
     prepareNextTurn()
 

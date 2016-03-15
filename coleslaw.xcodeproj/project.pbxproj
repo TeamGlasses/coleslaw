@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		118CE900D7AE5DDEB70D62E9 /* Pods_coleslaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32876061BF725F30200C728 /* Pods_coleslaw.framework */; };
+		2223BD551C96883D00C7E4DF /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223BD541C96883D00C7E4DF /* Test.swift */; };
 		2223C0871C8D517200E1D5D0 /* StartGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C0861C8D517200E1D5D0 /* StartGameViewController.swift */; };
 		2223C08A1C8E6EEA00E1D5D0 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */; };
 		2223C08C1C8E709300E1D5D0 /* RoundResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C08B1C8E709300E1D5D0 /* RoundResultCell.swift */; };
 		2223C08E1C8E879600E1D5D0 /* Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C08D1C8E879600E1D5D0 /* Round.swift */; };
+		225500721C96731E001AD54F /* RoundStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225500711C96731E001AD54F /* RoundStartViewController.swift */; };
 		225B25DB1C8E88360006F892 /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25DA1C8E88360006F892 /* Turn.swift */; };
 		225B25DF1C8E88780006F892 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25DE1C8E88780006F892 /* Player.swift */; };
 		225B25E31C8EBB880006F892 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25E21C8EBB880006F892 /* Team.swift */; };
@@ -38,10 +40,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2223BD541C96883D00C7E4DF /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		2223C0861C8D517200E1D5D0 /* StartGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartGameViewController.swift; sourceTree = "<group>"; };
 		2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		2223C08B1C8E709300E1D5D0 /* RoundResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundResultCell.swift; sourceTree = "<group>"; };
 		2223C08D1C8E879600E1D5D0 /* Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Round.swift; sourceTree = "<group>"; };
+		225500711C96731E001AD54F /* RoundStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundStartViewController.swift; sourceTree = "<group>"; };
 		225B25DA1C8E88360006F892 /* Turn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
 		225B25DE1C8E88780006F892 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		225B25E21C8EBB880006F892 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
@@ -92,14 +96,6 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
-		22472B651C94FFA200A0DA0C /* API */ = {
-			isa = PBXGroup;
-			children = (
-				225B47721C94FE1700145925 /* FirebaseClient.swift */,
-			);
-			name = API;
-			sourceTree = "<group>";
-		};
 		50B6312A1C8CE7950015684C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +105,7 @@
 				50B631281C8CE7900015684C /* Game.swift */,
 				2223C08D1C8E879600E1D5D0 /* Round.swift */,
 				225B25DA1C8E88360006F892 /* Turn.swift */,
+				2223BD541C96883D00C7E4DF /* Test.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -128,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				8A3E740A1C96505D00D7F40C /* SessionManager.swift */,
+				225B47721C94FE1700145925 /* FirebaseClient.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -161,9 +159,8 @@
 		8A599C5A1C8B79720068C657 /* coleslaw */ = {
 			isa = PBXGroup;
 			children = (
-				8A3E74091C96504B00D7F40C /* Services */,
 				8A599C5B1C8B79720068C657 /* AppDelegate.swift */,
-				22472B651C94FFA200A0DA0C /* API */,
+				8A3E74091C96504B00D7F40C /* Services */,
 				2223C0831C8D510D00E1D5D0 /* Storyboards */,
 				50B6312A1C8CE7950015684C /* Models */,
 				8A599C6D1C8B7AE10068C657 /* ViewControllers */,
@@ -185,6 +182,7 @@
 				2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */,
 				8A3E740C1C96538E00D7F40C /* ParticipantViewController.swift */,
 				8A3E740E1C9653AF00D7F40C /* OwnerViewController.swift */,
+				225500711C96731E001AD54F /* RoundStartViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -245,7 +243,7 @@
 				TargetAttributes = {
 					8A599C571C8B79720068C657 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 7PJ9Z8CH22;
+						DevelopmentTeam = J488GRFKPU;
 					};
 				};
 			};
@@ -351,6 +349,8 @@
 				2223C08A1C8E6EEA00E1D5D0 /* ResultsViewController.swift in Sources */,
 				8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */,
 				8A599C5C1C8B79720068C657 /* AppDelegate.swift in Sources */,
+				2223BD551C96883D00C7E4DF /* Test.swift in Sources */,
+				225500721C96731E001AD54F /* RoundStartViewController.swift in Sources */,
 				225B47731C94FE1700145925 /* FirebaseClient.swift in Sources */,
 				2223C0871C8D517200E1D5D0 /* StartGameViewController.swift in Sources */,
 				2223C08C1C8E709300E1D5D0 /* RoundResultCell.swift in Sources */,
@@ -468,10 +468,13 @@
 			baseConfigurationReference = F6E37BC72CE3B3AA8BED8BAB /* Pods-coleslaw.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = coleslaw/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.coleslaw;
+				PRODUCT_BUNDLE_IDENTIFIER = com.michaelrbock.coleslaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -480,10 +483,13 @@
 			baseConfigurationReference = 808968C674552613C42141BF /* Pods-coleslaw.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = coleslaw/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.coleslaw;
+				PRODUCT_BUNDLE_IDENTIFIER = com.michaelrbock.coleslaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
