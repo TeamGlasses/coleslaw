@@ -107,9 +107,9 @@ class CardsViewController: UIViewController {
     statusView.game = game
 
     activeCardView.removeFromSuperview()
-    startButton.hidden = false
 
     timer.invalidate()
+    startButton.hidden = false
 
     if game.currentRound.isOver {
       roundEnd()
