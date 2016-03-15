@@ -109,26 +109,26 @@ class CardView: UIView {
       cardTransform = contentView.transform
       isDraggingFromBottom = location.y > (contentView.frame.height / 2)
     } else if sender.state == UIGestureRecognizerState.Changed {
-      translateView(translation.x, withRotation: true)
+      translateView(translation.x, withRotation: true, cardComplete: false)
 
     } else if sender.state == UIGestureRecognizerState.Ended {
 
       if isAdvanceable(velocity, translation: translation) {
         // Card was swiped right
-        translateViewWithAnimation(2 * contentView.frame.width, withRotation: true)
+        translateViewWithAnimation(2 * contentView.frame.width, withRotation: true, cardComplete: true)
         delegate.cardViewAdvanced(self)
       } else if isDismissable(velocity, translation: translation){
         // Card was swiped left
-        translateViewWithAnimation(-2 * contentView.frame.width, withRotation: true)
+        translateViewWithAnimation(-2 * contentView.frame.width, withRotation: true, cardComplete: true)
         delegate.cardViewDismissed(self)
       } else {
         // Card wasn't swiped enought to count as advancing or dismissal
-        translateViewWithAnimation(0, withRotation: false)
+        translateViewWithAnimation(0, withRotation: false, cardComplete: false)
       }
     }
   }
   
-  func translateView(amount: CGFloat, withRotation:Bool){
+  func translateView(amount: CGFloat, withRotation: Bool, cardComplete: Bool){
     centerConstraint.constant = amount
     
     if withRotation {
@@ -140,13 +140,21 @@ class CardView: UIView {
       }
       
       contentView.transform = CGAffineTransformRotate(cardTransform, angle)
+      
+      let x = centerConstraint.constant + self.contentView.frame.width
+
+      if cardComplete {
+        centerConstraint.constant = x
+      }
+    } else {
+      contentView.transform = CGAffineTransformIdentity
     }
   }
   
-  func translateViewWithAnimation(amount: CGFloat, withRotation: Bool){
+  func translateViewWithAnimation(amount: CGFloat, withRotation: Bool, cardComplete: Bool){
     contentView.superview!.layoutIfNeeded()
     UIView.animateWithDuration(animationDuration, animations: { () -> Void in
-      self.translateView(amount, withRotation: withRotation)
+      self.translateView(amount, withRotation: withRotation, cardComplete: cardComplete)
       self.contentView.superview!.layoutIfNeeded()
     }, completion: { (_: Bool) -> Void in
       self.delegate.cardViewFinishedAnimating(self)
@@ -162,6 +170,6 @@ class CardView: UIView {
   }
   
   func isActionablePanDistance(translation: CGPoint) -> Bool {
-    return abs(translation.x) > 30
+    return abs(translation.x) > 50
   }
 }

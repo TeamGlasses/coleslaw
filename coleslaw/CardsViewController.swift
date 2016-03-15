@@ -54,7 +54,13 @@ class CardsViewController: UIViewController {
   }
 
   func gameStart() {
-    
+    let redTeam = Team(id: 0, name: "Team Red")
+    let blueTeam = Team(id: 1, name: "Team Blue")
+    let allTeams = [redTeam, blueTeam]
+    let playerZero = Player(id: 0, team: redTeam)
+    let playerOne = Player(id: 1, team: blueTeam)
+    let allPlayers = [playerZero, playerOne]
+    game = Game(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers)
     prepareNextTurn()
 
     //timerLabel.text = "..."
@@ -85,6 +91,7 @@ class CardsViewController: UIViewController {
     // move UI logic to separate class using delegates?
     statusView.roundLabel.text = "Round \(game.currentRoundIndex + 1) - \(newTurn.activePlayer.team.name) - Player \(game.currentPlayerIndex + 1)"
     startButton.hidden = true
+    startButton.setTitle("", forState: .Normal)
 
     timerLabel.text = "1:00"
     timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
@@ -94,7 +101,7 @@ class CardsViewController: UIViewController {
 
   func turnEnd() {
     game.currentPlayerIndex += 1
-    statusView.roundLabel.text = "Ready for Round \(game.currentRoundIndex + 1), Turn #\(game.currentRound.currentTurnIndex + 1) with Player #\(game.currentPlayerIndex + 1)"
+    statusView.roundLabel.text = "Round \(game.currentRoundIndex + 1), Turn #\(game.currentRound.currentTurnIndex + 1) with Player \(game.currentPlayerIndex + 1)"
     
     prepareNextTurn()
     statusView.game = game
