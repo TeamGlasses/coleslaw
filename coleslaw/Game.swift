@@ -8,8 +8,8 @@
 
 import Foundation
 
-class Game: NSObject {
-
+class Game: NSObject, NSCoding {
+  // Real properties.
   var allCards: [Card]
   var allTeams: [Team]
   var allPlayers: [Player]
@@ -21,7 +21,25 @@ class Game: NSObject {
     }
   }
   var rounds: [Round] = []
-  
+  // End real properties.
+
+  // Initializer used to create initial game.
+  init(allCards: [Card], allTeams: [Team], allPlayers: [Player]) {
+    self.allCards = allCards
+    self.allTeams = allTeams
+    self.allPlayers = allPlayers
+  }
+
+  // Initializer used by decoder.
+  init(allCards: [Card], allTeams: [Team], allPlayers: [Player], currentPlayerIndex: Int, rounds: [Round]) {
+    self.allCards = allCards
+    self.allTeams = allTeams
+    self.allPlayers = allPlayers
+    self.currentPlayerIndex = currentPlayerIndex
+    self.rounds = rounds
+  }
+
+  // Only computed properties below.
   var currentRoundIndex: Int {
     get {
       return rounds.count-1
@@ -55,10 +73,24 @@ class Game: NSObject {
       return rounds.count == 3
     }
   }
+  // End computed properties.
 
-  init(allCards: [Card], allTeams: [Team], allPlayers: [Player]) {
-    self.allCards = allCards
-    self.allTeams = allTeams
-    self.allPlayers = allPlayers
+  // MARK: NSCoding
+  // See https://developer.apple.com/library/ios/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Lesson10.html
+  func encodeWithCoder(aCoder: NSCoder) {
+    aCoder.encodeObject(allCards, forKey: "allCards")
+    aCoder.encodeObject(allTeams, forKey: "allTeams")
+    aCoder.encodeObject(allPlayers, forKey: "allPlayers")
+    aCoder.encodeInteger(currentPlayerIndex, forKey: "currentPlayerIndex")
+    aCoder.encodeObject(rounds, forKey: "rounds")
+  }
+
+  required convenience init?(coder aDecoder: NSCoder) {
+    let allCards = aDecoder.decodeObjectForKey("allCards") as! [Card]
+    let allTeams = aDecoder.decodeObjectForKey("allTeams") as! [Team]
+    let allPlayers = aDecoder.decodeObjectForKey("allPlayer") as! [Player]
+    let currentPlayerIndex = aDecoder.decodeIntegerForKey("currentPlayerIndex")
+    let rounds = aDecoder.decodeObjectForKey("rounds") as! [Round]
+    self.init(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers, currentPlayerIndex: currentPlayerIndex, rounds: rounds)
   }
 }
