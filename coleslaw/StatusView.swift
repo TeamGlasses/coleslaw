@@ -60,7 +60,7 @@ class StatusView: UIView {
 
     setupView(parentView)
     
-    let topConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: parentView, attribute: .Height, multiplier: (1/2), constant: 1.0)
+    let topConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: parentView, attribute: .Height, multiplier: (1/4), constant: 1.0)
     topConstraint.priority = UILayoutPriorityDefaultHigh
     topConstraint.active = true
     

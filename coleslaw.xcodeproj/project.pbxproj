@@ -17,6 +17,7 @@
 		225B25E31C8EBB880006F892 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25E21C8EBB880006F892 /* Team.swift */; };
 		225B47731C94FE1700145925 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B47721C94FE1700145925 /* FirebaseClient.swift */; };
 		50B631291C8CE7900015684C /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B631281C8CE7900015684C /* Game.swift */; };
+		50B946901C968CD600C9EF6D /* RoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B9468F1C968CD600C9EF6D /* RoundViewController.swift */; };
 		50C0D6C41C963AB900A4961C /* SF-UI-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50C0D6BF1C963A8000A4961C /* SF-UI-Display-Medium.otf */; };
 		50C0D6C51C963AB900A4961C /* SF-UI-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50C0D6C01C963A8000A4961C /* SF-UI-Display-Semibold.otf */; };
 		50C0D6C61C963AB900A4961C /* SF-UI-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50C0D6C11C963A8000A4961C /* SF-UI-Text-Medium.otf */; };
@@ -46,6 +47,7 @@
 		225B25E21C8EBB880006F892 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		225B47721C94FE1700145925 /* FirebaseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		50B631281C8CE7900015684C /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		50B9468F1C968CD600C9EF6D /* RoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundViewController.swift; sourceTree = "<group>"; };
 		50C0D6BF1C963A8000A4961C /* SF-UI-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Medium.otf"; sourceTree = "<group>"; };
 		50C0D6C01C963A8000A4961C /* SF-UI-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Semibold.otf"; sourceTree = "<group>"; };
 		50C0D6C11C963A8000A4961C /* SF-UI-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Medium.otf"; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		8A599C6D1C8B7AE10068C657 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				50B9468F1C968CD600C9EF6D /* RoundViewController.swift */,
 				8A599C5D1C8B79720068C657 /* CardsViewController.swift */,
 				2223C0861C8D517200E1D5D0 /* StartGameViewController.swift */,
 				2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */,
@@ -353,6 +356,7 @@
 				2223C08C1C8E709300E1D5D0 /* RoundResultCell.swift in Sources */,
 				8A3E740F1C9653AF00D7F40C /* OwnerViewController.swift in Sources */,
 				8A3E740D1C96538E00D7F40C /* ParticipantViewController.swift in Sources */,
+				50B946901C968CD600C9EF6D /* RoundViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
