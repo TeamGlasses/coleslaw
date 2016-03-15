@@ -22,16 +22,27 @@
                                 <rect key="frame" x="119" y="518" width="82" height="30"/>
                                 <state key="normal" title="Start Round"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-oA-Lrk">
+                                <rect key="frame" x="105" y="254" width="110.5" height="60"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="50"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YRO-oA-Lrk" firstAttribute="centerY" secondItem="3gr-vc-mla" secondAttribute="centerY" id="P32-ct-uRe"/>
+                            <constraint firstItem="YRO-oA-Lrk" firstAttribute="centerX" secondItem="3gr-vc-mla" secondAttribute="centerX" id="ecR-iq-Ivq"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="roundStartLabel" destination="YRO-oA-Lrk" id="xX2-xN-tcM"/>
                         <outlet property="startRoundButton" destination="XoH-zF-xpa" id="d74-u6-Koj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="297-Xc-3ZF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-41" y="368"/>
+            <point key="canvasLocation" x="-41" y="399"/>
         </scene>
         <!--Cards View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -81,7 +92,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="365" y="368"/>
+            <point key="canvasLocation" x="367" y="399"/>
         </scene>
         <!--Start Game View Controller-->
         <scene sceneID="c9g-IL-jyg">
@@ -280,7 +291,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ae9-8w-4pX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1122" y="368"/>
+            <point key="canvasLocation" x="1124" y="399"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FHx-y5-Uxb">
@@ -298,7 +309,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B0h-Y3-Bh0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="754" y="368"/>
+            <point key="canvasLocation" x="754" y="399"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="g8m-zQ-4nh">
@@ -356,7 +367,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AGp-lX-Mc9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-911" y="439"/>
+            <point key="canvasLocation" x="-914" y="399"/>
         </scene>
         <!--Owner View Controller-->
         <scene sceneID="Yvv-F1-WcX">

@@ -39,10 +39,15 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
     super.didReceiveMemoryWarning()
   }
 
-  func createGame() -> Game {
-    let redTeam = Team(id: 0, name: "Team Red")
-    let blueTeam = Team(id: 1, name: "Team Blue")
+  func createGame() {
+    var teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
+    
+    let redTeam = Team(id: 0, name: "Team Red", color: teamColors[0])
+
+    let blueTeam = Team(id: 1, name: "Team Blue", color: teamColors[1])
+    
     let allTeams = [redTeam, blueTeam]
+
     var allPlayers = [Player]()
 
     for (index, _) in session.peers.enumerate() {
@@ -52,28 +57,28 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
         allPlayers.append(Player(id: index, team: allTeams[1]))
       }
     }
-
+    
+    // Add owner to game
+    let ownerIndex = session.peers.count
+    let ownerPlayer = Player(id: ownerIndex, team: allTeams[ownerIndex % 2])
+    allPlayers.append(ownerPlayer)
+    
     game = Game(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers)
+    
+    LocalGameManager.sharedInstance.game = game
+    LocalGameManager.sharedInstance.localPlayer = ownerPlayer
 
-//    session.broadcast("game", value: game)
+    for (index, peer) in session.peers.enumerate() {
+      var value = [String: AnyObject]()
+      value["player"] = allPlayers[index]
+      value["game"] = game
 
-//    for (index, peer) in session.peers.enumerate() {
-//      session.sendMessage("assignPlayer", value: allPlayers[index], toPeer: peer)
-//    }
-
-    let test = Test(val: "this is a test string")
-    session.broadcast("test", value: test)
-
-    return game
-  }
-
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    let destinationViewController = segue.destinationViewController as! RoundStartViewController
-
-    destinationViewController.game = createGame()
+      session.sendMessage("assignPlayerAndGame", value: value, toPeer: peer)
+    }
   }
   
   @IBAction func onStartGame(sender: UIButton) {
+    createGame()
     performSegueWithIdentifier("ownerStartGame", sender: self)
   }
   

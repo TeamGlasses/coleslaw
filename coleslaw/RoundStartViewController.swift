@@ -12,9 +12,13 @@ class RoundStartViewController: UIViewController {
 
   @IBOutlet weak var startRoundButton: UIButton!
 
-  var game: Game!
-
+  @IBOutlet weak var roundStartLabel: UILabel!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    let numPlayers = LocalGameManager.sharedInstance.game.allPlayers.count
+    
+    view.backgroundColor = LocalGameManager.sharedInstance.localPlayer.team.color
   }
 }

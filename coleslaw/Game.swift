@@ -88,7 +88,7 @@ class Game: NSObject, NSCoding {
   required convenience init?(coder aDecoder: NSCoder) {
     let allCards = aDecoder.decodeObjectForKey("allCards") as! [Card]
     let allTeams = aDecoder.decodeObjectForKey("allTeams") as! [Team]
-    let allPlayers = aDecoder.decodeObjectForKey("allPlayer") as! [Player]
+    let allPlayers = aDecoder.decodeObjectForKey("allPlayers") as! [Player]
     let currentPlayerIndex = aDecoder.decodeIntegerForKey("currentPlayerIndex")
     let rounds = aDecoder.decodeObjectForKey("rounds") as! [Round]
     self.init(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers, currentPlayerIndex: currentPlayerIndex, rounds: rounds)
