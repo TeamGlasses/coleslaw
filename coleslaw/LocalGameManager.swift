@@ -18,8 +18,12 @@ class LocalGameManager {
     return Static.instance
   }
   
-  func isCurrentPlayer(){
-    game.currentPlayerIndex == localPlayer.id
+  var isCurrentPlayer: Bool {
+    return game.currentPlayer.id == localPlayer.id
+  }
+  
+  var isOnCurrentTeam: Bool {
+    return game.currentPlayer.team.id == localPlayer.team.id
   }
   
   var game: Game!
@@ -29,8 +33,6 @@ class LocalGameManager {
   var session: SessionManager!
   
   var localColor: UIColor {
-    get {
-      return localPlayer.team.color
-    }
+    return localPlayer.team.color
   }
 }

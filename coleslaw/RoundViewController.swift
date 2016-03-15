@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
-class RoundViewController: UIViewController {
+class RoundViewController: UIViewController, SessionManagerDelegate {
 
   var statusView: StatusView!
 
@@ -20,7 +21,6 @@ class RoundViewController: UIViewController {
     
     view.backgroundColor = LocalGameManager.sharedInstance.localColor
 
-    
     statusView = StatusView()
     statusView.translatesAutoresizingMaskIntoConstraints = false
     statusView.renderInView(view)
@@ -40,21 +40,35 @@ class RoundViewController: UIViewController {
     startButton.enabled = isOwner
   }
   
+  override func viewWillAppear(animated: Bool) {
+    LocalGameManager.sharedInstance.session.delegate = self
+  }
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
   
-  
-  /*
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
+  @IBAction func onStartRound(sender: AnyObject) {
+    let game = LocalGameManager.sharedInstance.game
+    
+    let newRound = Round(toGuessCards: game.allCards, roundTypeRawValue: game.currentRoundIndex + 1, game: game)
+    game.rounds.append(newRound)
+    
+    LocalGameManager.sharedInstance.session.broadcast("startRound", value: game)
+    performSegueWithIdentifier("onRoundStart", sender: self)
   }
-  */
 
+  func sessionManager(sessionManager: SessionManager, didReceiveData data: NSDictionary) {
+    let message = data["message"] as! String
 
+    if message == "startRound" {
+      let game = data["value"] as! Game
+      LocalGameManager.sharedInstance.game = game
+      performSegueWithIdentifier("onRoundStart", sender: self)
+    }
+  }
+
+  func sessionManager(sessionManager: SessionManager, peerDidConnect peerID: MCPeerID) {}
+  func sessionManager(sessionManager: SessionManager, thisSessionDidConnect: Bool) {}
 }

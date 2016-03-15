@@ -51,6 +51,10 @@ class Game: NSObject, NSCoding {
       return rounds[currentRoundIndex]
     }
   }
+  
+  var currentPlayer: Player {
+    return allPlayers[currentPlayerIndex]
+  }
 
   // Returns an array where the index is the team id and the value is the team's score.
   var scores: [Int] {
