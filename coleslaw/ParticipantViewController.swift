@@ -52,6 +52,7 @@ class ParticipantViewController: UIViewController, SessionManagerDelegate {
       
       LocalGameManager.sharedInstance.localPlayer = player
       LocalGameManager.sharedInstance.game = game
+      LocalGameManager.sharedInstance.session = session
       
       performSegueWithIdentifier("participantStartGame", sender: self)
     }

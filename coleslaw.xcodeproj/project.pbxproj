@@ -13,7 +13,6 @@
 		2223C08A1C8E6EEA00E1D5D0 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */; };
 		2223C08C1C8E709300E1D5D0 /* RoundResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C08B1C8E709300E1D5D0 /* RoundResultCell.swift */; };
 		2223C08E1C8E879600E1D5D0 /* Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C08D1C8E879600E1D5D0 /* Round.swift */; };
-		225500721C96731E001AD54F /* RoundStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225500711C96731E001AD54F /* RoundStartViewController.swift */; };
 		225B25DB1C8E88360006F892 /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25DA1C8E88360006F892 /* Turn.swift */; };
 		225B25DF1C8E88780006F892 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25DE1C8E88780006F892 /* Player.swift */; };
 		225B25E31C8EBB880006F892 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25E21C8EBB880006F892 /* Team.swift */; };
@@ -46,7 +45,6 @@
 		2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		2223C08B1C8E709300E1D5D0 /* RoundResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundResultCell.swift; sourceTree = "<group>"; };
 		2223C08D1C8E879600E1D5D0 /* Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Round.swift; sourceTree = "<group>"; };
-		225500711C96731E001AD54F /* RoundStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundStartViewController.swift; sourceTree = "<group>"; };
 		225B25DA1C8E88360006F892 /* Turn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
 		225B25DE1C8E88780006F892 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		225B25E21C8EBB880006F892 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 				2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */,
 				8A3E740C1C96538E00D7F40C /* ParticipantViewController.swift */,
 				8A3E740E1C9653AF00D7F40C /* OwnerViewController.swift */,
-				225500711C96731E001AD54F /* RoundStartViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -354,7 +351,6 @@
 				8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */,
 				8A599C5C1C8B79720068C657 /* AppDelegate.swift in Sources */,
 				2223BD551C96883D00C7E4DF /* Test.swift in Sources */,
-				225500721C96731E001AD54F /* RoundStartViewController.swift in Sources */,
 				225B47731C94FE1700145925 /* FirebaseClient.swift in Sources */,
 				2223C0871C8D517200E1D5D0 /* StartGameViewController.swift in Sources */,
 				2223C08C1C8E709300E1D5D0 /* RoundResultCell.swift in Sources */,

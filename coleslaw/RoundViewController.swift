@@ -11,7 +11,6 @@ import UIKit
 class RoundViewController: UIViewController {
 
   var statusView: StatusView!
-  var teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
 
   @IBOutlet var infoView: UIView!
   @IBOutlet var startButton: UIButton!
@@ -19,12 +18,15 @@ class RoundViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    view.backgroundColor = LocalGameManager.sharedInstance.localColor
+
+    
     statusView = StatusView()
     statusView.translatesAutoresizingMaskIntoConstraints = false
     statusView.renderInView(view)
     
     // view background
-    view.backgroundColor = teamColors[0]
+    view.backgroundColor = LocalGameManager.sharedInstance.localColor
     
     //button
     startButton.layer.cornerRadius = 16
@@ -32,7 +34,10 @@ class RoundViewController: UIViewController {
     startButton.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
     startButton.titleLabel!.textAlignment = NSTextAlignment.Center
     startButton.titleLabel!.font = UIFont(name: "SFUIDisplay-Medium", size: 40)
-    // Do any additional setup after loading the view.
+
+    let isOwner = LocalGameManager.sharedInstance.session.isOwner
+    startButton.hidden = !isOwner
+    startButton.enabled = isOwner
   }
   
   override func didReceiveMemoryWarning() {

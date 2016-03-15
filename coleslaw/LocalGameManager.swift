@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class LocalGameManager {
   class var sharedInstance: LocalGameManager {
@@ -17,10 +18,19 @@ class LocalGameManager {
     return Static.instance
   }
   
-  func amCurrentPlayer(){
+  func isCurrentPlayer(){
     game.currentPlayerIndex == localPlayer.id
   }
   
   var game: Game!
+  
   var localPlayer: Player!
+  
+  var session: SessionManager!
+  
+  var localColor: UIColor {
+    get {
+      return localPlayer.team.color
+    }
+  }
 }

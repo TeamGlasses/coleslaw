@@ -1,49 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ues-Zc-ctP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="jCu-Az-usS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Round Start View Controller-->
-        <scene sceneID="5o1-nZ-IFb">
-            <objects>
-                <viewController id="tML-GY-w7u" customClass="RoundStartViewController" customModule="coleslaw" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9lp-rr-K0Z"/>
-                        <viewControllerLayoutGuide type="bottom" id="yVY-8I-Zbf"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3gr-vc-mla">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XoH-zF-xpa">
-                                <rect key="frame" x="119" y="518" width="82" height="30"/>
-                                <state key="normal" title="Start Round"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-oA-Lrk">
-                                <rect key="frame" x="105" y="254" width="110.5" height="60"/>
-                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="50"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="YRO-oA-Lrk" firstAttribute="centerY" secondItem="3gr-vc-mla" secondAttribute="centerY" id="P32-ct-uRe"/>
-                            <constraint firstItem="YRO-oA-Lrk" firstAttribute="centerX" secondItem="3gr-vc-mla" secondAttribute="centerX" id="ecR-iq-Ivq"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="roundStartLabel" destination="YRO-oA-Lrk" id="xX2-xN-tcM"/>
-                        <outlet property="startRoundButton" destination="XoH-zF-xpa" id="d74-u6-Koj"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="297-Xc-3ZF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-41" y="399"/>
-        </scene>
         <!--Cards View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -384,7 +346,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggM-Ch-Hy1">
                                 <rect key="frame" x="0.0" y="20" width="320" height="284"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Connected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bva-tV-dEi">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bva-tV-dEi">
                                         <rect key="frame" x="90" y="148" width="142" height="36"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -397,9 +359,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I0N-vj-kUl">
-                                        <rect key="frame" x="144" y="40" width="32" height="108"/>
+                                        <rect key="frame" x="137" y="40" width="47" height="108"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="80"/>
-                                        <state key="normal" title="1">
+                                        <state key="normal" title="0">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
@@ -451,7 +413,7 @@
                     <connections>
                         <outlet property="connectionsLabel" destination="I0N-vj-kUl" id="tL0-Cp-w4g"/>
                         <outlet property="startButton" destination="3ZO-nT-b5G" id="yBB-Zz-dJw"/>
-                        <segue destination="tML-GY-w7u" kind="modal" identifier="ownerStartGame" id="LaE-4R-wx5"/>
+                        <segue destination="wRZ-oc-Rql" kind="modal" identifier="ownerStartGame" id="kwQ-qY-Uc1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OUB-WZ-dVZ" sceneMemberID="firstResponder"/>
@@ -507,7 +469,7 @@
                     <navigationItem key="navigationItem" id="znZ-DR-M1c"/>
                     <connections>
                         <outlet property="connectedView" destination="Jrf-BQ-mHK" id="8iF-44-oKR"/>
-                        <segue destination="tML-GY-w7u" kind="modal" identifier="participantStartGame" id="EyJ-5k-kv0"/>
+                        <segue destination="wRZ-oc-Rql" kind="modal" identifier="participantStartGame" id="kqc-C7-4HS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypK-fc-BlA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -562,10 +524,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Kj-Q3-NUE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-51" y="1047"/>
+            <point key="canvasLocation" x="-38" y="399"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EyJ-5k-kv0"/>
+        <segue reference="kwQ-qY-Uc1"/>
     </inferredMetricsTieBreakers>
 </document>

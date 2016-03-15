@@ -67,6 +67,7 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
     
     LocalGameManager.sharedInstance.game = game
     LocalGameManager.sharedInstance.localPlayer = ownerPlayer
+    LocalGameManager.sharedInstance.session = session
 
     for (index, peer) in session.peers.enumerate() {
       var value = [String: AnyObject]()
