@@ -8,8 +8,20 @@
 
 import Foundation
 
+@objc protocol GameDelegate {
+//  optional func game(game: Game, turnDidStart turn: Turn)
+//
+//  optional func game(game: Game, roundDidStart round: Round)
+
+  optional func gameTurnDidStart(game: Game)
+  optional func gameTurnDidEnd(game: Game)
+  optional func gameRoundDidEnd(game: Game)
+  optional func gameDidEnd(game: Game)
+}
+
 class Game: NSObject, NSCoding {
   // Real properties.
+  var delegate: GameDelegate!
   var allCards: [Card]
   var allTeams: [Team]
   var allPlayers: [Player]
@@ -79,6 +91,35 @@ class Game: NSObject, NSCoding {
   }
   // End computed properties.
 
+  func turnStart() {
+    let newTurn = Turn(activePlayer: allPlayers[currentPlayerIndex])
+    rounds[currentRoundIndex].turns.append(newTurn)
+    
+    delegate.gameTurnDidStart!(self)
+    LocalGameManager.sharedInstance.session.broadcast("turnStart", value: self)
+  }
+  
+  func turnEnd(){
+    currentPlayerIndex += 1
+    
+    if currentRound.isOver {
+      roundEnd()
+    } else {
+      delegate.gameTurnDidEnd!(self)
+      LocalGameManager.sharedInstance.session.broadcast("turnEnd", value: self)
+    }
+  }
+  
+  func roundEnd(){
+    if isOver {
+      delegate.gameDidEnd!(self)
+      LocalGameManager.sharedInstance.session.broadcast("gameEnd", value: self)
+    } else {
+      delegate.gameRoundDidEnd!(self)
+      LocalGameManager.sharedInstance.session.broadcast("roundEnd", value: self)
+    }
+  }
+  
   // MARK: NSCoding
   // See https://developer.apple.com/library/ios/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Lesson10.html
   func encodeWithCoder(aCoder: NSCoder) {
