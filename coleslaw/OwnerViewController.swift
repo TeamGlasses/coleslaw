@@ -16,7 +16,6 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
   @IBOutlet weak var dismissButton: UIButton!
   @IBOutlet weak var startButton: UIButton!
 
-  var game: Game!
   var allCards: [Card]!
   
   var session = OwnerSessionManager()
@@ -39,39 +38,16 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
     super.didReceiveMemoryWarning()
   }
 
-  func createGame() {
-    var teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
-    
-    let redTeam = Team(id: 0, name: "Team Red", color: teamColors[0])
-
-    let blueTeam = Team(id: 1, name: "Team Blue", color: teamColors[1])
-    
-    let allTeams = [redTeam, blueTeam]
-
-    var allPlayers = [Player]()
-
-    for (index, _) in session.peers.enumerate() {
-      if index % 2 == 0 {
-        allPlayers.append(Player(id: index, team: allTeams[0]))
-      } else {
-        allPlayers.append(Player(id: index, team: allTeams[1]))
-      }
-    }
-    
-    // Add owner to game
-    let ownerIndex = session.peers.count
-    let ownerPlayer = Player(id: ownerIndex, team: allTeams[ownerIndex % 2])
-    allPlayers.append(ownerPlayer)
-    
-    game = Game(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers)
+  func createGameAndBroadcast() {
+    let game = Game.createGame(withCards: allCards, andNumberOfPeers: session.peers.count)
     
     LocalGameManager.sharedInstance.game = game
-    LocalGameManager.sharedInstance.localPlayer = ownerPlayer
+    LocalGameManager.sharedInstance.localPlayer = game.ownerPlayer
     LocalGameManager.sharedInstance.session = session
 
     for (index, peer) in session.peers.enumerate() {
       var value = [String: AnyObject]()
-      value["player"] = allPlayers[index]
+      value["player"] = game.allPlayers[index]
       value["game"] = game
 
       session.sendMessage("assignPlayerAndGame", value: value, toPeer: peer)
@@ -79,7 +55,7 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
   }
   
   @IBAction func onStartGame(sender: UIButton) {
-    createGame()
+    createGameAndBroadcast()
     performSegueWithIdentifier("ownerStartGame", sender: self)
   }
   
