@@ -40,7 +40,17 @@ class CardView: UIView {
     super.init(frame: frame)
     initSubviews()
     
-    titleLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 60)
+    titleLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 50)
+    titleLabel.textColor = UIColor(red: 56.0/255.0, green: 56.0/255.0, blue: 56.0/255.0, alpha: 1)
+//    titleLabel.numberOfLines = 1;
+    titleLabel.minimumScaleFactor = 30 / titleLabel.font.pointSize;
+//    titleLabel.adjustsFontSizeToFitWidth = true
+//    
+//    titleLabel.numberOfLines = 0;
+//    titleLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+//    let maximumLabelSize = CGSizeMake(titleLabel.frame.size.width, CGFloat.max)
+//    let expectSize = titleLabel.sizeThatFits(maximumLabelSize)
+//    titleLabel.frame = CGRectMake(titleLabel.frame.origin.x, titleLabel.frame.origin.y, expectSize.width, expectSize.height)
   }
   
   func renderFakeCard(parentView: UIView, multiplier: CGFloat, bottomOffset: CGFloat) {

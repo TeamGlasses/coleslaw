@@ -115,7 +115,11 @@ class CardsViewController: UIViewController {
     timer.invalidate()
     startButton.hidden = false
     
+    for fakeCard in fakeCards {
+      fakeCard.removeFromSuperview()
+    }
     
+    fakeCards = []
 
     if game.currentRound.isOver {
       roundEnd()
@@ -155,12 +159,12 @@ class CardsViewController: UIViewController {
     }
   }
 
-  func showNextCard(){
+  func showNextCard(advanced: Bool){
     activeCardView.removeFromSuperview()
 
     print(game.currentRound.toGuessCards.count)
     print(fakeCards.count)
-    if game.currentRound.toGuessCards.count < 3 && fakeCards.count > 0 {
+    if game.currentRound.toGuessCards.count < 3 && fakeCards.count > 0 && advanced {
       fakeCards.popLast()!.removeFromSuperview()
     }
     
@@ -214,12 +218,12 @@ extension CardsViewController: CardViewDelegate {
     if currentRound.isOver {
       turnEnd()
     } else {
-      showNextCard()
+      showNextCard(true)
     }
   }
 
   func cardViewDismissed(cardView: CardView) {
-    showNextCard()
+    showNextCard(false)
   }
 
   func cardViewFinishedAnimating(cardView: CardView) {
