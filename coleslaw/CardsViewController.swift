@@ -22,6 +22,7 @@ class CardsViewController: UIViewController {
   var teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
   
   var statusView: StatusView!
+  var fakeCards: [UIView]!
   
   // ideally all the UI stuff shoudl be in a separate view class
   override func viewWillAppear(animated: Bool) {
@@ -97,6 +98,9 @@ class CardsViewController: UIViewController {
     timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
 
     addCardView(game.currentRound.randomCard)
+    
+    fakeCards = [addFakeCardView(Card(title: ""), multiplier: 0.98, bottomOffset: -7),
+    addFakeCardView(Card(title: ""), multiplier: 0.96, bottomOffset: -14)]
   }
 
   func turnEnd() {
@@ -110,6 +114,8 @@ class CardsViewController: UIViewController {
 
     timer.invalidate()
     startButton.hidden = false
+    
+    
 
     if game.currentRound.isOver {
       roundEnd()
@@ -152,7 +158,23 @@ class CardsViewController: UIViewController {
   func showNextCard(){
     activeCardView.removeFromSuperview()
 
+    print(game.currentRound.toGuessCards.count)
+    print(fakeCards.count)
+    if game.currentRound.toGuessCards.count < 3 && fakeCards.count > 0 {
+      fakeCards.popLast()!.removeFromSuperview()
+    }
+    
     addCardView(game.currentRound.randomCard)
+  }
+  
+  func addFakeCardView(card: Card, multiplier: CGFloat, bottomOffset: CGFloat) -> UIView {
+    let cardView = CardView()
+    cardView.card = card
+    cardView.translatesAutoresizingMaskIntoConstraints = false
+    cardView.renderFakeCard(view, multiplier: multiplier, bottomOffset: bottomOffset)
+    view.sendSubviewToBack(cardView)
+    
+    return cardView as UIView
   }
 
   func addCardView(card: Card){

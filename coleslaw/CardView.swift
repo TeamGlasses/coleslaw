@@ -18,7 +18,7 @@ class CardView: UIView {
   @IBOutlet var contentView: UIView!
   @IBOutlet weak var titleLabel: UILabel!
   
-  let animationDuration: NSTimeInterval = 0.3
+  let animationDuration: NSTimeInterval = 0.2
   
   var delegate: CardViewDelegate!
   var card: Card!
@@ -43,6 +43,29 @@ class CardView: UIView {
     titleLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 60)
   }
   
+  func renderFakeCard(parentView: UIView, multiplier: CGFloat, bottomOffset: CGFloat) {
+    titleLabel.text = String(UnicodeScalar(0x1F4A9))
+    parentView.addSubview(self)
+    
+    let topConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: parentView, attribute: .Height, multiplier: (1/2), constant: 1.0)
+    topConstraint.priority = UILayoutPriorityDefaultHigh
+    topConstraint.active = true
+    
+    let bottomConstraint = NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .Bottom, multiplier: 1.0, constant: bottomOffset)
+    bottomConstraint.priority = UILayoutPriorityDefaultHigh
+    bottomConstraint.active = true
+    
+    let widthConstraint = NSLayoutConstraint(item: self, attribute: .Width, relatedBy: .Equal, toItem: parentView, attribute: .Width, multiplier: multiplier, constant: 0)
+    widthConstraint.priority = UILayoutPriorityDefaultHigh
+    widthConstraint.active = true
+    
+    centerConstraint = NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: parentView, attribute: .CenterX, multiplier: 1.0, constant: 0)
+    centerConstraint.priority = UILayoutPriorityDefaultHigh
+    centerConstraint.active = true
+    
+    unbindPan()
+  }
+  
   func renderInView(parentView: UIView){
     titleLabel.text = card.title
     
@@ -63,23 +86,6 @@ class CardView: UIView {
     centerConstraint = NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: parentView, attribute: .CenterX, multiplier: 1.0, constant: 0)
     centerConstraint.priority = UILayoutPriorityDefaultHigh
     centerConstraint.active = true
-    
-    //
-//    leftConstraint = NSLayoutConstraint(item: self, attribute: .Leading, relatedBy: .Equal, toItem: parentView, attribute: .Leading, multiplier: 1.0, constant: 8)
-//    leftConstraint.priority = UILayoutPriorityDefaultHigh;
-//    leftConstraint.active = true
-//    
-//    rightConstraint = NSLayoutConstraint(item: self, attribute: .Trailing, relatedBy: .Equal, toItem: parentView, attribute: .Trailing, multiplier: 1.0, constant: 8)
-//    rightConstraint.priority = UILayoutPriorityDefaultHigh;
-//    rightConstraint.active = true
-    
-//    parentView.layoutIfNeeded()
-//    UIView.animateWithDuration(animationDuration * 10, animations: { () -> Void in
-//      self.leftConstraint.constant = self.contentView.frame.size.width
-//      self.rightConstraint.constant = -1 * self.contentView.frame.size.width
-//
-//      parentView.layoutIfNeeded()
-//    }, completion: nil)
   }
   
   func initSubviews() {
@@ -88,16 +94,26 @@ class CardView: UIView {
     nib.instantiateWithOwner(self, options: nil)
     contentView.frame = bounds
     contentView.layer.cornerRadius = 16
-    contentView.clipsToBounds = true
+    contentView.layer.shadowOpacity = 0.2
+    contentView.layer.shadowOffset = CGSizeMake(0, 0)
+    contentView.layer.shadowRadius = 16
+    contentView.layer.shadowColor = UIColor.blackColor().CGColor
+    contentView.layer.masksToBounds = false
+    contentView.clipsToBounds = false
     addSubview(contentView)
     
     bindPan()
   }
   
-  func bindPan(){
+  func bindPan() {
     let recognizer = UIPanGestureRecognizer(target: self, action: "onPan:")
     contentView.addGestureRecognizer(recognizer)
   }
+  
+  func unbindPan() {
+    contentView.gestureRecognizers?.forEach(contentView.removeGestureRecognizer)
+  }
+
 
   func onPan(sender: UIPanGestureRecognizer){
     
@@ -115,15 +131,14 @@ class CardView: UIView {
 
       if isAdvanceable(velocity, translation: translation) {
         // Card was swiped right
-        translateViewWithAnimation(2 * contentView.frame.width, withRotation: true, cardComplete: true)
-        delegate.cardViewAdvanced(self)
+        translateViewWithAnimation(2 * contentView.frame.width, withRotation: true, cardComplete: true, callback: delegate.cardViewAdvanced)
+        //delegate.cardViewAdvanced(self)
       } else if isDismissable(velocity, translation: translation){
         // Card was swiped left
-        translateViewWithAnimation(-2 * contentView.frame.width, withRotation: true, cardComplete: true)
-        delegate.cardViewDismissed(self)
+        translateViewWithAnimation(-2 * contentView.frame.width, withRotation: true, cardComplete: true, callback: delegate.cardViewDismissed)
       } else {
         // Card wasn't swiped enought to count as advancing or dismissal
-        translateViewWithAnimation(0, withRotation: false, cardComplete: false)
+        translateViewWithAnimation(0, withRotation: false, cardComplete: false, callback: nil)
       }
     }
   }
@@ -140,24 +155,21 @@ class CardView: UIView {
       }
       
       contentView.transform = CGAffineTransformRotate(cardTransform, angle)
-      
-      let x = centerConstraint.constant + self.contentView.frame.width
-
-      if cardComplete {
-        centerConstraint.constant = x
-      }
     } else {
       contentView.transform = CGAffineTransformIdentity
     }
   }
   
-  func translateViewWithAnimation(amount: CGFloat, withRotation: Bool, cardComplete: Bool){
-    contentView.superview!.layoutIfNeeded()
+  func translateViewWithAnimation(amount: CGFloat, withRotation: Bool, cardComplete: Bool, callback: ((CardView) -> ())?){
+    self.contentView.superview!.layoutIfNeeded()
     UIView.animateWithDuration(animationDuration, animations: { () -> Void in
       self.translateView(amount, withRotation: withRotation, cardComplete: cardComplete)
-      self.contentView.superview!.layoutIfNeeded()
+      self.contentView.superview!.superview!.layoutIfNeeded()
     }, completion: { (_: Bool) -> Void in
       self.delegate.cardViewFinishedAnimating(self)
+      if callback != nil {
+        callback!(self)
+      }
     })
   }
   
