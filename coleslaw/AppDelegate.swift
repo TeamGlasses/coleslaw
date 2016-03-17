@@ -8,6 +8,8 @@
 
 import UIKit
 
+let GameUpdatedNotification = "GameUpdatedNotification"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

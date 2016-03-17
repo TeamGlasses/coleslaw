@@ -26,7 +26,11 @@ class LocalGameManager {
     return game.currentPlayer.team.id == localPlayer.team.id
   }
   
-  var game: Game!
+  var game: Game! {
+    didSet {
+      NSNotificationCenter.defaultCenter().postNotificationName(GameUpdatedNotification, 	object: self, userInfo: nil)
+    }
+  }
   
   var localPlayer: Player!
   
