@@ -55,8 +55,17 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
   }
   
   @IBAction func onStartGame(sender: UIButton) {
-    createGameAndBroadcast()
-    performSegueWithIdentifier("ownerStartGame", sender: self)
+    if session.peers.count > 0 {
+      createGameAndBroadcast()
+      performSegueWithIdentifier("ownerStartGame", sender: self)
+    } else {
+      let alertController = UIAlertController(title: "Nobody connected!",
+        message: nil,
+        preferredStyle: .Alert)
+      let cancelAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+      alertController.addAction(cancelAction)
+      presentViewController(alertController, animated: true, completion: nil)
+    }
   }
   
   func sessionManager(sessionManager: SessionManager, peerDidConnect peerID: MCPeerID) {

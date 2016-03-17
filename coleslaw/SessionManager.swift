@@ -54,6 +54,7 @@ class SessionManager: NSObject, MCSessionDelegate {
   }
   
   private func sendMessage(message: String, value: AnyObject, toPeers: [MCPeerID]){
+    
     var payload = [String: AnyObject]()
     payload["message"] = message
     payload["value"] = value
