@@ -20,6 +20,8 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
   
   var session = OwnerSessionManager()
   
+  var allowSoloPlay = true
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -55,7 +57,7 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
   }
   
   @IBAction func onStartGame(sender: UIButton) {
-    if session.peers.count > 0 {
+    if allowSoloPlay || session.peers.count > 0 {
       createGameAndBroadcast()
       performSegueWithIdentifier("ownerStartGame", sender: self)
     } else {
