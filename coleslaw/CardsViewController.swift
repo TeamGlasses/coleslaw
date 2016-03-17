@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-class CardsViewController: UIViewController, SessionManagerDelegate {
+class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegate {
 
   var activeCardView: CardView!
 
@@ -23,6 +23,8 @@ class CardsViewController: UIViewController, SessionManagerDelegate {
   var localGame: LocalGameManager {
     return LocalGameManager.sharedInstance
   }
+  
+  var timeRemaining = 60
   
   // ideally all the UI stuff shoudl be in a separate view class
   override func viewWillAppear(animated: Bool) {
@@ -38,19 +40,21 @@ class CardsViewController: UIViewController, SessionManagerDelegate {
     startButton.titleLabel!.font = UIFont(name: "SFUIDisplay-Medium", size: 40)
     
     localGame.session.delegate = self
+    localGame.game.delegate = self
   }
   
   func prepareNextTurn(){
     startButton.hidden = false
     
     if localGame.isCurrentPlayer {
-      startButton.titleLabel!.text = "Start Turn"
+      startButton.enabled = true
+      startButton.setTitle("Start Turn", forState: .Normal)
     } else if localGame.isOnCurrentTeam {
       startButton.enabled = false
-      startButton.titleLabel!.text = "Guess!"
+      startButton.setTitle("Guess!", forState: .Normal)
     } else {
       startButton.enabled = false
-      startButton.titleLabel!.text = "Wait!"
+      startButton.setTitle("Wait!", forState: .Normal)
     }
   }
 
@@ -70,67 +74,65 @@ class CardsViewController: UIViewController, SessionManagerDelegate {
   }
 
   func gameStart() {
-    prepareNextTurn()
     statusView.game = localGame.game
+    prepareNextTurn()
   }
   
-  func turnStart() {
-    let game = localGame.game
-    let newTurn = Turn(activePlayer: game.allPlayers[game.currentPlayerIndex])
-    game.rounds[game.currentRoundIndex].turns.append(newTurn)
-
-    // move UI logic to separate class using delegates?
-    startButton.hidden = true
-    startButton.setTitle("", forState: .Normal)
-
+  func updateOnTurnStart(){
     timerLabel.text = "1:00"
     timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
 
-    addCardView(game.currentRound.randomCard)
-  }
+    if localGame.isCurrentPlayer {
+      startButton.hidden = true
+      startButton.setTitle("", forState: .Normal)
 
-  func turnEnd() {
-    let game = localGame.game
-    game.currentPlayerIndex += 1
-    statusView.game = game
+      addCardView(localGame.game.currentRound.randomCard)
+    }
+  }
+  
+  func updateOnTurnEnd(){
+    // TODO: Remove
+    statusView.game = LocalGameManager.sharedInstance.game
     activeCardView.removeFromSuperview()
     timer.invalidate()
-
     prepareNextTurn()
-    localGame.session.broadcast("turnEnd", value: game)
   }
-
-  func roundEnd() {
-    let game = localGame.game
-
+  
+  func updateOnRoundEnd(){
     if activeCardView != nil {
       activeCardView.removeFromSuperview()
     }
 
     timer.invalidate()
-
-    if game.isOver {
-      gameEnd()
-    } else {
-      localGame.session.broadcast("roundEnd", value: game)
-      dismissViewControllerAnimated(true, completion: nil)
-    }
+    dismissViewControllerAnimated(true, completion: nil)
   }
 
-  func gameEnd() {
+  func updateOnGameEnd(){
     performSegueWithIdentifier("moveToResults", sender: self)
   }
+  
+  func gameDidEnd(game: Game) {
+    updateOnGameEnd()
+  }
 
+  func gameRoundDidEnd(game: Game) {
+    updateOnRoundEnd()
+  }
+  
+  func gameTurnDidEnd(game: Game) {
+    updateOnTurnEnd()
+  }
+  
+  func gameTurnDidStart(game: Game){
+    updateOnTurnStart()
+  }
+  
   func updateTimer(timer: NSTimer) {
-    let game = localGame.game
-    let currentRound = game.rounds[game.currentRoundIndex]
-    let currentTurn = currentRound.turns[currentRound.currentTurnIndex]
-    currentTurn.updateTimer()
-
-    timerLabel.text = String(format: "0:%02d", currentTurn.timeRemaining)
-
-    if (currentTurn.timeRemaining == 0) {
-      turnEnd()
+    timeRemaining -= 1
+    timerLabel.text = String(format: "0:%02d", timeRemaining)
+    
+    if (localGame.isCurrentPlayer && timeRemaining == 0) {
+      localGame.game.turnEnd()
     }
   }
 
@@ -150,7 +152,7 @@ class CardsViewController: UIViewController, SessionManagerDelegate {
   }
   
   @IBAction func onStartTap(sender: AnyObject) {
-    turnStart()
+    localGame.game.turnStart()
   }
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -165,10 +167,14 @@ class CardsViewController: UIViewController, SessionManagerDelegate {
 
     let message = data["message"] as! String
     
-    if message == "turnEnd" {
-      prepareNextTurn()
+    if message == "turnStart" {
+      updateOnTurnStart()
+    } else if message == "turnEnd" {
+      updateOnTurnEnd()
     } else if message == "roundEnd" {
-      dismissViewControllerAnimated(true, completion: nil)
+      updateOnRoundEnd()
+    } else if message == "gameEnd" {
+      updateOnGameEnd()
     }
   }
   
@@ -187,7 +193,7 @@ extension CardsViewController: CardViewDelegate {
     statusView.scoreLabels[currentTurn.currentTeamIndex].text = "\(game.scores[currentTurn.currentTeamIndex])"
 
     if currentRound.isOver {
-      turnEnd()
+      game.turnEnd()
     } else {
       showNextCard()
     }
