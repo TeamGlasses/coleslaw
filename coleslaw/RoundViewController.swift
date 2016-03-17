@@ -34,15 +34,16 @@ class RoundViewController: UIViewController, SessionManagerDelegate, GameDelegat
     startButton.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
     startButton.titleLabel!.textAlignment = NSTextAlignment.Center
     startButton.titleLabel!.font = UIFont(name: "SFUIDisplay-Medium", size: 40)
-
-    let isOwner = LocalGameManager.sharedInstance.session.isOwner
-    startButton.hidden = !isOwner
-    startButton.enabled = isOwner
   }
   
   override func viewWillAppear(animated: Bool) {
     LocalGameManager.sharedInstance.session.delegate = self
     LocalGameManager.sharedInstance.game.delegate = self
+
+    let isOwner = LocalGameManager.sharedInstance.session.isOwner
+    startButton.hidden = !isOwner
+    startButton.enabled = isOwner
+    startButton.setTitle("Start Round \(LocalGameManager.sharedInstance.game.currentRoundIndex+2)", forState: .Normal)
   }
   
   override func didReceiveMemoryWarning() {
