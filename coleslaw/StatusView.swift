@@ -114,14 +114,12 @@ class StatusView: UIView {
     roundView.layer.cornerRadius = 10.0
     roundView.clipsToBounds = true
     roundLabel.textColor = UIColor.whiteColor()
-    roundLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
+    roundLabel.font = fontWithSize(15)
     
     teamAScoreView.layer.cornerRadius = 8.0
     teamBScoreView.layer.cornerRadius = 8.0
     teamAScoreView.clipsToBounds = true
     teamBScoreView.clipsToBounds = true
-    teamAScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
-    teamBScoreLabel.font = UIFont(name: "SFUIText-Semibold", size: 21)
   }
 
   func updateStatus() {
@@ -151,7 +149,7 @@ class StatusView: UIView {
 
   func updateScoreViewSizes(scoreView: UIView, withFontSize fontSize: CGFloat, height: CGFloat, width: CGFloat){
     if let label = scoreView.viewWithTag(labelTag) as? UILabel {
-      label.font.fontWithSize(fontSize)
+      label.font = fontWithSize(fontSize)
     }
     
     var heightConstraint: NSLayoutConstraint!
@@ -167,5 +165,9 @@ class StatusView: UIView {
     
     heightConstraint.constant = height
     widthConstraint.constant = width
+  }
+  
+  func fontWithSize(size: CGFloat) -> UIFont {
+    return UIFont(name: "SFUIText-Semibold", size: size)!
   }
 }
