@@ -47,8 +47,10 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
   func prepareNextTurn(){
     startButton.hidden = false
     
-    for fakeCard in fakeCards {
-      fakeCard.removeFromSuperview()
+    if fakeCards != nil {
+      for fakeCard in fakeCards {
+        fakeCard.removeFromSuperview()
+      }
     }
     
     fakeCards = []
