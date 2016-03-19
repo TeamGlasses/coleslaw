@@ -52,6 +52,10 @@ class StatusView: UIView {
     contentView.frame = bounds
     addSubview(contentView)
     
+    NSNotificationCenter.defaultCenter().addObserverForName(GameUpdatedNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: {(notification: NSNotification!) -> () in
+      self.game = LocalGameManager.sharedInstance.game
+    })
+    
     scoreLabels = [teamAScoreLabel, teamBScoreLabel]
   }
   
