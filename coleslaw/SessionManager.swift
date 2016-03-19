@@ -44,6 +44,7 @@ class SessionManager: NSObject, MCSessionDelegate {
   }
   
   func start(){}
+  func stop(){}
   
   func broadcast(message: String, value: AnyObject){
     sendMessage(message, value: value, toPeers: self.peers)
@@ -117,6 +118,10 @@ class OwnerSessionManager: SessionManager, MCNearbyServiceBrowserDelegate {
     browser.startBrowsingForPeers()
   }
   
+  override func stop(){
+    browser.stopBrowsingForPeers()
+  }
+  
   // BrowserDelegate Interface
   
   // Automatically invite every peer found
@@ -141,6 +146,10 @@ class ParticipantSessionManager: SessionManager, MCNearbyServiceAdvertiserDelega
   
   override func start(){
     advertiser.startAdvertisingPeer()
+  }
+  
+  override func stop(){
+    advertiser.stopAdvertisingPeer()
   }
   
   // AdvertiserDelegate Interface

@@ -54,6 +54,8 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
 
       session.sendMessage("assignPlayerAndGame", value: value, toPeer: peer)
     }
+    
+    session.stop()
   }
   
   @IBAction func onStartGame(sender: UIButton) {
