@@ -9,6 +9,8 @@
 import UIKit
 import MultipeerConnectivity
 
+let TURN_LENGTH = 10
+
 class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegate {
 
   var activeCardView: CardView!
@@ -24,22 +26,11 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
   var localGame: LocalGameManager {
     return LocalGameManager.sharedInstance
   }
-  
-  var timeRemaining = 10
+
+  var timeRemaining = TURN_LENGTH
   
   // ideally all the UI stuff shoudl be in a separate view class
   override func viewWillAppear(animated: Bool) {
-    timerLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 76)
-    
-    // view background
-    view.backgroundColor = LocalGameManager.sharedInstance.localColor
-    
-    startButton.layer.cornerRadius = 16
-    startButton.clipsToBounds = true
-    startButton.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
-    startButton.titleLabel!.textAlignment = NSTextAlignment.Center
-    startButton.titleLabel!.font = UIFont(name: "SFUIDisplay-Medium", size: 40)
-    
     localGame.session.delegate = self
     localGame.game.delegate = self
   }
@@ -70,25 +61,34 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    timerLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 76)
+    
+    // view background
+    view.backgroundColor = LocalGameManager.sharedInstance.localColor
+    
+    startButton.layer.cornerRadius = 16
+    startButton.clipsToBounds = true
+    startButton.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+    startButton.titleLabel!.textAlignment = NSTextAlignment.Center
+    startButton.titleLabel!.font = UIFont(name: "SFUIDisplay-Medium", size: 40)
+    
     statusView = StatusView()
     statusView.translatesAutoresizingMaskIntoConstraints = false
     statusView.renderInView(view)
 
-    gameStart()
+    statusView.game = localGame.game
+    prepareNextTurn()
+    initializeTimer()
   }
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning() 
     // Dispose of any resources that can be recreated.
   }
-
-  func gameStart() {
-    statusView.game = localGame.game
-    prepareNextTurn()
-  }
   
   func updateOnTurnStart(){
-    timerLabel.text = "1:00"
+    initializeTimer()
+    
     timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateTimer:"), userInfo: nil, repeats: true)
 
     if localGame.isCurrentPlayer {
@@ -144,11 +144,20 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
   
   func updateTimer(timer: NSTimer) {
     timeRemaining -= 1
-    timerLabel.text = String(format: "0:%02d", timeRemaining)
+    updateTimerLabel()
     
     if (localGame.isCurrentPlayer && timeRemaining <= 0) {
       localGame.game.turnEnd()
     }
+  }
+  
+  func initializeTimer(){
+    timeRemaining = TURN_LENGTH
+    updateTimerLabel()
+  }
+  
+  func updateTimerLabel(){
+    timerLabel.text = String(format: "0:%02d", timeRemaining)
   }
 
   func showNextCard(advanced: Bool){
