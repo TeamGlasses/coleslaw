@@ -13,7 +13,7 @@ class RoundViewController: UIViewController, SessionManagerDelegate, GameDelegat
 
   var statusView: StatusView!
 
-  @IBOutlet var infoView: UIView!
+  @IBOutlet var infoView: InfoView!
   @IBOutlet var startButton: UIButton!
   
   override func viewDidLoad() {
@@ -34,6 +34,14 @@ class RoundViewController: UIViewController, SessionManagerDelegate, GameDelegat
     startButton.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
     startButton.titleLabel!.textAlignment = NSTextAlignment.Center
     startButton.titleLabel!.font = UIFont(name: "SFUIDisplay-Medium", size: 40)
+
+    // info view
+    infoView.layer.cornerRadius = 16
+    infoView.clipsToBounds = true
+    infoView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+    infoView.rulesLabel.textAlignment = NSTextAlignment.Center
+    infoView.rulesLabel.font = UIFont(name: "SFUIDisplay-Medium", size: 24)
+    infoView.roundType = RoundType(rawValue: LocalGameManager.sharedInstance.game.currentRoundIndex + 1)
   }
   
   override func viewWillAppear(animated: Bool) {

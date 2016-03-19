@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="jCu-Az-usS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="jCu-Az-usS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -489,11 +489,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="vIB-oV-VW1">
-                                <rect key="frame" x="48" y="387" width="224" height="150"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUz-X8-6ZG" customClass="InfoView" customModule="coleslaw" customModuleProvider="target">
+                                <rect key="frame" x="48" y="170" width="224" height="228"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rules" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wa3-uJ-o6l">
+                                        <rect key="frame" x="8" y="8" width="208" height="212"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="sGX-MH-uEE"/>
+                                    <constraint firstItem="wa3-uJ-o6l" firstAttribute="top" secondItem="hUz-X8-6ZG" secondAttribute="top" constant="8" id="Br5-dw-0zm"/>
+                                    <constraint firstAttribute="bottom" secondItem="wa3-uJ-o6l" secondAttribute="bottom" constant="8" id="De0-92-U20"/>
+                                    <constraint firstItem="wa3-uJ-o6l" firstAttribute="centerX" secondItem="hUz-X8-6ZG" secondAttribute="centerX" id="gIW-yo-ToC"/>
+                                    <constraint firstItem="wa3-uJ-o6l" firstAttribute="leading" secondItem="hUz-X8-6ZG" secondAttribute="leading" constant="8" id="raa-XG-X46"/>
+                                    <constraint firstAttribute="trailing" secondItem="wa3-uJ-o6l" secondAttribute="trailing" constant="8" id="vZ7-yf-eIT"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="rulesLabel" destination="wa3-uJ-o6l" id="H6L-82-Ce5"/>
+                                </connections>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="vIB-oV-VW1">
+                                <rect key="frame" x="48" y="406" width="224" height="154"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <state key="normal" title="Start Round 1">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -503,16 +522,13 @@
                                     <action selector="onStartTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CHG-SH-UAw"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUz-X8-6ZG">
-                                <rect key="frame" x="48" y="170" width="224" height="228"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7Ff-xL-DfV" firstAttribute="top" secondItem="vIB-oV-VW1" secondAttribute="bottom" constant="30" id="0Eb-PN-Xxh"/>
                             <constraint firstItem="hUz-X8-6ZG" firstAttribute="centerY" secondItem="ImJ-zD-8QT" secondAttribute="centerY" id="4ej-tg-8D9"/>
                             <constraint firstItem="hUz-X8-6ZG" firstAttribute="width" secondItem="ImJ-zD-8QT" secondAttribute="width" multiplier="0.7" id="J0q-n2-LfR"/>
+                            <constraint firstItem="vIB-oV-VW1" firstAttribute="top" secondItem="wa3-uJ-o6l" secondAttribute="bottom" constant="16" id="UdQ-h8-HH2"/>
+                            <constraint firstItem="7Ff-xL-DfV" firstAttribute="top" secondItem="vIB-oV-VW1" secondAttribute="bottom" constant="8" id="Uge-tN-ARq"/>
                             <constraint firstItem="vIB-oV-VW1" firstAttribute="centerX" secondItem="ImJ-zD-8QT" secondAttribute="centerX" id="aPq-yi-Grj"/>
                             <constraint firstItem="hUz-X8-6ZG" firstAttribute="top" secondItem="412-4T-9fU" secondAttribute="bottom" constant="150" id="ed3-PV-MZm"/>
                             <constraint firstItem="hUz-X8-6ZG" firstAttribute="centerX" secondItem="ImJ-zD-8QT" secondAttribute="centerX" id="n7H-x9-BSu"/>
@@ -520,7 +536,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="infoView" destination="hUz-X8-6ZG" id="DiC-gT-4mV"/>
+                        <outlet property="infoView" destination="hUz-X8-6ZG" id="vLG-AE-ipA"/>
                         <outlet property="startButton" destination="vIB-oV-VW1" id="rOU-hC-myv"/>
                         <segue destination="BYZ-38-t0r" kind="modal" identifier="onRoundStart" id="ogz-7U-F4j"/>
                     </connections>
