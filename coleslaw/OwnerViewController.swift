@@ -72,9 +72,7 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
   }
   
   func sessionManager(sessionManager: SessionManager, peerDidConnect peerID: MCPeerID) {
-    print(self.session.peers.count)
     dispatch_async(dispatch_get_main_queue()) {
-      print(self.session.peers.count)
       self.connectionsLabel.text = "\(self.session.peers.count)"
     }
   }

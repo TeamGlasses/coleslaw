@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-class RoundViewController: UIViewController, SessionManagerDelegate, GameDelegate {
+class RoundViewController: UIViewController, SessionManagerDelegate {
 
   var statusView: StatusView!
 
@@ -46,7 +46,6 @@ class RoundViewController: UIViewController, SessionManagerDelegate, GameDelegat
   
   override func viewWillAppear(animated: Bool) {
     LocalGameManager.sharedInstance.session.delegate = self
-    LocalGameManager.sharedInstance.game.delegate = self
 
     let isOwner = LocalGameManager.sharedInstance.session.isOwner
     startButton.hidden = !isOwner

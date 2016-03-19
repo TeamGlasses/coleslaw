@@ -194,6 +194,7 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
   func sessionManager(sessionManager: SessionManager, didReceiveData data: NSDictionary) {
     let game = data["value"] as! Game
     localGame.game = game
+    localGame.game.delegate = self
 
     let message = data["message"] as! String
     
