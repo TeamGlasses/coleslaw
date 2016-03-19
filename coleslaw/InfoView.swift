@@ -23,7 +23,7 @@ class InfoView: UIView {
   var roundType: RoundType! {
     didSet {
       rulesLabel.lineBreakMode = .ByWordWrapping
-      rulesLabel.numberOfLines = 5
+      rulesLabel.numberOfLines = 7
       rulesLabel.text = RULES_STRINGS[roundType]
     }
   }
