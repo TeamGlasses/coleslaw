@@ -36,6 +36,12 @@ class Round: NSObject, NSCoding {
     self.game = game
     self.turns = turns
   }
+  
+  func completeCurrentCard(){
+    let card = toGuessCards.removeAtIndex(lastCardIndex)
+    let turn = turns[currentTurnIndex]
+    turn.completedCards.append(card)
+  }
 
   // Only computed properties below.
   var randomCard: Card {

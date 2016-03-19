@@ -28,7 +28,7 @@ class LocalGameManager {
   
   var game: Game! {
     didSet {
-      NSNotificationCenter.defaultCenter().postNotificationName(GameUpdatedNotification, 	object: self, userInfo: nil)
+      triggerGameUpdate()
     }
   }
   
@@ -38,5 +38,9 @@ class LocalGameManager {
   
   var localColor: UIColor {
     return localPlayer.team.color
+  }
+  
+  func triggerGameUpdate(){
+    NSNotificationCenter.defaultCenter().postNotificationName(GameUpdatedNotification, 	object: self, userInfo: nil)
   }
 }

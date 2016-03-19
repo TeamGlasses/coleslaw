@@ -10,6 +10,10 @@ import UIKit
 
 class StatusView: UIView {
 
+  let labelTag = 1
+  let heightConstraintIdentifier = "heightConstraint"
+  let widthConstraintIdentifier = "widthConstraint"
+  
   @IBOutlet var teamAScoreLabel: UILabel!
   @IBOutlet var teamBScoreLabel: UILabel!
   @IBOutlet var roundLabel: UILabel!
@@ -26,13 +30,21 @@ class StatusView: UIView {
   @IBOutlet var teamBHeight: NSLayoutConstraint!
   @IBOutlet var teamBBottom: NSLayoutConstraint!
   
+  var smallFontSize: CGFloat!
+  var largeFontSize: CGFloat!
+  
+  var smallWidth: CGFloat!
+  var largeWidth: CGFloat!
+  
+  var smallHeight: CGFloat!
+  var largeHeight: CGFloat!
+  
   var game: Game! {
     didSet {
       updateStatus()
     }
   }
   
-  var currentPlayerIndex : Int?
   var scoreLabels: [UILabel]!
 
   required init?(coder aDecoder: NSCoder) {
@@ -51,6 +63,15 @@ class StatusView: UIView {
     nib.instantiateWithOwner(self, options: nil)
     contentView.frame = bounds
     addSubview(contentView)
+    
+    smallFontSize = teamAScoreLabel.font.pointSize
+    largeFontSize = teamBScoreLabel.font.pointSize
+    
+    smallWidth = teamAWidth.constant
+    largeWidth = teamBWidth.constant
+    
+    smallHeight = teamAHeight.constant
+    largeHeight = teamBHeight.constant
     
     NSNotificationCenter.defaultCenter().addObserverForName(GameUpdatedNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: {(notification: NSNotification!) -> () in
       self.game = LocalGameManager.sharedInstance.game
@@ -104,51 +125,47 @@ class StatusView: UIView {
   }
 
   func updateStatus() {
-    if currentPlayerIndex != game.currentPlayerIndex {
-      currentPlayerIndex = game.currentPlayerIndex
-      
-      let currentPlayer = game.allPlayers[game.currentPlayerIndex]
-      let nextTeam = currentPlayer.team
-      var nextScoreLabel = teamAScoreLabel
-      var nextScoreWidth = teamAWidth
-      var nextScoreHeight = teamAHeight
-      var nextScoreBottom = teamABottom
-      
-      var prevScoreLabel = teamBScoreLabel
-      var prevScoreWidth = teamBWidth
-      var prevScoreHeight = teamBHeight
-      var prevScoreBottom = teamBBottom
-      
-      // switch up the score sizes
-      if (nextTeam.id == 1) {
-        nextScoreLabel = teamBScoreLabel
-        nextScoreWidth = teamBWidth
-        nextScoreHeight = teamBHeight
-        nextScoreBottom = teamBBottom
-        
-        prevScoreLabel = teamAScoreLabel
-        prevScoreWidth = teamAWidth
-        prevScoreHeight = teamAHeight
-        prevScoreBottom = teamABottom
-      }
-    
-      
-      let tempScoreWidthConstant = nextScoreWidth.constant
-      nextScoreWidth.constant = prevScoreWidth.constant
-      prevScoreWidth.constant = tempScoreWidthConstant
-      
-      let tempScoreHeightConstant = nextScoreHeight.constant
-      nextScoreHeight.constant = prevScoreHeight.constant
-      prevScoreHeight.constant = tempScoreHeightConstant
-      
-      let tempScoreBottomConstraint = nextScoreBottom.constant
-      nextScoreBottom.constant = prevScoreBottom.constant
-      prevScoreBottom.constant = tempScoreBottomConstraint
-      
-      let tempFontSize = nextScoreLabel.font.pointSize
-      nextScoreLabel.font = nextScoreLabel.font.fontWithSize(prevScoreLabel.font.pointSize)
-      prevScoreLabel.font = prevScoreLabel.font.fontWithSize(tempFontSize)
+    if game.currentPlayer.team == game.allTeams[0] {
+      expandScoreLabel(teamAScoreView)
+      contractScoreLabel(teamBScoreView)
+    } else {
+      expandScoreLabel(teamBScoreView)
+      contractScoreLabel(teamAScoreView)
     }
+    
+    updateScores()
+  }
+  
+  func updateScores(){
+    teamAScoreLabel.text = "\(game.scores[0])"
+    teamBScoreLabel.text = "\(game.scores[1])"
+  }
+  
+  func expandScoreLabel(view: UIView){
+    updateScoreViewSizes(view, withFontSize: largeFontSize, height: largeHeight, width: largeWidth)
+  }
+  
+  func contractScoreLabel(view: UIView){
+    updateScoreViewSizes(view, withFontSize: smallFontSize, height: smallHeight, width: smallWidth)
   }
 
+  func updateScoreViewSizes(scoreView: UIView, withFontSize fontSize: CGFloat, height: CGFloat, width: CGFloat){
+    if let label = scoreView.viewWithTag(labelTag) as? UILabel {
+      label.font.fontWithSize(fontSize)
+    }
+    
+    var heightConstraint: NSLayoutConstraint!
+    var widthConstraint: NSLayoutConstraint!
+    
+    for c in scoreView.constraints {
+      if c.identifier == heightConstraintIdentifier {
+        heightConstraint = c
+      } else if c.identifier == widthConstraintIdentifier {
+        widthConstraint = c
+      }
+    }
+    
+    heightConstraint.constant = height
+    widthConstraint.constant = width
+  }
 }
