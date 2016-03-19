@@ -33,11 +33,6 @@ class StartGameViewController: UIViewController {
     }
   }
 
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    let destinationViewController = segue.destinationViewController as! CardsViewController
-    destinationViewController.allCards = allCards
-  }
-
   @IBAction func didTapStart(sender: UIButton) {
     performSegueWithIdentifier("startGame", sender: self)
   }

@@ -33,9 +33,8 @@ class ResultsViewController: UIViewController {
   }
 
   @IBAction func didTapDone(sender: UIBarButtonItem) {
-    dismissViewControllerAnimated(true, completion: nil)
-    let initialViewController = storyboard?.instantiateInitialViewController() as! StartGameViewController
-    presentViewController(initialViewController, animated: true, completion: nil)
+    let initialViewController = storyboard?.instantiateInitialViewController()
+    presentViewController(initialViewController!, animated: true, completion: nil)
   }
 }
 

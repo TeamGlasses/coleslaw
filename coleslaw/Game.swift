@@ -7,9 +7,18 @@
 //
 
 import Foundation
+import UIKit
+
+@objc protocol GameDelegate {
+  optional func gameTurnDidStart(game: Game)
+  optional func gameTurnDidEnd(game: Game)
+  optional func gameRoundDidEnd(game: Game)
+  optional func gameDidEnd(game: Game)
+}
 
 class Game: NSObject, NSCoding {
   // Real properties.
+  var delegate: GameDelegate!
   var allCards: [Card]
   var allTeams: [Team]
   var allPlayers: [Player]
@@ -51,6 +60,10 @@ class Game: NSObject, NSCoding {
       return rounds[currentRoundIndex]
     }
   }
+  
+  var currentPlayer: Player {
+    return allPlayers[currentPlayerIndex]
+  }
 
   // Returns an array where the index is the team id and the value is the team's score.
   var scores: [Int] {
@@ -73,8 +86,68 @@ class Game: NSObject, NSCoding {
       return rounds.count == 3
     }
   }
+
+  var ownerPlayer: Player {
+    return allPlayers.last!
+  }
   // End computed properties.
 
+  func turnStart() {
+    let newTurn = Turn(activePlayer: allPlayers[currentPlayerIndex])
+    rounds[currentRoundIndex].turns.append(newTurn)
+    
+    delegate.gameTurnDidStart!(self)
+    LocalGameManager.sharedInstance.session.broadcast("turnStart", value: self)
+  }
+  
+  func turnEnd() {
+    currentPlayerIndex += 1
+    
+    if currentRound.isOver {
+      roundEnd()
+    } else {
+      delegate.gameTurnDidEnd!(self)
+      LocalGameManager.sharedInstance.session.broadcast("turnEnd", value: self)
+    }
+  }
+  
+  func roundEnd() {
+    if isOver {
+      delegate.gameDidEnd!(self)
+      LocalGameManager.sharedInstance.session.broadcast("gameEnd", value: self)
+    } else {
+      delegate.gameRoundDidEnd!(self)
+      LocalGameManager.sharedInstance.session.broadcast("roundEnd", value: self)
+    }
+  }
+
+  class func createGame(withCards cards: [Card], andNumberOfPeers count: Int) -> Game {
+    var teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
+
+    let redTeam = Team(id: 0, name: "Team Red", color: teamColors[0])
+
+    let blueTeam = Team(id: 1, name: "Team Blue", color: teamColors[1])
+
+    let allTeams = [redTeam, blueTeam]
+
+    var allPlayers = [Player]()
+
+    for index in 0..<count {
+      if index % 2 == 0 {
+        allPlayers.append(Player(id: index, team: allTeams[0]))
+      } else {
+        allPlayers.append(Player(id: index, team: allTeams[1]))
+      }
+    }
+
+    // Add owner to game
+    let ownerIndex = count
+    let ownerPlayer = Player(id: ownerIndex, team: allTeams[ownerIndex % 2])
+    allPlayers.append(ownerPlayer)
+
+    return Game(allCards: cards, allTeams: allTeams, allPlayers: allPlayers)
+  }
+  
   // MARK: NSCoding
   // See https://developer.apple.com/library/ios/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Lesson10.html
   func encodeWithCoder(aCoder: NSCoder) {
@@ -88,7 +161,7 @@ class Game: NSObject, NSCoding {
   required convenience init?(coder aDecoder: NSCoder) {
     let allCards = aDecoder.decodeObjectForKey("allCards") as! [Card]
     let allTeams = aDecoder.decodeObjectForKey("allTeams") as! [Team]
-    let allPlayers = aDecoder.decodeObjectForKey("allPlayer") as! [Player]
+    let allPlayers = aDecoder.decodeObjectForKey("allPlayers") as! [Player]
     let currentPlayerIndex = aDecoder.decodeIntegerForKey("currentPlayerIndex")
     let rounds = aDecoder.decodeObjectForKey("rounds") as! [Round]
     self.init(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers, currentPlayerIndex: currentPlayerIndex, rounds: rounds)

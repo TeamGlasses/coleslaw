@@ -43,6 +43,18 @@ class ParticipantViewController: UIViewController, SessionManagerDelegate {
   }
   
   func sessionManager(sessionManager: SessionManager, didReceiveData data: NSDictionary) {
-    print(data)
+    let message = data["message"] as! String
+
+    if message == "assignPlayerAndGame" {
+      let value = data["value"] as! [String: AnyObject]
+      let player = value["player"] as! Player
+      let game = value["game"] as! Game
+      
+      LocalGameManager.sharedInstance.localPlayer = player
+      LocalGameManager.sharedInstance.game = game
+      LocalGameManager.sharedInstance.session = session
+      
+      performSegueWithIdentifier("participantStartGame", sender: self)
+    }
   }
 }

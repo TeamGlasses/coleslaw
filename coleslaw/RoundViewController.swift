@@ -7,24 +7,26 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
-class RoundViewController: UIViewController {
+class RoundViewController: UIViewController, SessionManagerDelegate, GameDelegate {
 
   var statusView: StatusView!
-  var teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
 
-  @IBOutlet var infoView: UIView!
+  @IBOutlet var infoView: InfoView!
   @IBOutlet var startButton: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    view.backgroundColor = LocalGameManager.sharedInstance.localColor
+
     statusView = StatusView()
     statusView.translatesAutoresizingMaskIntoConstraints = false
     statusView.renderInView(view)
     
     // view background
-    view.backgroundColor = teamColors[0]
+    view.backgroundColor = LocalGameManager.sharedInstance.localColor
     
     //button
     startButton.layer.cornerRadius = 16
@@ -32,7 +34,24 @@ class RoundViewController: UIViewController {
     startButton.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
     startButton.titleLabel!.textAlignment = NSTextAlignment.Center
     startButton.titleLabel!.font = UIFont(name: "SFUIDisplay-Medium", size: 40)
-    // Do any additional setup after loading the view.
+
+    // info view
+    infoView.layer.cornerRadius = 16
+    infoView.clipsToBounds = true
+    infoView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+    infoView.rulesLabel.textAlignment = NSTextAlignment.Center
+    infoView.rulesLabel.font = UIFont(name: "SFUIDisplay-Medium", size: 24)
+    infoView.roundType = RoundType(rawValue: LocalGameManager.sharedInstance.game.currentRoundIndex + 1)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    LocalGameManager.sharedInstance.session.delegate = self
+    LocalGameManager.sharedInstance.game.delegate = self
+
+    let isOwner = LocalGameManager.sharedInstance.session.isOwner
+    startButton.hidden = !isOwner
+    startButton.enabled = isOwner
+    startButton.setTitle("Start Round \(LocalGameManager.sharedInstance.game.currentRoundIndex+2)", forState: .Normal)
   }
   
   override func didReceiveMemoryWarning() {
@@ -40,16 +59,28 @@ class RoundViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  
-  /*
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
+  @IBAction func onStartRound(sender: AnyObject) {
+    let game = LocalGameManager.sharedInstance.game
+    
+    let newRound = Round(toGuessCards: game.allCards, roundTypeRawValue: game.currentRoundIndex + 1, game: game)
+    game.rounds.append(newRound)
+    
+    LocalGameManager.sharedInstance.session.broadcast("startRound", value: game)
+    performSegueWithIdentifier("onRoundStart", sender: self)
   }
-  */
+  
+  
+  
+  func sessionManager(sessionManager: SessionManager, didReceiveData data: NSDictionary) {
+    let message = data["message"] as! String
 
+    if message == "startRound" {
+      let game = data["value"] as! Game
+      LocalGameManager.sharedInstance.game = game
+      performSegueWithIdentifier("onRoundStart", sender: self)
+    }
+  }
 
+  func sessionManager(sessionManager: SessionManager, peerDidConnect peerID: MCPeerID) {}
+  func sessionManager(sessionManager: SessionManager, thisSessionDidConnect: Bool) {}
 }

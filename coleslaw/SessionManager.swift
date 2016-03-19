@@ -24,6 +24,10 @@ class SessionManager: NSObject, MCSessionDelegate {
   
   var delegate: SessionManagerDelegate!
   
+  var isOwner: Bool {
+    return false
+  }
+  
   private let peerID = MCPeerID(displayName: UIDevice.currentDevice().name)
   
   private lazy var session: MCSession = {
@@ -50,6 +54,7 @@ class SessionManager: NSObject, MCSessionDelegate {
   }
   
   private func sendMessage(message: String, value: AnyObject, toPeers: [MCPeerID]){
+    
     var payload = [String: AnyObject]()
     payload["message"] = message
     payload["value"] = value
@@ -98,6 +103,10 @@ class SessionManager: NSObject, MCSessionDelegate {
 }
 
 class OwnerSessionManager: SessionManager, MCNearbyServiceBrowserDelegate {
+  override var isOwner: Bool {
+    return true
+  }
+  
   private lazy var browser: MCNearbyServiceBrowser = {
     let browser = MCNearbyServiceBrowser(peer: self.peerID, serviceType: self.kColeslawServiceType)
     browser.delegate = self

@@ -7,16 +7,17 @@
 //
 
 import Foundation
-
-
+import UIKit
 
 class Team: NSObject, NSCoding {
   var id: Int
   var name: String
+  var color: UIColor
 
-  init(id: Int, name: String) {
+  init(id: Int, name: String, color: UIColor) {
     self.id = id
     self.name = name
+    self.color = color
   }
 
   // MARK: NSCoding
@@ -24,12 +25,14 @@ class Team: NSObject, NSCoding {
   func encodeWithCoder(aCoder: NSCoder) {
     aCoder.encodeInteger(id, forKey: "id")
     aCoder.encodeObject(name, forKey: "name")
+    aCoder.encodeObject(color, forKey: "color")
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
     let id = aDecoder.decodeIntegerForKey("id")
     let name = aDecoder.decodeObjectForKey("name") as! String
-    self.init(id: id, name: name)
+    let color = aDecoder.decodeObjectForKey("color") as! UIColor
+    self.init(id: id, name: name, color: color)
   }
 
 }

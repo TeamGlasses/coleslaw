@@ -16,10 +16,11 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
   @IBOutlet weak var dismissButton: UIButton!
   @IBOutlet weak var startButton: UIButton!
 
-  var game: Game!
   var allCards: [Card]!
   
   var session = OwnerSessionManager()
+  
+  var allowSoloPlay = true
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -39,42 +40,34 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
     super.didReceiveMemoryWarning()
   }
 
-  func createGame() -> Game {
-    let redTeam = Team(id: 0, name: "Team Red")
-    let blueTeam = Team(id: 1, name: "Team Blue")
-    let allTeams = [redTeam, blueTeam]
-    var allPlayers = [Player]()
+  func createGameAndBroadcast() {
+    let game = Game.createGame(withCards: allCards, andNumberOfPeers: session.peers.count)
+    
+    LocalGameManager.sharedInstance.game = game
+    LocalGameManager.sharedInstance.localPlayer = game.ownerPlayer
+    LocalGameManager.sharedInstance.session = session
 
-    for (index, _) in session.peers.enumerate() {
-      if index % 2 == 0 {
-        allPlayers.append(Player(id: index, team: allTeams[0]))
-      } else {
-        allPlayers.append(Player(id: index, team: allTeams[1]))
-      }
+    for (index, peer) in session.peers.enumerate() {
+      var value = [String: AnyObject]()
+      value["player"] = game.allPlayers[index]
+      value["game"] = game
+
+      session.sendMessage("assignPlayerAndGame", value: value, toPeer: peer)
     }
-
-    game = Game(allCards: allCards, allTeams: allTeams, allPlayers: allPlayers)
-
-//    session.broadcast("game", value: game)
-
-//    for (index, peer) in session.peers.enumerate() {
-//      session.sendMessage("assignPlayer", value: allPlayers[index], toPeer: peer)
-//    }
-
-    let test = Test(val: "this is a test string")
-    session.broadcast("test", value: test)
-
-    return game
-  }
-
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    let destinationViewController = segue.destinationViewController as! RoundStartViewController
-
-    destinationViewController.game = createGame()
   }
   
   @IBAction func onStartGame(sender: UIButton) {
-    performSegueWithIdentifier("ownerStartGame", sender: self)
+    if allowSoloPlay || session.peers.count > 0 {
+      createGameAndBroadcast()
+      performSegueWithIdentifier("ownerStartGame", sender: self)
+    } else {
+      let alertController = UIAlertController(title: "Nobody connected!",
+        message: nil,
+        preferredStyle: .Alert)
+      let cancelAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+      alertController.addAction(cancelAction)
+      presentViewController(alertController, animated: true, completion: nil)
+    }
   }
   
   func sessionManager(sessionManager: SessionManager, peerDidConnect peerID: MCPeerID) {
