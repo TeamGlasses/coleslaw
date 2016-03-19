@@ -12,8 +12,7 @@ import MBProgressHUD
 
 class OwnerViewController: UIViewController, SessionManagerDelegate {
   
-  @IBOutlet weak var connectionsLabel: UIButton!
-  @IBOutlet weak var dismissButton: UIButton!
+  @IBOutlet weak var connectionsLabel: UILabel!
   @IBOutlet weak var startButton: UIButton!
 
   var allCards: [Card]!
@@ -73,8 +72,10 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
   }
   
   func sessionManager(sessionManager: SessionManager, peerDidConnect peerID: MCPeerID) {
-    dispatch_async(dispatch_get_main_queue()){
-      self.connectionsLabel.titleLabel!.text = "\(self.session.peers.count)"
+    print(self.session.peers.count)
+    dispatch_async(dispatch_get_main_queue()) {
+      print(self.session.peers.count)
+      self.connectionsLabel.text = "\(self.session.peers.count)"
     }
   }
   

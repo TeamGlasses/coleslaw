@@ -104,8 +104,11 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
   func updateOnTurnEnd(){
     // TODO: Remove
     statusView.game = LocalGameManager.sharedInstance.game
-    activeCardView.removeFromSuperview()
+    if activeCardView != nil {
+      activeCardView.removeFromSuperview()
+    }
     timer.invalidate()
+    timerLabel.text = "0:00"
 
     prepareNextTurn()
   }
