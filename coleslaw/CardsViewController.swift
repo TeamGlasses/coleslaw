@@ -25,7 +25,7 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
     return LocalGameManager.sharedInstance
   }
   
-  var timeRemaining = 60
+  var timeRemaining = 10
   
   // ideally all the UI stuff shoudl be in a separate view class
   override func viewWillAppear(animated: Bool) {
@@ -146,7 +146,7 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
     timeRemaining -= 1
     timerLabel.text = String(format: "0:%02d", timeRemaining)
     
-    if (localGame.isCurrentPlayer && timeRemaining == 0) {
+    if (localGame.isCurrentPlayer && timeRemaining <= 0) {
       localGame.game.turnEnd()
     }
   }
