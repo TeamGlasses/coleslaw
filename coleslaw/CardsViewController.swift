@@ -215,14 +215,10 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
 extension CardsViewController: CardViewDelegate {
   func cardViewAdvanced(cardView: CardView) {
     let game = localGame.game
-    let currentRound = game.rounds[game.currentRoundIndex]
-    let currentTurn = currentRound.turns[currentRound.currentTurnIndex]
-    let card = currentRound.toGuessCards.removeAtIndex(currentRound.lastCardIndex)
-    currentTurn.completedCards.append(card)
+    
+    game.completeCurrentCard()
 
-    statusView.scoreLabels[currentTurn.currentTeamIndex].text = "\(game.scores[currentTurn.currentTeamIndex])"
-
-    if currentRound.isOver {
+    if game.currentRound.isOver {
       game.turnEnd()
     } else {
       showNextCard(true)

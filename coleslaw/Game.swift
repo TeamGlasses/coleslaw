@@ -120,7 +120,13 @@ class Game: NSObject, NSCoding {
       LocalGameManager.sharedInstance.session.broadcast("roundEnd", value: self)
     }
   }
-
+  
+  func completeCurrentCard(){
+    currentRound.completeCurrentCard()
+    LocalGameManager.sharedInstance.session.broadcast("gameUpdated", value: self)
+    LocalGameManager.sharedInstance.triggerGameUpdate()
+  }
+  
   class func createGame(withCards cards: [Card], andNumberOfPeers count: Int) -> Game {
     var teamColors = [UIColor(red: 201.0/255.0, green: 56.0/255.0, blue: 87.0/255.0, alpha: 1), UIColor(red: 56.0/255.0, green: 126.0/255.0, blue: 201.0/255.0, alpha: 1)]
 
