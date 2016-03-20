@@ -97,25 +97,28 @@ class StatusView: UIView {
   }
   
   func setupView(parentView: UIView) {
-    let cornerRadius = CGFloat(8.0)
-
-    roundCorner(teamAScoreView, corner: [.BottomLeft, .BottomRight], radius: cornerRadius)
-    roundCorner(teamBScoreView, corner: [.BottomLeft, .BottomRight], radius: cornerRadius)
-    
     teamAScoreView.clipsToBounds = true
     teamBScoreView.clipsToBounds = true
+    
+    roundScoreViewCorners()
   }
 
   func updateStatus() {
     if game.currentPlayer.team == game.allTeams[0] {
       expandScoreLabel(teamAScoreView)
       contractScoreLabel(teamBScoreView)
+      delayedRoundCorners()
     } else {
       expandScoreLabel(teamBScoreView)
       contractScoreLabel(teamAScoreView)
+      delayedRoundCorners()
     }
-    
+
     updateScores()
+  }
+  
+  func delayedRoundCorners(){
+    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "roundScoreViewCorners", userInfo: nil, repeats: false)
   }
   
   func updateScores(){
@@ -123,11 +126,34 @@ class StatusView: UIView {
     teamBScoreLabel.text = "\(game.scores[1])"
   }
   
+  func roundScoreViewCorners(){
+    let cornerRadius = CGFloat(8.0)
+    
+    roundCorner(teamAScoreView, corner: [.BottomLeft, .BottomRight], radius: cornerRadius)
+    roundCorner(teamBScoreView, corner: [.BottomLeft, .BottomRight], radius: cornerRadius)
+  }
+  
   func roundCorner(view: UIView, corner: UIRectCorner, radius: CGFloat){
     let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corner, cornerRadii: CGSize(width: radius, height: radius))
     let mask = CAShapeLayer()
     mask.path = path.CGPath
     view.layer.mask = mask
+  }
+  
+  func unroundCorners(){
+    teamAScoreView.layer.mask = nil
+    teamBScoreView.layer.mask = nil
+  }
+  
+  func isExpanded(view: UIView) -> Bool {
+    for c in view.constraints {
+      if c.identifier == heightConstraintIdentifier {
+        print("Got the constant")
+        return c.constant == largeHeight!
+      }
+    }
+    
+    return false
   }
   
   func expandScoreLabel(view: UIView){
