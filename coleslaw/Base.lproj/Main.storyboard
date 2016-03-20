@@ -244,45 +244,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="haq-rZ-2bO">
-                                <rect key="frame" x="0.0" y="221" width="320" height="126"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coleslaw-large" translatesAutoresizingMaskIntoConstraints="NO" id="BQc-Cm-ENV">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4z8-Ii-bt9">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gr-6u-wpE">
-                                        <rect key="frame" x="89" y="0.0" width="142" height="48"/>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
-                                        <state key="normal" title="Start Game">
-                                            <color key="titleColor" red="0.31764705879999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="BoA-nM-1Rd" kind="modal" id="SEm-fj-zH5"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFc-cI-K5K">
-                                        <rect key="frame" x="93" y="78" width="135" height="48"/>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
-                                        <state key="normal" title="Join Game">
-                                            <color key="titleColor" red="0.31764705879999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="UCK-IU-eZw" kind="modal" id="4dB-4w-Soi"/>
-                                        </connections>
-                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="haq-rZ-2bO">
+                                        <rect key="frame" x="0.0" y="228" width="320" height="112"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXC-Dl-1DS">
+                                                <rect key="frame" x="80" y="0.0" width="160" height="36"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="Start Game">
+                                                    <color key="titleColor" red="0.31764705879999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="onStartGame:" destination="BoA-nM-1Rd" eventType="touchUpInside" id="yWM-uM-Gtp"/>
+                                                    <segue destination="BoA-nM-1Rd" kind="modal" id="jYX-ud-OJO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vfg-Ae-qSE">
+                                                <rect key="frame" x="80" y="76" width="160" height="36"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="Join Game">
+                                                    <color key="titleColor" red="0.31764705879999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="onStartGame:" destination="BoA-nM-1Rd" eventType="touchUpInside" id="VMM-G9-Ifh"/>
+                                                    <segue destination="UCK-IU-eZw" kind="modal" id="A8x-s4-Ttv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Vfg-Ae-qSE" firstAttribute="top" secondItem="bXC-Dl-1DS" secondAttribute="bottom" constant="40" id="25O-yJ-tCF"/>
+                                            <constraint firstItem="bXC-Dl-1DS" firstAttribute="top" secondItem="haq-rZ-2bO" secondAttribute="top" id="AAh-r2-VwF"/>
+                                            <constraint firstItem="Vfg-Ae-qSE" firstAttribute="centerX" secondItem="haq-rZ-2bO" secondAttribute="centerX" id="MQX-yB-ahk"/>
+                                            <constraint firstItem="Vfg-Ae-qSE" firstAttribute="width" secondItem="haq-rZ-2bO" secondAttribute="width" multiplier="1/2" id="RwW-mP-h9R"/>
+                                            <constraint firstItem="bXC-Dl-1DS" firstAttribute="centerX" secondItem="haq-rZ-2bO" secondAttribute="centerX" id="TgS-90-ajd"/>
+                                            <constraint firstItem="bXC-Dl-1DS" firstAttribute="width" secondItem="haq-rZ-2bO" secondAttribute="width" multiplier="1/2" id="Tts-zp-Tge"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vfg-Ae-qSE" secondAttribute="bottom" id="UMF-E8-hHx"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
+                                <color key="backgroundColor" red="0.015686275437474251" green="0.011764707043766975" blue="0.011764707043766975" alpha="0.14999999999999999" colorSpace="deviceRGB"/>
                                 <constraints>
-                                    <constraint firstItem="XFc-cI-K5K" firstAttribute="top" secondItem="6gr-6u-wpE" secondAttribute="bottom" constant="30" id="A18-lc-qJo"/>
-                                    <constraint firstItem="6gr-6u-wpE" firstAttribute="centerX" secondItem="haq-rZ-2bO" secondAttribute="centerX" id="XLe-Ez-CPU"/>
-                                    <constraint firstAttribute="bottom" secondItem="XFc-cI-K5K" secondAttribute="bottom" id="e9C-6Z-Mg2"/>
-                                    <constraint firstItem="6gr-6u-wpE" firstAttribute="top" secondItem="haq-rZ-2bO" secondAttribute="top" id="pbZ-4Z-vJc"/>
-                                    <constraint firstItem="XFc-cI-K5K" firstAttribute="centerX" secondItem="haq-rZ-2bO" secondAttribute="centerX" id="w4T-Wz-dU1"/>
+                                    <constraint firstItem="haq-rZ-2bO" firstAttribute="centerX" secondItem="4z8-Ii-bt9" secondAttribute="centerX" id="1d0-N2-Khc"/>
+                                    <constraint firstItem="haq-rZ-2bO" firstAttribute="centerY" secondItem="4z8-Ii-bt9" secondAttribute="centerY" id="9w5-3a-vl3"/>
+                                    <constraint firstAttribute="trailing" secondItem="haq-rZ-2bO" secondAttribute="trailing" id="f8i-tK-Rf2"/>
+                                    <constraint firstItem="haq-rZ-2bO" firstAttribute="leading" secondItem="4z8-Ii-bt9" secondAttribute="leading" id="oto-YV-mS8"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.94265047489999998" green="0.94265047489999998" blue="0.94265047489999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="haq-rZ-2bO" firstAttribute="leading" secondItem="M96-QU-Dhd" secondAttribute="leading" id="nGz-Rp-ayM"/>
-                            <constraint firstAttribute="trailing" secondItem="haq-rZ-2bO" secondAttribute="trailing" id="oWM-bL-xDl"/>
-                            <constraint firstItem="haq-rZ-2bO" firstAttribute="centerX" secondItem="M96-QU-Dhd" secondAttribute="centerX" id="qHL-xP-bgT"/>
-                            <constraint firstItem="haq-rZ-2bO" firstAttribute="centerY" secondItem="M96-QU-Dhd" secondAttribute="centerY" id="upL-Ts-byr"/>
+                            <constraint firstAttribute="trailing" secondItem="BQc-Cm-ENV" secondAttribute="trailing" id="27i-Sr-KKt"/>
+                            <constraint firstItem="4z8-Ii-bt9" firstAttribute="leading" secondItem="M96-QU-Dhd" secondAttribute="leading" id="AIM-Ig-3eX"/>
+                            <constraint firstAttribute="trailing" secondItem="4z8-Ii-bt9" secondAttribute="trailing" id="EeD-QQ-wOA"/>
+                            <constraint firstItem="e8I-aV-BuU" firstAttribute="top" secondItem="4z8-Ii-bt9" secondAttribute="bottom" id="Hnr-pd-70n"/>
+                            <constraint firstItem="e8I-aV-BuU" firstAttribute="top" secondItem="BQc-Cm-ENV" secondAttribute="bottom" id="QbE-rh-53r"/>
+                            <constraint firstItem="BQc-Cm-ENV" firstAttribute="leading" secondItem="M96-QU-Dhd" secondAttribute="leading" id="tIf-9Y-S06"/>
+                            <constraint firstItem="BQc-Cm-ENV" firstAttribute="top" secondItem="M96-QU-Dhd" secondAttribute="top" id="v0H-2Z-Evl"/>
+                            <constraint firstItem="4z8-Ii-bt9" firstAttribute="top" secondItem="M96-QU-Dhd" secondAttribute="top" id="wor-Yo-fIq"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -302,17 +327,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ZO-nT-b5G">
-                                <rect key="frame" x="80" y="366" width="160" height="36"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Start Game">
-                                    <color key="titleColor" red="0.31764705879999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="onStartGame:" destination="BoA-nM-1Rd" eventType="touchUpInside" id="P8a-7v-ZtW"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If everyone has joined, start the game!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFA-tg-J8M">
                                 <rect key="frame" x="0.0" y="412" width="320" height="20"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
@@ -368,6 +382,17 @@
                                 <rect key="frame" x="142" y="265.5" width="37" height="37"/>
                                 <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ZO-nT-b5G">
+                                <rect key="frame" x="80" y="368" width="160" height="36"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Start Game">
+                                    <color key="titleColor" red="0.31764705879999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onStartGame:" destination="BoA-nM-1Rd" eventType="touchUpInside" id="P8a-7v-ZtW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.31764705879999999" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -562,7 +587,10 @@
             <point key="canvasLocation" x="-38" y="399"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="coleslaw-large" width="4096" height="3072"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kqc-C7-4HS"/>
+        <segue reference="kwQ-qY-Uc1"/>
     </inferredMetricsTieBreakers>
 </document>
