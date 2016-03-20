@@ -72,16 +72,9 @@ class SessionManager: NSObject, MCSessionDelegate {
   // SessionDelegate Interface
   
   func session(session: MCSession, didReceiveData data: NSData, fromPeer peerID: MCPeerID) {
-    do {
-      let decodedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [String: AnyObject]
-      dispatch_async(dispatch_get_main_queue()){
-        self.delegate.sessionManager(self, didReceiveData: decodedData)
-      }
-    } catch let error as NSError {
-      dispatch_async(dispatch_get_main_queue()){
-        NSLog("Error receiving data")
-        NSLog("\(error)")
-      }
+    let decodedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [String: AnyObject]
+    dispatch_async(dispatch_get_main_queue()){
+      self.delegate.sessionManager(self, didReceiveData: decodedData)
     }
   }
   
