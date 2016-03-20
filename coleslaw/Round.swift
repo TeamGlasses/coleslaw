@@ -45,37 +45,29 @@ class Round: NSObject, NSCoding {
 
   // Only computed properties below.
   var randomCard: Card {
-    get {
-      if toGuessCards.count == 1 {
-        lastCardIndex = 0
-        return toGuessCards[0]
-      } else {
-        var randomIndex = Int(arc4random_uniform(UInt32(toGuessCards.count)))
-        while randomIndex == lastCardIndex {
-          randomIndex = Int(arc4random_uniform(UInt32(toGuessCards.count)))
-        }
-        lastCardIndex = randomIndex
-        return toGuessCards[randomIndex]
+    if toGuessCards.count == 1 {
+      lastCardIndex = 0
+      return toGuessCards[0]
+    } else {
+      var randomIndex = Int(arc4random_uniform(UInt32(toGuessCards.count)))
+      while randomIndex == lastCardIndex {
+        randomIndex = Int(arc4random_uniform(UInt32(toGuessCards.count)))
       }
+      lastCardIndex = randomIndex
+      return toGuessCards[randomIndex]
     }
   }
 
   var currentTurnIndex: Int {
-    get {
-      return turns.count - 1
-    }
+    return turns.count - 1
   }
 
   var currentTurn: Turn {
-    get {
-      return turns[currentTurnIndex]
-    }
+    return turns[currentTurnIndex]
   }
 
   var isOver: Bool {
-    get {
-      return toGuessCards.isEmpty
-    }
+    return toGuessCards.isEmpty
   }
 
   var roundIndexInGame: Int {
@@ -90,13 +82,11 @@ class Round: NSObject, NSCoding {
 
   // Returns an array where the index is the team id and the value is the team's score.
   var scores: [Int] {
-    get {
-      var scores = [Int](count: 2, repeatedValue: 0)
-      for turn in turns {
-        scores[turn.currentTeamIndex] += turn.completedCards.count
-      }
-      return scores
+    var scores = [Int](count: 2, repeatedValue: 0)
+    for turn in turns {
+      scores[turn.currentTeamIndex] += turn.completedCards.count
     }
+    return scores
   }
 
   var winner: Team {

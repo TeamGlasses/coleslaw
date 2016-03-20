@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		118CE900D7AE5DDEB70D62E9 /* Pods_coleslaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32876061BF725F30200C728 /* Pods_coleslaw.framework */; };
-		2223BD551C96883D00C7E4DF /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223BD541C96883D00C7E4DF /* Test.swift */; };
 		2223C08A1C8E6EEA00E1D5D0 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */; };
 		2223C08C1C8E709300E1D5D0 /* RoundResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C08B1C8E709300E1D5D0 /* RoundResultCell.swift */; };
 		2223C08E1C8E879600E1D5D0 /* Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223C08D1C8E879600E1D5D0 /* Round.swift */; };
@@ -40,7 +39,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2223BD541C96883D00C7E4DF /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		2223C0891C8E6EEA00E1D5D0 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		2223C08B1C8E709300E1D5D0 /* RoundResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundResultCell.swift; sourceTree = "<group>"; };
 		2223C08D1C8E879600E1D5D0 /* Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Round.swift; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 				50B631281C8CE7900015684C /* Game.swift */,
 				2223C08D1C8E879600E1D5D0 /* Round.swift */,
 				225B25DA1C8E88360006F892 /* Turn.swift */,
-				2223BD541C96883D00C7E4DF /* Test.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -351,7 +348,6 @@
 				8A092A3A1C8B80E1001D54AF /* CardView.swift in Sources */,
 				8A599C5C1C8B79720068C657 /* AppDelegate.swift in Sources */,
 				22961C231C9A6A4200D174CA /* InfoView.swift in Sources */,
-				2223BD551C96883D00C7E4DF /* Test.swift in Sources */,
 				225B47731C94FE1700145925 /* FirebaseClient.swift in Sources */,
 				2223C08C1C8E709300E1D5D0 /* RoundResultCell.swift in Sources */,
 				8A3E740F1C9653AF00D7F40C /* OwnerViewController.swift in Sources */,

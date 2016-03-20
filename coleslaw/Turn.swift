@@ -24,9 +24,7 @@ class Turn: NSObject, NSCoding {
   }
 
   var currentTeamIndex: Int {
-    get {
-      return activePlayer.team.id
-    }
+    return activePlayer.team.id
   }
 
   // MARK: NSCoding
