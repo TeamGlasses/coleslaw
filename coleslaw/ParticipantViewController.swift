@@ -10,7 +10,7 @@ import UIKit
 import MultipeerConnectivity
 import MBProgressHUD
 
-class ParticipantViewController: UIViewController, SessionManagerDelegate {
+class ParticipantViewController: UIViewController {
   var session = ParticipantSessionManager()
   
   @IBOutlet weak var connectedView: UIView!
@@ -31,17 +31,19 @@ class ParticipantViewController: UIViewController, SessionManagerDelegate {
     MBProgressHUD.hideHUDForView(self.view, animated: true)
     connectedView.hidden = false
   }
-  
+}
+
+extension ParticipantViewController: SessionManagerDelegate {
   func sessionManager(sessionManager: SessionManager, thisSessionDidConnect: Bool) {
     if thisSessionDidConnect {
       showConnected()
     }
   }
-  
+
   func sessionManager(sessionManager: SessionManager, peerDidConnect peerID: MCPeerID) {
     showConnected()
   }
-  
+
   func sessionManager(sessionManager: SessionManager, didReceiveData data: NSDictionary) {
     let message = data["message"] as! String
 
@@ -49,13 +51,13 @@ class ParticipantViewController: UIViewController, SessionManagerDelegate {
       let value = data["value"] as! [String: AnyObject]
       let player = value["player"] as! Player
       let game = value["game"] as! Game
-      
+
       LocalGameManager.sharedInstance.localPlayer = player
       LocalGameManager.sharedInstance.game = game
       LocalGameManager.sharedInstance.session = session
-      
+
       session.stop()
-      
+
       performSegueWithIdentifier("participantStartGame", sender: self)
     }
   }

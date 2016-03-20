@@ -10,7 +10,7 @@ import UIKit
 import MultipeerConnectivity
 import MBProgressHUD
 
-class OwnerViewController: UIViewController, SessionManagerDelegate {
+class OwnerViewController: UIViewController {
   
   @IBOutlet weak var connectionsLabel: UILabel!
   @IBOutlet weak var startButton: UIButton!
@@ -70,13 +70,15 @@ class OwnerViewController: UIViewController, SessionManagerDelegate {
       presentViewController(alertController, animated: true, completion: nil)
     }
   }
-  
+}
+
+extension OwnerViewController: SessionManagerDelegate {
   func sessionManager(sessionManager: SessionManager, peerDidConnect peerID: MCPeerID) {
     dispatch_async(dispatch_get_main_queue()) {
       self.connectionsLabel.text = "\(self.session.peers.count)"
     }
   }
-  
+
   func sessionManager(sessionManager: SessionManager, thisSessionDidConnect: Bool) {}
   func sessionManager(sessionManager: SessionManager, didReceiveData data: NSDictionary) {}
 }

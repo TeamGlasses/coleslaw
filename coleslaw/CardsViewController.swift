@@ -11,7 +11,7 @@ import MultipeerConnectivity
 
 let TURN_LENGTH = 10
 
-class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegate {
+class CardsViewController: UIViewController {
 
   var activeCardView: CardView!
 
@@ -126,22 +126,6 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
     performSegueWithIdentifier("moveToResults", sender: self)
   }
   
-  func gameDidEnd(game: Game) {
-    updateOnGameEnd()
-  }
-
-  func gameRoundDidEnd(game: Game) {
-    updateOnRoundEnd()
-  }
-  
-  func gameTurnDidEnd(game: Game) {
-    updateOnTurnEnd()
-  }
-  
-  func gameTurnDidStart(game: Game){
-    updateOnTurnStart()
-  }
-  
   func updateTimer(timer: NSTimer) {
     timeRemaining -= 1
     updateTimerLabel()
@@ -199,14 +183,34 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
     let destinationResultsViewController = destinationNavigationViewController.viewControllers.first as! ResultsViewController
     destinationResultsViewController.game = localGame.game
   }
+}
 
+extension CardsViewController: GameDelegate {
+  func gameDidEnd(game: Game) {
+    updateOnGameEnd()
+  }
+
+  func gameRoundDidEnd(game: Game) {
+    updateOnRoundEnd()
+  }
+
+  func gameTurnDidEnd(game: Game) {
+    updateOnTurnEnd()
+  }
+
+  func gameTurnDidStart(game: Game){
+    updateOnTurnStart()
+  }
+}
+
+extension CardsViewController: SessionManagerDelegate {
   func sessionManager(sessionManager: SessionManager, didReceiveData data: NSDictionary) {
     let game = data["value"] as! Game
     localGame.game = game
     localGame.game.delegate = self
 
     let message = data["message"] as! String
-    
+
     if message == "turnStart" {
       updateOnTurnStart()
     } else if message == "turnEnd" {
@@ -217,7 +221,7 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
       updateOnGameEnd()
     }
   }
-  
+
   func sessionManager(sessionManager: SessionManager, thisSessionDidConnect: Bool) {}
   func sessionManager(sessionManager: SessionManager, peerDidConnect peerID: MCPeerID) {}
 }
