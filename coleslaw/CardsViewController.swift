@@ -96,8 +96,13 @@ class CardsViewController: UIViewController, SessionManagerDelegate, GameDelegat
       startButton.setTitle("", forState: .Normal)
 
       addCardView(localGame.game.currentRound.randomCard)
-      fakeCards = [addFakeCardView(Card(title: ""), multiplier: 0.98, bottomOffset: -7),
-      addFakeCardView(Card(title: ""), multiplier: 0.96, bottomOffset: -14)]
+      
+      if localGame.game.currentRound.toGuessCards.count > 2 {
+        fakeCards = [addFakeCardView(Card(title: ""), multiplier: 0.98, bottomOffset: -7),
+          addFakeCardView(Card(title: ""), multiplier: 0.96, bottomOffset: -14)]
+      } else if localGame.game.currentRound.toGuessCards.count == 2 {
+        fakeCards = [addFakeCardView(Card(title: ""), multiplier: 0.98, bottomOffset: -7)]
+      }
     }
   }
   

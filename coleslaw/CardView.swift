@@ -54,7 +54,7 @@ class CardView: UIView {
   }
   
   func renderFakeCard(parentView: UIView, multiplier: CGFloat, bottomOffset: CGFloat) {
-    titleLabel.text = String(UnicodeScalar(0x1F4A9))
+    titleLabel.text = ""
     parentView.addSubview(self)
     
     let topConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: parentView, attribute: .Height, multiplier: (1/2), constant: 1.0)
