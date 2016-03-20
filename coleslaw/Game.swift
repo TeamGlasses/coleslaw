@@ -50,15 +50,11 @@ class Game: NSObject, NSCoding {
 
   // Only computed properties below.
   var currentRoundIndex: Int {
-    get {
-      return rounds.count-1
-    }
+    return rounds.count-1
   }
 
   var currentRound: Round {
-    get {
-      return rounds[currentRoundIndex]
-    }
+    return rounds[currentRoundIndex]
   }
   
   var currentPlayer: Player {
@@ -82,9 +78,7 @@ class Game: NSObject, NSCoding {
   }
 
   var isOver: Bool {
-    get {
-      return rounds.count == 3
-    }
+    return rounds.count == 3
   }
 
   var ownerPlayer: Player {

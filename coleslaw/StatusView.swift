@@ -16,8 +16,6 @@ class StatusView: UIView {
   
   @IBOutlet var teamAScoreLabel: UILabel!
   @IBOutlet var teamBScoreLabel: UILabel!
-  @IBOutlet var roundLabel: UILabel!
-  @IBOutlet var roundView: UIView!
   @IBOutlet var teamAScoreView: UIView!
   @IBOutlet var teamBScoreView: UIView!
   @IBOutlet var contentView: UIView!
@@ -99,25 +97,11 @@ class StatusView: UIView {
   }
   
   func setupView(parentView: UIView) {
-    let roundGradient = CAGradientLayer()
-    roundGradient.frame = roundView.bounds
+    let cornerRadius = CGFloat(8.0)
 
-    var newFrame = roundGradient.frame
-    newFrame.origin.y = newFrame.origin.y + 10; // add 100 to y's current value
-    newFrame.size.width = parentView.frame.size.width
-    roundGradient.frame = newFrame;
-
-    roundGradient.colors = [UIColor(red: 66/255, green: 66/255, blue: 66/255, alpha: 1).CGColor, UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1).CGColor]
-    roundGradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-    roundGradient.endPoint = CGPoint(x: 0.0, y: 1.0)
-    roundView.layer.insertSublayer(roundGradient, atIndex: 0)
-    roundView.layer.cornerRadius = 10.0
-    roundView.clipsToBounds = true
-    roundLabel.textColor = UIColor.whiteColor()
-    roundLabel.font = fontWithSize(15)
+    roundCorner(teamAScoreView, corner: [.BottomLeft, .BottomRight], radius: cornerRadius)
+    roundCorner(teamBScoreView, corner: [.BottomLeft, .BottomRight], radius: cornerRadius)
     
-    teamAScoreView.layer.cornerRadius = 8.0
-    teamBScoreView.layer.cornerRadius = 8.0
     teamAScoreView.clipsToBounds = true
     teamBScoreView.clipsToBounds = true
   }
@@ -137,6 +121,13 @@ class StatusView: UIView {
   func updateScores(){
     teamAScoreLabel.text = "\(game.scores[0])"
     teamBScoreLabel.text = "\(game.scores[1])"
+  }
+  
+  func roundCorner(view: UIView, corner: UIRectCorner, radius: CGFloat){
+    let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corner, cornerRadii: CGSize(width: radius, height: radius))
+    let mask = CAShapeLayer()
+    mask.path = path.CGPath
+    view.layer.mask = mask
   }
   
   func expandScoreLabel(view: UIView){

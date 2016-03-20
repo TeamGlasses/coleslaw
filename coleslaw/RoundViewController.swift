@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-class RoundViewController: UIViewController, SessionManagerDelegate {
+class RoundViewController: UIViewController {
 
   var statusView: StatusView!
 
@@ -67,9 +67,9 @@ class RoundViewController: UIViewController, SessionManagerDelegate {
     LocalGameManager.sharedInstance.session.broadcast("startRound", value: game)
     performSegueWithIdentifier("onRoundStart", sender: self)
   }
-  
-  
-  
+}
+
+extension RoundViewController: SessionManagerDelegate {
   func sessionManager(sessionManager: SessionManager, didReceiveData data: NSDictionary) {
     let message = data["message"] as! String
 
