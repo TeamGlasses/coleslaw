@@ -26,9 +26,6 @@ class CardView: UIView {
   var isDraggingFromBottom: Bool!
   var cardTransform: CGAffineTransform!
   
-//  var leftConstraint: NSLayoutConstraint!
-//  var rightConstraint: NSLayoutConstraint!
-
   var centerConstraint: NSLayoutConstraint!
 
   required init?(coder aDecoder: NSCoder) {
@@ -42,15 +39,7 @@ class CardView: UIView {
     
     titleLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 50)
     titleLabel.textColor = UIColor(red: 56.0/255.0, green: 56.0/255.0, blue: 56.0/255.0, alpha: 1)
-//    titleLabel.numberOfLines = 1;
     titleLabel.minimumScaleFactor = 30 / titleLabel.font.pointSize;
-//    titleLabel.adjustsFontSizeToFitWidth = true
-//    
-//    titleLabel.numberOfLines = 0;
-//    titleLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
-//    let maximumLabelSize = CGSizeMake(titleLabel.frame.size.width, CGFloat.max)
-//    let expectSize = titleLabel.sizeThatFits(maximumLabelSize)
-//    titleLabel.frame = CGRectMake(titleLabel.frame.origin.x, titleLabel.frame.origin.y, expectSize.width, expectSize.height)
   }
   
   func renderFakeCard(parentView: UIView, multiplier: CGFloat, bottomOffset: CGFloat) {
@@ -142,7 +131,6 @@ class CardView: UIView {
       if isAdvanceable(velocity, translation: translation) {
         // Card was swiped right
         translateViewWithAnimation(2 * contentView.frame.width, withRotation: true, cardComplete: true, callback: delegate.cardViewAdvanced)
-        //delegate.cardViewAdvanced(self)
       } else if isDismissable(velocity, translation: translation){
         // Card was swiped left
         translateViewWithAnimation(-2 * contentView.frame.width, withRotation: true, cardComplete: true, callback: delegate.cardViewDismissed)
@@ -184,14 +172,10 @@ class CardView: UIView {
   }
   
   func isAdvanceable(velocity: CGPoint, translation: CGPoint) -> Bool {
-    return velocity.x > 0 && isActionablePanDistance(translation)
+    return velocity.x > 0 && translation.x > 50
   }
   
   func isDismissable(velocity: CGPoint, translation: CGPoint) -> Bool {
-    return velocity.x < 0 && isActionablePanDistance(translation)
-  }
-  
-  func isActionablePanDistance(translation: CGPoint) -> Bool {
-    return abs(translation.x) > 50
+    return velocity.x < 0 && translation.x < -50
   }
 }
