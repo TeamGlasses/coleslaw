@@ -65,9 +65,9 @@ class ResultsViewController: UIViewController {
     tableView.reloadData()
   }
 
-  @IBAction func didTapDone(sender: UIBarButtonItem) {
-    let initialViewController = storyboard?.instantiateInitialViewController()
-    presentViewController(initialViewController!, animated: true, completion: nil)
+  @IBAction func onDismiss(sender: AnyObject) {
+    let initialViewController = UIApplication.sharedApplication().keyWindow?.rootViewController
+    initialViewController?.dismissViewControllerAnimated(true, completion: nil)
   }
 }
 

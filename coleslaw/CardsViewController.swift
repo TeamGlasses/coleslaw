@@ -137,6 +137,7 @@ class CardsViewController: UIViewController {
   }
 
   func updateOnGameEnd(){
+    timer.invalidate()
     performSegueWithIdentifier("moveToResults", sender: self)
   }
   
