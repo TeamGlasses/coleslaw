@@ -22,6 +22,8 @@ class RoundViewController: UIViewController {
     view.backgroundColor = LocalGameManager.sharedInstance.localColor
 
     statusView = StatusView()
+    // Set statusView game for the first time.
+    statusView.game = LocalGameManager.sharedInstance.game
     statusView.translatesAutoresizingMaskIntoConstraints = false
     statusView.renderInView(view)
     
