@@ -11,9 +11,9 @@ import UIKit
 class ResultsViewController: UIViewController {
 
   @IBOutlet weak var winnerAnnouncementLabel: UILabel!
-  @IBOutlet weak var redScoreLabel: UILabel!
-  @IBOutlet weak var blueScoreLabel: UILabel!
-
+  @IBOutlet var winnerScoreLabel: UILabel!
+  @IBOutlet var loserScoreLabel: UILabel!
+  
   @IBOutlet weak var tableView: UITableView!
   
   @IBOutlet var scoresView: UIView!
@@ -28,17 +28,31 @@ class ResultsViewController: UIViewController {
     tableView.delegate = self
     
     let game = localGame.game
+    let winnerColor = game.winner.color
+    let loserColor = game.loser.color
     
-    view.backgroundColor = game.winner.color
+    view.backgroundColor = winnerColor
     
     winnerAnnouncementLabel.textColor = UIColor.whiteColor()
     winnerAnnouncementLabel.font = UIFont(name: "SFUIText-Semibold", size: 50)
     scoresView.layer.cornerRadius = 16
+    scoresView.layer.shadowOpacity = 0.2
+    scoresView.layer.shadowOffset = CGSizeMake(0, 0)
+    scoresView.layer.shadowRadius = 16
+    scoresView.layer.shadowColor = UIColor.blackColor().CGColor
+    scoresView.layer.masksToBounds = false
+    scoresView.clipsToBounds = false
 
-    winnerAnnouncementLabel.text = "\(game.winner.name) Won!"
+    winnerAnnouncementLabel.text = "\(game.winner.name) Wins!"
     let scores = game.scores
-    redScoreLabel.text = "\(scores[0])"
-    blueScoreLabel.text = "\(scores[1])"
+    
+    winnerScoreLabel.text = "\(scores[game.winner.id])"
+    winnerScoreLabel.textColor = winnerColor
+    winnerScoreLabel.font = UIFont(name: "SFUIDisplay-Bold", size: 50)
+
+    loserScoreLabel.text = "\(scores[game.loser.id])"
+    loserScoreLabel.textColor = loserColor
+    loserScoreLabel.font = UIFont(name: "SFUIDisplay-Light", size: 50)
 
     tableView.reloadData()
   }
@@ -58,6 +72,8 @@ func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexP
     let cell = tableView.dequeueReusableCellWithIdentifier("RoundResultCell", forIndexPath: indexPath) as! RoundResultCell
 
     cell.round = localGame.game.rounds[indexPath.row]
+    cell.gameWinner = localGame.game.winner
+    cell.gameLoser = localGame.game.loser
 
     return cell
   }

@@ -93,6 +93,11 @@ class Round: NSObject, NSCoding {
     let localScores = scores
     return game.allTeams[localScores.indexOf(localScores.maxElement()!)!]
   }
+  
+  var loser: Team {
+    let localScores = scores
+    return game.allTeams[localScores.indexOf(localScores.minElement()!)!]
+  }
   // End computed properties.
 
   // MARK: NSCoding

@@ -76,6 +76,11 @@ class Game: NSObject, NSCoding {
     let localScores = scores
     return allTeams[localScores.indexOf(localScores.maxElement()!)!]
   }
+  
+  var loser: Team {
+    let localScores = scores
+    return allTeams[localScores.indexOf(localScores.minElement()!)!]
+  }
 
   var isOver: Bool {
     return rounds.count == 3

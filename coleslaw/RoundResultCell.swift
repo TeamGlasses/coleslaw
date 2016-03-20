@@ -10,18 +10,34 @@ import UIKit
 
 class RoundResultCell: UITableViewCell {
   @IBOutlet weak var roundNameLabel: UILabel!
-  @IBOutlet weak var winnerAnnouncementLabel: UILabel!
-  @IBOutlet weak var redScoreLabel: UILabel!
-  @IBOutlet weak var blueScoreLabel: UILabel!
+
+  @IBOutlet var loserScoreLabel: UILabel!
+  @IBOutlet var winnerScoreLabel: UILabel!
+  
+  var gameWinner: Team!
+  var gameLoser: Team!
 
   var round: Round! {
     didSet {
-      roundNameLabel.text = "Round #\(round.roundIndexInGame + 1)"
+      roundNameLabel.text = "Round \(round.roundIndexInGame + 1)"
+      roundNameLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 18)
       //winnerAnnouncementLabel.text = "Winner: \(round.winner.name)"
-      let scores = round.scores
-      redScoreLabel.text = "\(scores[0])"
-      blueScoreLabel.text = "\(scores[1])"
     }
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    let scores = round.scores
+    
+    winnerScoreLabel.text = "\(scores[gameWinner.id])"
+    loserScoreLabel.text = "\(scores[gameLoser.id])"
+    
+    winnerScoreLabel.textColor = gameWinner.color
+    winnerScoreLabel.font = UIFont(name: "SFUIDisplay-Bold", size: 36)
+    
+    loserScoreLabel.textColor = gameLoser.color
+    loserScoreLabel.font = UIFont(name: "SFUIDisplay-Light", size: 36)
   }
 
 }
