@@ -15,6 +15,8 @@ class OwnerViewController: UIViewController {
   @IBOutlet weak var connectionsLabel: UILabel!
   @IBOutlet weak var startButton: UIButton!
 
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  
   var allCards: [Card]!
   
   var session = OwnerSessionManager()
@@ -25,11 +27,11 @@ class OwnerViewController: UIViewController {
     super.viewDidLoad()
 
     startButton.enabled = false
-    MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    activityIndicator.startAnimating()
     FirebaseClient.sharedInstance.getCards("demo") { (cards: [Card]!) -> Void in
       self.allCards = cards
       self.startButton.enabled = true
-      MBProgressHUD.hideHUDForView(self.view, animated: true)
+      self.activityIndicator.stopAnimating()
     }
 
     session.delegate = self
@@ -69,6 +71,11 @@ class OwnerViewController: UIViewController {
       alertController.addAction(cancelAction)
       presentViewController(alertController, animated: true, completion: nil)
     }
+  }
+  
+  @IBAction func onDismiss(sender: AnyObject) {
+    session.stop()
+    dismissViewControllerAnimated(true, completion: nil)
   }
 }
 
