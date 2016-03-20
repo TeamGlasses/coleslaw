@@ -14,13 +14,18 @@ class ParticipantViewController: UIViewController {
   var session = ParticipantSessionManager()
   
   @IBOutlet weak var connectedView: UIView!
+
+  @IBOutlet weak var lookingView: UIView!
+  
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
   let animationDuration = NSTimeInterval(0.5)
   
   override func viewDidLoad() {
     super.viewDidLoad()
     session.delegate = self
-    MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+//    MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    activityIndicator.startAnimating()
   }
   
   override func didReceiveMemoryWarning() {
@@ -28,8 +33,15 @@ class ParticipantViewController: UIViewController {
   }
     
   func showConnected(){
-    MBProgressHUD.hideHUDForView(self.view, animated: true)
+//    MBProgressHUD.hideHUDForView(self.view, animated: true)
+    activityIndicator.stopAnimating()
+    lookingView.hidden = true
     connectedView.hidden = false
+  }
+  
+  @IBAction func onDismiss(sender: AnyObject) {
+    session.stop()
+    dismissViewControllerAnimated(true, completion: nil)
   }
 }
 
