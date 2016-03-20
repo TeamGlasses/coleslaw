@@ -28,31 +28,39 @@ class ResultsViewController: UIViewController {
     tableView.delegate = self
     
     let game = localGame.game
-    let winnerColor = game.winner.color
-    let loserColor = game.loser.color
+    let scores = game.scores
     
+    var winner = game.winner
+    var loser = game.loser
+    let winnerFont = "SFUIDisplay-Bold"
+    var loserFont = "SFUIDisplay-Light"
+    var winnerColor = winner.color
+    var winnerText = game.winner.name
+    
+    if game.isTied {
+      winner = game.allTeams[0]
+      loser = game.allTeams[1]
+      winnerText = "Everyone"
+      loserFont = "SFUIDisplay-Bold"
+      winnerColor = UIColor(red: 167.0/255.0, green: 19.0/255.0, blue: 129.0/255.0, alpha: 1)
+    }
+
     view.backgroundColor = winnerColor
+    
+    winnerScoreLabel.text = "\(scores[winner.id])"
+    winnerScoreLabel.textColor = winner.color
+
+    loserScoreLabel.text = "\(scores[loser.id])"
+    loserScoreLabel.textColor = loser.color
+    
+    winnerAnnouncementLabel.text = "\(winnerText) Wins!"
     
     winnerAnnouncementLabel.textColor = UIColor.whiteColor()
     winnerAnnouncementLabel.font = UIFont(name: "SFUIText-Semibold", size: 50)
     scoresView.layer.cornerRadius = 16
-    scoresView.layer.shadowOpacity = 0.2
-    scoresView.layer.shadowOffset = CGSizeMake(0, 0)
-    scoresView.layer.shadowRadius = 16
-    scoresView.layer.shadowColor = UIColor.blackColor().CGColor
-    scoresView.layer.masksToBounds = false
-    scoresView.clipsToBounds = false
 
-    winnerAnnouncementLabel.text = "\(game.winner.name) Wins!"
-    let scores = game.scores
-    
-    winnerScoreLabel.text = "\(scores[game.winner.id])"
-    winnerScoreLabel.textColor = winnerColor
-    winnerScoreLabel.font = UIFont(name: "SFUIDisplay-Bold", size: 50)
-
-    loserScoreLabel.text = "\(scores[game.loser.id])"
-    loserScoreLabel.textColor = loserColor
-    loserScoreLabel.font = UIFont(name: "SFUIDisplay-Light", size: 50)
+    winnerScoreLabel.font = UIFont(name: winnerFont, size: 50)
+    loserScoreLabel.font = UIFont(name: loserFont, size: 50)
 
     tableView.reloadData()
   }
@@ -71,9 +79,19 @@ extension ResultsViewController: UITableViewDataSource {
 func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("RoundResultCell", forIndexPath: indexPath) as! RoundResultCell
 
+    let game = localGame.game
+    var winner = game.winner
+    var loser = game.loser
+  
+    if game.isTied {
+      winner = game.allTeams[0]
+      loser = game.allTeams[1]
+    }
+  
     cell.round = localGame.game.rounds[indexPath.row]
-    cell.gameWinner = localGame.game.winner
-    cell.gameLoser = localGame.game.loser
+    cell.gameWinner = winner
+    cell.gameLoser = loser
+    cell.isTied = game.isTied
 
     return cell
   }

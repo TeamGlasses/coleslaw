@@ -81,6 +81,11 @@ class Game: NSObject, NSCoding {
     let localScores = scores
     return allTeams[localScores.indexOf(localScores.minElement()!)!]
   }
+  
+  var isTied: Bool {
+    let localScores = scores
+    return localScores[0] == localScores[1]
+  }
 
   var isOver: Bool {
     return rounds.count == 3
