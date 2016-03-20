@@ -15,14 +15,25 @@ class ResultsViewController: UIViewController {
   @IBOutlet weak var blueScoreLabel: UILabel!
 
   @IBOutlet weak var tableView: UITableView!
-
-  var game: Game!
+  
+  @IBOutlet var scoresView: UIView!
+  var localGame: LocalGameManager {
+    return LocalGameManager.sharedInstance
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     tableView.dataSource = self
     tableView.delegate = self
+    
+    let game = localGame.game
+    
+    view.backgroundColor = game.winner.color
+    
+    winnerAnnouncementLabel.textColor = UIColor.whiteColor()
+    winnerAnnouncementLabel.font = UIFont(name: "SFUIText-Semibold", size: 50)
+    scoresView.layer.cornerRadius = 16
 
     winnerAnnouncementLabel.text = "\(game.winner.name) Won!"
     let scores = game.scores
@@ -40,13 +51,13 @@ class ResultsViewController: UIViewController {
 
 extension ResultsViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return game.rounds.count
+    return localGame.game.rounds.count
   }
 
 func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("RoundResultCell", forIndexPath: indexPath) as! RoundResultCell
 
-    cell.round = game.rounds[indexPath.row]
+    cell.round = localGame.game.rounds[indexPath.row]
 
     return cell
   }

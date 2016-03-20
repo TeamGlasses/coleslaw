@@ -17,7 +17,7 @@ class RoundResultCell: UITableViewCell {
   var round: Round! {
     didSet {
       roundNameLabel.text = "Round #\(round.roundIndexInGame + 1)"
-      winnerAnnouncementLabel.text = "Winner: \(round.winner.name)"
+      //winnerAnnouncementLabel.text = "Winner: \(round.winner.name)"
       let scores = round.scores
       redScoreLabel.text = "\(scores[0])"
       blueScoreLabel.text = "\(scores[1])"

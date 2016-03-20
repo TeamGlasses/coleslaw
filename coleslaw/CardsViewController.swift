@@ -182,12 +182,6 @@ class CardsViewController: UIViewController {
   @IBAction func onStartTap(sender: AnyObject) {
     localGame.game.turnStart()
   }
-
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    let destinationNavigationViewController = segue.destinationViewController as! UINavigationController
-    let destinationResultsViewController = destinationNavigationViewController.viewControllers.first as! ResultsViewController
-    destinationResultsViewController.game = localGame.game
-  }
 }
 
 extension CardsViewController: GameDelegate {
