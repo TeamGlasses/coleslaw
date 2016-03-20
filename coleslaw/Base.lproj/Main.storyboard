@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="1:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIc-fI-6Ec">
-                                <rect key="frame" x="103" y="124" width="114" height="76"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIc-fI-6Ec">
+                                <rect key="frame" x="103" y="124" width="114" height="75.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="55"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -38,16 +38,26 @@
                                     <action selector="onStartTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="buc-9O-4fp"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cards Remaining: 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vA6-NI-XjG">
+                                <rect key="frame" x="88" y="245.5" width="145" height="22"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9Ng-Yj-cde" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="GXV-TJ-FCv"/>
                             <constraint firstItem="jIc-fI-6Ec" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IkT-oW-Gnv"/>
                             <constraint firstItem="9Ng-Yj-cde" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="OjW-dC-LtP"/>
+                            <constraint firstItem="vA6-NI-XjG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Smk-ck-A2L"/>
+                            <constraint firstItem="vA6-NI-XjG" firstAttribute="top" secondItem="jIc-fI-6Ec" secondAttribute="bottom" constant="46" id="d1M-yj-gar"/>
+                            <constraint firstItem="jIc-fI-6Ec" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="104" id="ehW-Qq-pPR"/>
                             <constraint firstItem="9Ng-Yj-cde" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ibR-67-L6o"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cardsRemainingLabel" destination="vA6-NI-XjG" id="dWC-Gq-hhx"/>
                         <outlet property="startButton" destination="9Ng-Yj-cde" id="geY-P0-fG9"/>
                         <outlet property="timerLabel" destination="jIc-fI-6Ec" id="hCg-Ay-nLe"/>
                         <segue destination="hUQ-nK-pcX" kind="modal" identifier="moveToResults" id="Mba-nJ-o0z"/>

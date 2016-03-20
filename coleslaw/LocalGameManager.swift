@@ -40,7 +40,7 @@ class LocalGameManager {
     return localPlayer.team.color
   }
   
-  func triggerGameUpdate(){
+  func triggerGameUpdate() {
     NSNotificationCenter.defaultCenter().postNotificationName(GameUpdatedNotification, 	object: self, userInfo: nil)
   }
 }

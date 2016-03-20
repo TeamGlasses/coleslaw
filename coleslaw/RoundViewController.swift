@@ -43,7 +43,6 @@ class RoundViewController: UIViewController {
     infoView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
     infoView.rulesLabel.textAlignment = NSTextAlignment.Center
     infoView.rulesLabel.font = UIFont(name: "SFUIDisplay-Medium", size: 24)
-    infoView.roundType = RoundType(rawValue: LocalGameManager.sharedInstance.game.currentRoundIndex + 1)
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -53,6 +52,8 @@ class RoundViewController: UIViewController {
     startButton.hidden = !isOwner
     startButton.enabled = isOwner
     startButton.setTitle("Start Round \(LocalGameManager.sharedInstance.game.currentRoundIndex+2)", forState: .Normal)
+
+    infoView.roundType = RoundType(rawValue: LocalGameManager.sharedInstance.game.currentRoundIndex + 1)
   }
   
   override func didReceiveMemoryWarning() {

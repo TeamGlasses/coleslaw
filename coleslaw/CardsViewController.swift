@@ -17,6 +17,7 @@ class CardsViewController: UIViewController {
 
   @IBOutlet weak var timerLabel: UILabel!
   @IBOutlet weak var startButton: UIButton!
+  @IBOutlet weak var cardsRemainingLabel: UILabel!
 
   var timer: NSTimer!
   
@@ -43,7 +44,8 @@ class CardsViewController: UIViewController {
         fakeCard.removeFromSuperview()
       }
     }
-    
+
+    cardsRemainingLabel.hidden = true
     fakeCards = []
     
     if localGame.isCurrentPlayer {
@@ -62,6 +64,7 @@ class CardsViewController: UIViewController {
     super.viewDidLoad()
     
     timerLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 76)
+    cardsRemainingLabel.font = UIFont(name: "SFUIDisplay-Semibold", size: 16)
     
     // view background
     view.backgroundColor = LocalGameManager.sharedInstance.localColor
@@ -95,12 +98,18 @@ class CardsViewController: UIViewController {
       startButton.hidden = true
       startButton.setTitle("", forState: .Normal)
 
+      let cardsRemaining = localGame.game.currentRound.toGuessCards.count
+      if cardsRemaining <= 3 {
+        cardsRemainingLabel.hidden = false
+        cardsRemainingLabel.text = "Cards Remaining: \(cardsRemaining)"
+      }
+
       addCardView(localGame.game.currentRound.randomCard)
       
-      if localGame.game.currentRound.toGuessCards.count > 2 {
+      if cardsRemaining > 2 {
         fakeCards = [addFakeCardView(Card(title: ""), multiplier: 0.98, bottomOffset: -7),
           addFakeCardView(Card(title: ""), multiplier: 0.96, bottomOffset: -14)]
-      } else if localGame.game.currentRound.toGuessCards.count == 2 {
+      } else if cardsRemaining == 2 {
         fakeCards = [addFakeCardView(Card(title: ""), multiplier: 0.98, bottomOffset: -7)]
       }
     }
@@ -151,7 +160,13 @@ class CardsViewController: UIViewController {
 
   func showNextCard(advanced: Bool){
     activeCardView.removeFromSuperview()
-    
+
+    let cardsRemaining = localGame.game.currentRound.toGuessCards.count
+    if cardsRemaining <= 3 {
+      cardsRemainingLabel.hidden = false
+      cardsRemainingLabel.text = "Cards Remaining: \(cardsRemaining)"
+    }
+
     if localGame.game.currentRound.toGuessCards.count < 3 && fakeCards.count > 0 && advanced {
       fakeCards.popLast()!.removeFromSuperview()
     }
@@ -239,7 +254,11 @@ extension CardsViewController: CardViewDelegate {
   }
 
   func cardViewDismissed(cardView: CardView) {
-    showNextCard(false)
+    if localGame.game.currentRound.toGuessCards.count > 1 {
+      showNextCard(false)
+    } else {
+      localGame.game.turnEnd()
+    }
   }
 
   func cardViewFinishedAnimating(cardView: CardView) {
