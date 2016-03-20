@@ -3,11 +3,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CardView" customModule="coleslaw" customModuleProvider="target">
             <connections>
+                <outlet property="checkImageView" destination="z2y-KW-ug1" id="QME-Vz-qFS"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="mND-H6-8XL"/>
+                <outlet property="passImageView" destination="kNZ-jo-t1z" id="xQH-mR-bk5"/>
                 <outlet property="titleLabel" destination="pkQ-28-2DA" id="nBQ-e4-d2k"/>
             </connections>
         </placeholder>
@@ -22,16 +25,39 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="x-inactive" translatesAutoresizingMaskIntoConstraints="NO" id="kNZ-jo-t1z">
+                    <rect key="frame" x="232" y="566" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="F6C-5I-NKq"/>
+                        <constraint firstAttribute="height" constant="16" id="i4C-3b-8DS"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark-inactive" translatesAutoresizingMaskIntoConstraints="NO" id="z2y-KW-ug1">
+                    <rect key="frame" x="350" y="566" width="21" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="21" id="j28-0b-OIO"/>
+                        <constraint firstAttribute="height" constant="16" id="l5z-dn-AuD"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pkQ-28-2DA" secondAttribute="bottom" constant="20" id="33p-Ur-FN8"/>
+                <constraint firstAttribute="bottom" secondItem="kNZ-jo-t1z" secondAttribute="bottom" constant="18" id="9Yq-YF-6Br"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pkQ-28-2DA" secondAttribute="trailing" constant="10" id="K9Z-7R-MvN"/>
                 <constraint firstItem="pkQ-28-2DA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="PUf-Yz-DLG"/>
+                <constraint firstAttribute="bottom" secondItem="z2y-KW-ug1" secondAttribute="bottom" constant="18" id="WK6-Gt-p5q"/>
                 <constraint firstItem="pkQ-28-2DA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ZM9-o4-cEi"/>
+                <constraint firstItem="kNZ-jo-t1z" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" multiplier="0.8" id="hNA-te-z2l"/>
+                <constraint firstItem="z2y-KW-ug1" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" multiplier="1.2" id="kq2-gc-Jg9"/>
                 <constraint firstItem="pkQ-28-2DA" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qdq-RI-L9z"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="268" y="238"/>
         </view>
     </objects>
+    <resources>
+        <image name="checkmark-inactive" width="21" height="15"/>
+        <image name="x-inactive" width="16" height="16"/>
+    </resources>
 </document>

@@ -17,6 +17,9 @@ protocol CardViewDelegate {
 class CardView: UIView {
   @IBOutlet var contentView: UIView!
   @IBOutlet weak var titleLabel: UILabel!
+
+  @IBOutlet var passImageView: UIImageView!
+  @IBOutlet var checkImageView: UIImageView!
   
   let animationDuration: NSTimeInterval = 0.2
   
@@ -125,7 +128,15 @@ class CardView: UIView {
       isDraggingFromBottom = location.y > (contentView.frame.height / 2)
     } else if sender.state == UIGestureRecognizerState.Changed {
       translateView(translation.x, withRotation: true, cardComplete: false)
-
+      
+      checkImageView.image = UIImage(named: "checkmark-inactive")
+      passImageView.image = UIImage(named: "x-inactive")
+      
+      if (translation.x > 0) {
+        checkImageView.image = UIImage(named: "checkmark-active")
+      } else {
+        passImageView.image = UIImage(named: "x-active")
+      }
     } else if sender.state == UIGestureRecognizerState.Ended {
 
       if isAdvanceable(velocity, translation: translation) {
@@ -137,6 +148,8 @@ class CardView: UIView {
       } else {
         // Card wasn't swiped enought to count as advancing or dismissal
         translateViewWithAnimation(0, withRotation: false, cardComplete: false, callback: nil)
+        checkImageView.image = UIImage(named: "checkmark-inactive")
+        passImageView.image = UIImage(named: "x-inactive")
       }
     }
   }
