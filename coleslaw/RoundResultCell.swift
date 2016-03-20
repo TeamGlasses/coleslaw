@@ -16,6 +16,7 @@ class RoundResultCell: UITableViewCell {
   
   var gameWinner: Team!
   var gameLoser: Team!
+  var isTied: Bool!
 
   var round: Round! {
     didSet {
@@ -29,6 +30,11 @@ class RoundResultCell: UITableViewCell {
     super.layoutSubviews()
     
     let scores = round.scores
+    var loserFont = "SFUIDisplay-Light"
+    
+    if isTied == true {
+      loserFont = "SFUIDisplay-Bold"
+    }
     
     winnerScoreLabel.text = "\(scores[gameWinner.id])"
     loserScoreLabel.text = "\(scores[gameLoser.id])"
@@ -37,7 +43,7 @@ class RoundResultCell: UITableViewCell {
     winnerScoreLabel.font = UIFont(name: "SFUIDisplay-Bold", size: 36)
     
     loserScoreLabel.textColor = gameLoser.color
-    loserScoreLabel.font = UIFont(name: "SFUIDisplay-Light", size: 36)
+    loserScoreLabel.font = UIFont(name: loserFont, size: 36)
   }
 
 }
