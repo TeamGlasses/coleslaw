@@ -16,8 +16,8 @@
 		225B25E31C8EBB880006F892 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B25E21C8EBB880006F892 /* Team.swift */; };
 		225B47731C94FE1700145925 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B47721C94FE1700145925 /* FirebaseClient.swift */; };
 		22961C231C9A6A4200D174CA /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22961C221C9A6A4200D174CA /* InfoView.swift */; };
-		50418FA61C9F537900C4F878 /* SF-UI-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50418FA41C9F534A00C4F878 /* SF-UI-Display-Bold.otf */; };
-		50418FA71C9F537900C4F878 /* SF-UI-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50418FA51C9F534A00C4F878 /* SF-UI-Display-Light.otf */; };
+		50418FB21C9F596100C4F878 /* SF-UI-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50418FB01C9F596100C4F878 /* SF-UI-Display-Bold.otf */; };
+		50418FB31C9F596100C4F878 /* SF-UI-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50418FB11C9F596100C4F878 /* SF-UI-Display-Light.otf */; };
 		50B631291C8CE7900015684C /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B631281C8CE7900015684C /* Game.swift */; };
 		50B946901C968CD600C9EF6D /* RoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B9468F1C968CD600C9EF6D /* RoundViewController.swift */; };
 		50C0D6C41C963AB900A4961C /* SF-UI-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50C0D6BF1C963A8000A4961C /* SF-UI-Display-Medium.otf */; };
@@ -51,6 +51,8 @@
 		22961C221C9A6A4200D174CA /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		50418FA41C9F534A00C4F878 /* SF-UI-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Bold.otf"; path = "../../../../Library/Fonts/SF-UI-Display-Bold.otf"; sourceTree = "<group>"; };
 		50418FA51C9F534A00C4F878 /* SF-UI-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Light.otf"; path = "../../../../Library/Fonts/SF-UI-Display-Light.otf"; sourceTree = "<group>"; };
+		50418FB01C9F596100C4F878 /* SF-UI-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Bold.otf"; path = "coleslaw/SF-UI-Display-Bold.otf"; sourceTree = "<group>"; };
+		50418FB11C9F596100C4F878 /* SF-UI-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Light.otf"; path = "coleslaw/SF-UI-Display-Light.otf"; sourceTree = "<group>"; };
 		50B631281C8CE7900015684C /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		50B9468F1C968CD600C9EF6D /* RoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundViewController.swift; sourceTree = "<group>"; };
 		50C0D6BF1C963A8000A4961C /* SF-UI-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Medium.otf"; sourceTree = "<group>"; };
@@ -145,6 +147,8 @@
 		8A599C4F1C8B79720068C657 = {
 			isa = PBXGroup;
 			children = (
+				50418FB01C9F596100C4F878 /* SF-UI-Display-Bold.otf */,
+				50418FB11C9F596100C4F878 /* SF-UI-Display-Light.otf */,
 				8A599C5A1C8B79720068C657 /* coleslaw */,
 				8A599C591C8B79720068C657 /* Products */,
 				FF00703BFA63BDDE4A90E756 /* Pods */,
@@ -273,8 +277,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50418FA61C9F537900C4F878 /* SF-UI-Display-Bold.otf in Resources */,
-				50418FA71C9F537900C4F878 /* SF-UI-Display-Light.otf in Resources */,
+				50418FB21C9F596100C4F878 /* SF-UI-Display-Bold.otf in Resources */,
+				50418FB31C9F596100C4F878 /* SF-UI-Display-Light.otf in Resources */,
 				50C0D6C41C963AB900A4961C /* SF-UI-Display-Medium.otf in Resources */,
 				50C0D6C51C963AB900A4961C /* SF-UI-Display-Semibold.otf in Resources */,
 				50C0D6C61C963AB900A4961C /* SF-UI-Text-Medium.otf in Resources */,
