@@ -3,14 +3,11 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StatusView" customModule="coleslaw" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="Xx1-QP-hTQ"/>
-                <outlet property="roundLabel" destination="aqS-c6-7jG" id="lF2-wu-T8W"/>
-                <outlet property="roundView" destination="Afo-Mb-dLP" id="MY1-ej-qte"/>
                 <outlet property="teamAHeight" destination="79f-p4-KL6" id="9jF-uJ-X0f"/>
                 <outlet property="teamAScoreLabel" destination="bHa-Oc-BZY" id="t7O-SJ-rzW"/>
                 <outlet property="teamAScoreView" destination="arz-cQ-3pN" id="hwA-wv-udW"/>
@@ -27,14 +24,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5N-Ra-yHL" userLabel="Score View">
-                    <rect key="frame" x="225" y="32" width="150" height="70"/>
+                    <rect key="frame" x="225" y="0.0" width="150" height="70"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arz-cQ-3pN" userLabel="a score">
                             <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHa-Oc-BZY">
+                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHa-Oc-BZY">
                                     <rect key="frame" x="19" y="10" width="10.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <color key="textColor" red="0.56425650169999997" green="0.17032822989999999" blue="0.16298762580000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -50,9 +47,9 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6z-Ot-t1q" userLabel="b score">
                             <rect key="frame" x="62" y="0.0" width="88" height="54"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtp-dO-ni4">
-                                    <rect key="frame" x="39" y="16" width="10.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtp-dO-ni4">
+                                    <rect key="frame" x="35" y="8.5" width="19" height="36"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <color key="textColor" red="0.0" green="0.35237520970000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -76,31 +73,10 @@
                         <constraint firstItem="arz-cQ-3pN" firstAttribute="leading" secondItem="M5N-Ra-yHL" secondAttribute="leading" id="muv-YB-e99"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Afo-Mb-dLP" userLabel="Round View">
-                    <rect key="frame" x="30" y="0.0" width="540" height="40"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Round 1 - Team Red" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqS-c6-7jG">
-                            <rect key="frame" x="197" y="10" width="146.5" height="22"/>
-                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="aqS-c6-7jG" secondAttribute="bottom" constant="8" id="e1V-IP-Hia"/>
-                        <constraint firstAttribute="height" constant="40" id="fIE-wp-oAx"/>
-                        <constraint firstItem="aqS-c6-7jG" firstAttribute="centerX" secondItem="Afo-Mb-dLP" secondAttribute="centerX" id="v0G-fP-IRF"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Afo-Mb-dLP" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.9" id="8Fk-Mf-aP8"/>
-                <constraint firstItem="Afo-Mb-dLP" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Co9-Ue-UIx"/>
-                <constraint firstItem="Afo-Mb-dLP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VE5-yL-Hch"/>
-                <constraint firstItem="M5N-Ra-yHL" firstAttribute="top" secondItem="aqS-c6-7jG" secondAttribute="bottom" id="fHW-xr-4vi"/>
+                <constraint firstItem="M5N-Ra-yHL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5kt-B2-UfE"/>
                 <constraint firstItem="M5N-Ra-yHL" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="mgO-mm-Ez0"/>
             </constraints>
         </view>
