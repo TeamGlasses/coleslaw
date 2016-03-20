@@ -101,6 +101,8 @@ class Game: NSObject, NSCoding {
   
   func turnEnd() {
     currentPlayerIndex += 1
+
+    currentRound.currentTurn.isOver = true
     
     if currentRound.isOver {
       roundEnd()

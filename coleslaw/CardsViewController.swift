@@ -255,7 +255,8 @@ extension CardsViewController: CardViewDelegate {
   }
 
   func cardViewDismissed(cardView: CardView) {
-    if localGame.game.currentRound.toGuessCards.count > 1 {
+    let currentRound = localGame.game.currentRound
+    if currentRound.toGuessCards.count > 1 && !currentRound.currentTurn.isOver {
       showNextCard(false)
     } else {
       localGame.game.turnEnd()
