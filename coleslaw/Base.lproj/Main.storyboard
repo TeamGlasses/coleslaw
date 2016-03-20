@@ -211,13 +211,26 @@
                                     <constraint firstAttribute="trailing" secondItem="1Mp-6z-G5M" secondAttribute="trailing" constant="20" id="wSL-ss-5tr"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ex-Gr-fCR">
+                                <rect key="frame" x="282" y="21" width="30" height="42"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="25"/>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onDismiss:" destination="hUQ-nK-pcX" eventType="touchUpInside" id="Bxv-lU-dm0"/>
+                                    <action selector="onDismiss:" destination="BoA-nM-1Rd" eventType="touchUpInside" id="PEP-OL-INz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RWC-1k-OSo" firstAttribute="leading" secondItem="zR7-10-nXp" secondAttribute="leading" constant="20" id="8TR-qW-zPa"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="aPo-jI-AJw" secondAttribute="trailing" constant="20" id="H5w-av-ZmU"/>
+                            <constraint firstAttribute="trailing" secondItem="3ex-Gr-fCR" secondAttribute="trailing" constant="8" id="P3o-zF-jGQ"/>
                             <constraint firstItem="aPo-jI-AJw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zR7-10-nXp" secondAttribute="leadingMargin" constant="20" id="TEp-k3-sIo"/>
                             <constraint firstAttribute="trailing" secondItem="RWC-1k-OSo" secondAttribute="trailing" constant="20" id="Ycc-5B-MtH"/>
+                            <constraint firstItem="3ex-Gr-fCR" firstAttribute="top" secondItem="Oay-st-puj" secondAttribute="bottom" id="pGG-rh-M3h"/>
                             <constraint firstItem="RWC-1k-OSo" firstAttribute="top" secondItem="aPo-jI-AJw" secondAttribute="bottom" constant="25" id="phi-oL-ELK"/>
                             <constraint firstItem="aPo-jI-AJw" firstAttribute="top" secondItem="Oay-st-puj" secondAttribute="bottom" constant="25" id="rmC-6I-TI4"/>
                             <constraint firstItem="aPo-jI-AJw" firstAttribute="centerX" secondItem="zR7-10-nXp" secondAttribute="centerX" id="wgd-bE-MQC"/>

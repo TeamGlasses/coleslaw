@@ -14,13 +14,11 @@ let GameUpdatedNotification = "GameUpdatedNotification"
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+  
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
-    
     UIApplication.sharedApplication().statusBarHidden = true
-    // UILabel.appearanceWhenContainedInInstancesOfClasses([StartGameViewController.self]).font = UIFont(name: "SFUIText-Medium", size: 70)
+    
     return true
   }
 
