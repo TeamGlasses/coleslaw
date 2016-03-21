@@ -53,7 +53,11 @@ class RoundViewController: UIViewController {
     startButton.enabled = isOwner
     startButton.setTitle("Start Round \(LocalGameManager.sharedInstance.game.currentRoundIndex+2)", forState: .Normal)
 
-    infoView.roundType = RoundType(rawValue: LocalGameManager.sharedInstance.game.currentRoundIndex + 1)
+    let currentRoundIndex = LocalGameManager.sharedInstance.game.currentRoundIndex
+    if currentRoundIndex < 2 {
+      infoView.roundType = RoundType(rawValue: currentRoundIndex + 1)
+    }
+
   }
   
   override func didReceiveMemoryWarning() {
