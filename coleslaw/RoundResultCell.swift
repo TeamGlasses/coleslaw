@@ -32,7 +32,7 @@ class RoundResultCell: UITableViewCell {
     let scores = round.scores
     var loserFont = "SFUIDisplay-Light"
     
-    if isTied == true {
+    if scores[gameWinner.id] == scores[gameLoser.id] {
       loserFont = "SFUIDisplay-Bold"
     }
     
