@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-let TURN_LENGTH = 30
+let TURN_LENGTH = 20
 
 class CardsViewController: UIViewController {
 

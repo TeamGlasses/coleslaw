@@ -624,13 +624,13 @@
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					1C3436CEA5C3D39764C5F54374794ECB = {
-						DevelopmentTeam = J488GRFKPU;
+						DevelopmentTeam = 7PJ9Z8CH22;
 					};
 					B7AC9326D819482593FE118E915409D7 = {
-						DevelopmentTeam = J488GRFKPU;
+						DevelopmentTeam = 7PJ9Z8CH22;
 					};
 					E61CE3B6DFA1FE6B3E296965C76C0E10 = {
-						DevelopmentTeam = J488GRFKPU;
+						DevelopmentTeam = 7PJ9Z8CH22;
 					};
 				};
 			};
