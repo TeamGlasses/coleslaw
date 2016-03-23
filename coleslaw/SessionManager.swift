@@ -18,7 +18,9 @@ protocol SessionManagerDelegate {
 class SessionManager: NSObject, MCSessionDelegate {
   var peers: [MCPeerID] {
     get {
-      return session.connectedPeers
+      return session.connectedPeers.sort({ (peer1, peer2) -> Bool in
+        return peer1.displayName <= peer2.displayName
+      })
     }
   }
   
@@ -28,7 +30,8 @@ class SessionManager: NSObject, MCSessionDelegate {
     return false
   }
   
-  private let peerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+//  private let peerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+  private let peerID = MCPeerID(displayName: "1")
   
   private lazy var session: MCSession = {
     let session = MCSession(peer: self.peerID)
